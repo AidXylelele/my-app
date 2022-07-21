@@ -1,0 +1,8 @@
+.content {
+    grid-area: content;
+    background-color: darkgoldenrod;
+  }
+  
+  .content img {
+    width: 100%;
+  }

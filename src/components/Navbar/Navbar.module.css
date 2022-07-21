@@ -1,0 +1,17 @@
+.nav {
+  grid-area: nav;
+  background-color: goldenrod;
+}
+
+.item {
+  width: 100%;
+  color: black;
+  font-size: x-large;
+  text-align: center;
+  padding: 14px 20px;
+  border-bottom: 1px solid gray;
+}
+
+.item.active {
+  color: grey;
+}
