@@ -2,7 +2,6 @@ import React from "react";
 import MyPosts from "./My Posts/MyPosts";
 import styles from './Profile.module.css'
 
-
 const Profile = () => {
   return (
     <div className={styles.content}>
