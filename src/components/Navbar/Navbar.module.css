@@ -10,8 +10,12 @@
   text-align: center;
   padding: 14px 20px;
   border-bottom: 1px solid gray;
+  text-decoration: none;
 }
 
-.item.active {
+
+
+.active {
   color: grey;
+  text-decoration: none;
 }
