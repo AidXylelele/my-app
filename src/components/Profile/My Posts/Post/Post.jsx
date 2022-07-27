@@ -6,7 +6,7 @@ const Post = (props) => {
     
         <div className={styles.item}>
           <img src="https://cdn-icons-png.flaticon.com/128/6676/6676016.png"></img>
-          Text of the post
+          {props.message}
           <div>
             like: {props.like}
           </div>

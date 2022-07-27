@@ -11,7 +11,7 @@ const MyPosts = () => {
         <button>Add post</button>
       </div>
       <div className={styles.posts}>
-        <Post like='20' />
+        <Post message ='Hello, world!' like='20' />
       </div>
     </div>
   );
