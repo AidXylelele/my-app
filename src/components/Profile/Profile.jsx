@@ -4,7 +4,7 @@ import styles from './Profile.module.css'
 
 const Profile = () => {
   return (
-    <div className={styles.content}>
+    <div>
       <div>
         <img src="https://www.wonderplugin.com/wp-content/uploads/2019/05/tutorial-city-900x288.jpg"></img>
       </div>

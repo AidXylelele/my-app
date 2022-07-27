@@ -7,3 +7,8 @@
   grid-template-columns: 2fr 10fr;
   grid-gap: 0 auto;
 }
+
+.app-wrapper-content {
+  grid-area: content;
+  background-color: darkgoldenrod;
+}
