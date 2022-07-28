@@ -1,3 +1,20 @@
 .posts {
   background-color: chocolate;
+  padding: 30px;
 }
+
+.posts *h {
+  text-align: center;
+}
+
+.postText textarea {
+  width: 20%;
+  resize: none;
+  padding: 30px;
+  border-radius: 15px;
+  height: 150px;
+  background: linear-gradient(135deg, rgba(51, 122, 169, 0.1), rgba(1, 166, 255, 0.156));
+  border: 1px solid rgb(255 255 255 / 18%);
+  box-shadow: 0 8px 32px 0 rgb(0 0 0 / 37%);
+}
+
