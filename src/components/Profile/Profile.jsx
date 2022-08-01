@@ -1,6 +1,5 @@
 import React from "react";
 import MyPosts from "./My Posts/MyPosts";
-import styles from "./Profile.module.css";
 import ProfileInfo from "./ProfileInfo/ProfileInfo";
 
 const Profile = (props) => {
@@ -8,9 +7,10 @@ const Profile = (props) => {
     <div>
       <ProfileInfo />
       <MyPosts
-        postData={props.state.postsData}
+        postData={props.profilePage.postsData}
         addPost={props.addPost}
-        state={props.state}
+        updateNewPostChange={props.updateNewPostChange}
+        newPostText={props.profilePage.newPostText}
       />
     </div>
   );

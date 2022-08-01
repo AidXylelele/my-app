@@ -1,4 +1,6 @@
-import { renderEntireTree, root } from "../render";
+import { root } from "../index";
+
+let renderEntireTree = () => { };
 
 export const state = {
     profilePage: {
@@ -6,6 +8,7 @@ export const state = {
             { id: 1, message: "Hello, world!", likesCount: 12 },
             { id: 2, message: "It is my second post", likesCount: 11 },
         ],
+        newPostText: '',
     },
     dialogsPage: {
         messagesData: [
@@ -21,12 +24,23 @@ export const state = {
     }
 };
 
-export const addPost = (postMessage) => {
+export const addPost = () => {
     const newPost = {
         id: 5,
-        message: postMessage,
+        message: state.profilePage.newPostText,
         likesCount: 0,
     }
+    if (state.profilePage.newPostText === '') return;
     state.profilePage.postsData.push(newPost);
-    renderEntireTree(root, state, addPost);
-}
+    state.profilePage.newPostText = '';
+    renderEntireTree(root, state, addPost, updateNewPostChange);
+};
+
+export const updateNewPostChange = (newText) => {
+    state.profilePage.newPostText = newText;
+    renderEntireTree(root, state, addPost, updateNewPostChange);
+};
+
+export const subscriber = (observer) => {
+    renderEntireTree = observer;
+};

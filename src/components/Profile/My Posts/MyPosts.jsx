@@ -8,11 +8,13 @@ const MyPosts = (props) => {
   ));
 
   const newPostElement = React.createRef();
-  const controllerOfTextArea = (newPostElement) => {
+  const controllerOfTextArea = () => {
+    props.addPost();
+  };
+
+  const onChangeTextarea = () => {
     const text = newPostElement.current.value;
-    if (text == "") return;
-    props.addPost(text);
-    newPostElement.current.value = "";
+    props.updateNewPostChange(text);
   };
 
   return (
@@ -24,12 +26,14 @@ const MyPosts = (props) => {
             <textarea
               placeholder="Your text..."
               ref={newPostElement}
-            ></textarea>
+              onChange={onChangeTextarea}
+              value={props.newPostText}
+            />
           </div>
           <div className={styles.postButton}>
             <button
               onClick={() => {
-                controllerOfTextArea(newPostElement);
+                controllerOfTextArea();
               }}
             >
               Add post
