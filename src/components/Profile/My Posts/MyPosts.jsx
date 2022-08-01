@@ -6,16 +6,34 @@ const MyPosts = (props) => {
   const postsElements = props.postData.map((post) => (
     <Post message={post.message} like={post.likesCount} />
   ));
+
+  const newPostElement = React.createRef();
+  const controllerOfTextArea = (newPostElement) => {
+    const text = newPostElement.current.value;
+    if (text == "") return;
+    props.addPost(text);
+    newPostElement.current.value = "";
+  };
+
   return (
     <div className={styles.posts}>
       <div className={styles.postBlock}>
         <div>
           <h1>New Post</h1>
           <div className={styles.postText}>
-            <textarea placeholder="Your text..."></textarea>
+            <textarea
+              placeholder="Your text..."
+              ref={newPostElement}
+            ></textarea>
           </div>
           <div className={styles.postButton}>
-            <button>Add post</button>
+            <button
+              onClick={() => {
+                controllerOfTextArea(newPostElement);
+              }}
+            >
+              Add post
+            </button>
           </div>
         </div>
         <div>
