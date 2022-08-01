@@ -1,7 +1,7 @@
 .header {
     grid-area: header;
-    background-color: darksalmon;
-    border-bottom: 5px solid saddlebrown;
+    background-color: #D28140;
+    border-bottom: 5px solid #495F75;
 }
 
 .header img {

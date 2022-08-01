@@ -1,14 +1,27 @@
+body>#root>div {
+  height: 100vh;
+}
+
+#root {
+  min-height: 100%;
+}
+
 .app-wrapper {
   display: grid;
+  min-height: 100%;
+  grid-template-rows: 150px 1fr;
+  grid-template-columns: 2fr 10fr;
   grid-template-areas:
     'header header'
     'nav content';
-  grid-template-rows: 90px 1fr;
-  grid-template-columns: 2fr 10fr;
+
   grid-gap: 0 auto;
 }
 
 .app-wrapper-content {
   grid-area: content;
-  background-color: darkgoldenrod;
+}
+
+body {
+  background-image: linear-gradient(109.6deg, #EEEEEE 71.8%, #DCD7D5 71.8%)
 }

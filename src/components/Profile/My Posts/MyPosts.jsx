@@ -8,16 +8,21 @@ const MyPosts = (props) => {
   ));
   return (
     <div className={styles.posts}>
-      <h2>My Posts</h2>
-      <div>
-        <div className={styles.postText}>
-          <textarea placeholder="Your text..."></textarea>
+      <div className={styles.postBlock}>
+        <div>
+          <h1>New Post</h1>
+          <div className={styles.postText}>
+            <textarea placeholder="Your text..."></textarea>
+          </div>
+          <div className={styles.postButton}>
+            <button>Add post</button>
+          </div>
         </div>
-        <div className={styles.postButton}>
-          <button>Add post</button>
+        <div>
+          <h1>Your Posts</h1>
+          <div className={styles.post}>{postsElements}</div>
         </div>
       </div>
-      <div className={styles.post}>{postsElements}</div>
     </div>
   );
 };
