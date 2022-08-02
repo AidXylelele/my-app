@@ -14,7 +14,6 @@ body>#root>div {
   grid-template-areas:
     'header header'
     'nav content';
-
   grid-gap: 0 auto;
 }
 
@@ -23,5 +22,5 @@ body>#root>div {
 }
 
 body {
-  background-image: linear-gradient(109.6deg, #EEEEEE 71.8%, #DCD7D5 71.8%)
+  background-image: linear-gradient(109.6deg, #EEEEEE 71.8%, #DCD7D5 71.8%);
 }

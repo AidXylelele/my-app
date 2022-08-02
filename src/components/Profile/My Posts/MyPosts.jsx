@@ -9,12 +9,12 @@ const MyPosts = (props) => {
 
   const newPostElement = React.createRef();
   const controllerOfTextArea = () => {
-    props.addPost();
+    props.dispatch({ type: 'ADD-POST' });
   };
 
   const onChangeTextarea = () => {
     const text = newPostElement.current.value;
-    props.updateNewPostChange(text);
+    props.dispatch({ type: 'UPDATE-NEW-POST-TEXT', newText: text });
   };
 
   return (
@@ -31,13 +31,7 @@ const MyPosts = (props) => {
             />
           </div>
           <div className={styles.postButton}>
-            <button
-              onClick={() => {
-                controllerOfTextArea();
-              }}
-            >
-              Add post
-            </button>
+            <button onClick={controllerOfTextArea}>Add post</button>
           </div>
         </div>
         <div>
