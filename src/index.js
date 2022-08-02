@@ -5,15 +5,18 @@ import './index.css';
 import reportWebVitals from './reportWebVitals';
 import { store } from './redux/state';
 
-
 export const root = ReactDOM.createRoot(document.getElementById('root'));
 const renderEntireTree = (root, store) => {
-    root.render(
-        <React.StrictMode>
-            <App state={store.getState()} addPost={store.addPost.bind(store)} updateNewPostChange={store.updateNewPostChange.bind(store)} />
-        </React.StrictMode>
-    );
-}
+  root.render(
+    <React.StrictMode>
+      <App
+        state={store.getState()}
+        addPost={store.addPost.bind(store)}
+        updateNewPostChange={store.updateNewPostChange.bind(store)}
+      />
+    </React.StrictMode>
+  );
+};
 
 renderEntireTree(root, store);
 
