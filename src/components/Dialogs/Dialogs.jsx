@@ -14,7 +14,7 @@ const Dialogs = (props) => {
 
   const newMessageBody = props.state.newMessageBody;
 
-  const onSendNewMessage = () => {
+  const onSendNewMessageClick = () => {
     props.sendNewMessage();
   };
 
@@ -39,7 +39,7 @@ const Dialogs = (props) => {
             ></textarea>
           </div>
           <div>
-            <button onClick={onSendNewMessage}>Send</button>
+            <button onClick={onSendNewMessageClick}>Send</button>
           </div>
         </div>
       </div>
