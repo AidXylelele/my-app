@@ -3,11 +3,14 @@ import styles from './Dialogs.module.css';
 import DialogItem from './DialogItem/DialogItem';
 import Message from './Message/Message';
 import {
-  sendMessageActionCreator,
-  updateNewMessageBodyActionCreator,
-} from '../../redux/dialogsReducer';
+  sendMessage,
+  updateNewMessage,
+  updateNewMessageAction,
+} from '../../redux/dialogsSlice';
+import { useDispatch } from 'react-redux';
 
 const Dialogs = (props) => {
+  const dispatch = useDispatch();
   const state = props.store.getState().dialogsPage;
   const dialogsElemnts = state.dialogsData.map((dialog, idx) => (
     <DialogItem name={dialog.name} id={dialog.id} key={idx} />
@@ -18,13 +21,9 @@ const Dialogs = (props) => {
 
   const newMessageBody = state.newMessageBody;
 
-  const onSendMessageClick = () => {
-    props.store.dispatch(sendMessageActionCreator());
-  };
-
   const onSendMessageChange = (event) => {
     const body = event.target.value;
-    props.store.dispatch(updateNewMessageBodyActionCreator(body));
+    dispatch(updateNewMessage(updateNewMessageAction(body)));
   };
 
   return (
@@ -43,7 +42,7 @@ const Dialogs = (props) => {
             ></textarea>
           </div>
           <div>
-            <button onClick={onSendMessageClick}>Send</button>
+            <button onClick={()=> {dispatch(sendMessage())}}>Send</button>
           </div>
         </div>
       </div>

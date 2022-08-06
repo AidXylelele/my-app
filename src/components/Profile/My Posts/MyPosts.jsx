@@ -1,4 +1,5 @@
 import React from 'react';
+import { useDispatch } from 'react-redux';
 import {
   addPostActionCreator,
   updateNewPostActionCreator,
@@ -7,18 +8,19 @@ import styles from './MyPosts.module.css';
 import Post from './Post/Post';
 
 const MyPosts = (props) => {
+  const dispatch = useDispatch();
   const postsElements = props.postsData.map((post, idx) => (
     <Post message={post.message} like={post.likesCount} key={idx} />
   ));
 
   const newPostElement = React.createRef();
   const controllerOfTextArea = () => {
-    props.dispatch(addPostActionCreator());
+    dispatch(addPostActionCreator());
   };
 
   const onChangeTextarea = () => {
     const text = newPostElement.current.value;
-    props.dispatch(updateNewPostActionCreator(text));
+    dispatch(updateNewPostActionCreator(text));
   };
 
   return (
