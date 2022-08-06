@@ -11,10 +11,13 @@ import { useDispatch } from 'react-redux';
 
 const Dialogs = (props) => {
   const dispatch = useDispatch();
+
   const state = props.store.getState().dialogsPage;
+
   const dialogsElemnts = state.dialogsData.map((dialog, idx) => (
     <DialogItem name={dialog.name} id={dialog.id} key={idx} />
   ));
+
   const messagesElemnts = state.messagesData.map((element, idx) => (
     <Message message={element.message} key={idx} />
   ));
@@ -22,8 +25,8 @@ const Dialogs = (props) => {
   const newMessageBody = state.newMessageBody;
 
   const onSendMessageChange = (event) => {
-    const body = event.target.value;
-    dispatch(updateNewMessage(updateNewMessageAction(body)));
+    const text = event.target.value;
+    dispatch(updateNewMessage(updateNewMessageAction({ body: text })));
   };
 
   return (
@@ -42,7 +45,13 @@ const Dialogs = (props) => {
             ></textarea>
           </div>
           <div>
-            <button onClick={()=> {dispatch(sendMessage())}}>Send</button>
+            <button
+              onClick={() => {
+                dispatch(sendMessage());
+              }}
+            >
+              Send
+            </button>
           </div>
         </div>
       </div>

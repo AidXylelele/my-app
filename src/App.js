@@ -7,7 +7,6 @@ import Dialogs from './components/Dialogs/Dialogs';
 import { Route, BrowserRouter, Routes } from 'react-router-dom';
 
 const App = (props) => {
-  
   return (
     <BrowserRouter>
       <div className="app-wrapper">
@@ -18,9 +17,7 @@ const App = (props) => {
             <Route
               path="/profile"
               element={
-                <Profile
-                  profilePage={props.store.getState().profilePage}
-                />
+                <Profile profilePage={props.store.getState().profilePage} />
               }
             />
             <Route path="/dialogs" element={<Dialogs store={props.store} />} />
