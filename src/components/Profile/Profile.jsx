@@ -1,15 +1,12 @@
 import React from 'react';
-import MyPosts from './My Posts/MyPosts';
+import MyPostsContainer from './My Posts/MyPostsContainer';
 import ProfileInfo from './ProfileInfo/ProfileInfo';
 
 const Profile = (props) => {
   return (
     <div>
       <ProfileInfo />
-      <MyPosts
-        postsData={props.profilePage.postsData}
-        newPostText={props.profilePage.newPostText}
-      />
+      <MyPostsContainer store={props.store} />
     </div>
   );
 };

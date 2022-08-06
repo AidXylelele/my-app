@@ -1,29 +1,21 @@
 import React from 'react';
-import { useDispatch } from 'react-redux';
-import {
-  addPost,
-  updateNewPost,
-  updateNewPostAction,
-} from '../../../redux/profileSlice';
 import styles from './MyPosts.module.css';
 import Post from './Post/Post';
 
 const MyPosts = (props) => {
-  const dispatch = useDispatch();
-
   const postsElements = props.postsData.map((post, idx) => (
     <Post message={post.message} like={post.likesCount} key={idx} />
   ));
 
   const newPostElement = React.createRef();
 
-  const controllerOfTextArea = () => {
-    dispatch(addPost());
+  const sendNewPost = () => {
+    props.addNewPost();
   };
 
-  const onChangeTextarea = () => {
+  const controllerOfTextArea = () => {
     const text = newPostElement.current.value;
-    dispatch(updateNewPost(updateNewPostAction({ newText: text })));
+    props.updateNewPostText(text);
   };
 
   return (
@@ -35,12 +27,12 @@ const MyPosts = (props) => {
             <textarea
               placeholder="Your text..."
               ref={newPostElement}
-              onChange={onChangeTextarea}
+              onChange={controllerOfTextArea}
               value={props.newPostText}
             />
           </div>
           <div className={styles.postButton}>
-            <button onClick={controllerOfTextArea}>Add post</button>
+            <button onClick={sendNewPost}>Add post</button>
           </div>
         </div>
         <div>
