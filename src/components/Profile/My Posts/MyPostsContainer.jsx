@@ -1,5 +1,4 @@
-import React from 'react';
-import { useDispatch } from 'react-redux';
+import { connect } from 'react-redux';
 import {
   addPost,
   updateNewPost,
@@ -7,27 +6,24 @@ import {
 } from '../../../redux/profileSlice';
 import MyPosts from './MyPosts';
 
-const MyPostsContainer = (props) => {
-  const dispatch = useDispatch();
-
-  const state = props.store.getState();
-
-  const addNewPost = () => {
-    dispatch(addPost());
+const mapStateToProps = (state) => {
+  return {
+    postsData: state.profilePage.postsData,
+    newPostText: state.profilePage.newPostText,
   };
-
-  const onNewPostChange = (text) => {
-    dispatch(updateNewPost(updateNewPostAction({ newText: text })));
-  };
-
-  return (
-    <MyPosts
-      updateNewPostText={onNewPostChange}
-      addNewPost={addNewPost}
-      postsData={state.profilePage.postsData}
-      newPostText={state.profilePage.newPostText}
-    />
-  );
 };
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    updateNewPostText: (text) => {
+      dispatch(updateNewPost(updateNewPostAction({ newText: text })));
+    },
+    addNewPost: () => {
+      dispatch(addPost());
+    },
+  };
+};
+
+const MyPostsContainer = connect(mapStateToProps, mapDispatchToProps)(MyPosts);
 
 export default MyPostsContainer;
