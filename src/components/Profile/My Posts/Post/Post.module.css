@@ -1,8 +1,46 @@
-
 .item {
-  color: white;
+  display: grid;
+  grid-template-rows: max-content 4em;
+  grid-template-columns: 50px 1fr;
+  grid-template-areas:
+    'img text'
+    'img reactions';
+  grid-gap: 10px;
+  color: black;
 }
 
-.item :nth-child(1) {
+.avatarOfUser {
+  grid-area: img;
   width: 50px;
+}
+
+.reactionsOfUsers {
+  grid-area: reactions;
+  display: grid;
+  grid-gap: 15px;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 2em;
+}
+
+.textOfPost {
+  grid-area: text;
+  padding-left: 10px;
+  font-weight: 600;
+  font-size: 16px;
+}
+
+.counterOfLikes {
+  padding: 10px;
+  border-radius: 10px;
+  height: fit-content;
+  text-align: center;
+  background-color: khaki;
+}
+
+.replyToPost {
+  padding: 10px;
+  border-radius: 10px;
+  height: fit-content;
+  text-align: center;
+  background-color: khaki;
 }

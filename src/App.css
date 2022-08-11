@@ -9,7 +9,7 @@ body>#root>div {
 .app-wrapper {
   display: grid;
   min-height: 100%;
-  grid-template-rows: 150px 1fr;
+  grid-template-rows: 75px 1fr;
   grid-template-columns: 2fr 10fr;
   grid-template-areas:
     'header header'
