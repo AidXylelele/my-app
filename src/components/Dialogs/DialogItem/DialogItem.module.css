@@ -1,25 +1,14 @@
-.dialogs {
-    display: grid;
-    grid-template-columns: 2fr 10fr;
-}
-
-.dialogsItems {
-    padding: 10px;
-
-}
-
-.dialogsItems .active {
-    color: brown;
-}
-
 .dialog {
-
+    padding: 15px;
+    background-color: #D28140;
+    margin-bottom: 25px;
+    text-align: center;
+    border-radius: 10px;
 }
 
-.messages {
-    padding: 10px;
-}
-
-.message {
-    
+.dialog a {
+    color: black;
+    font-size: 16px;
+    font-weight: 700;
+    text-decoration: none;
 }

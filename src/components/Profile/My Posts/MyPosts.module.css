@@ -26,3 +26,8 @@
   border: 1px solid rgb(255 255 255 / 18%);
   box-shadow: 0 8px 32px 0 rgb(0 0 0 / 37%);
 }
+
+.userPosts {
+  height: 340px;
+  overflow-x: auto;
+}

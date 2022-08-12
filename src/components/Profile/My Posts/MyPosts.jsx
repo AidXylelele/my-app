@@ -35,7 +35,7 @@ const MyPosts = (props) => {
             <button onClick={sendNewPost}>Add post</button>
           </div>
         </div>
-        <div>
+        <div className={styles.userPosts}>
           <h1>Your Posts</h1>
           <div className={styles.post}>{postsElements}</div>
         </div>
