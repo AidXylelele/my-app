@@ -1,10 +1,4 @@
-import { createAction, createSlice } from '@reduxjs/toolkit';
-
-const UPDATE_NEW_MESSAGE_BODY = 'UPDATE-NEW-MESSAGE-BODY';
-
-export const updateNewMessageAction = createAction({
-  type: UPDATE_NEW_MESSAGE_BODY,
-});
+import { createSlice } from '@reduxjs/toolkit';
 
 const dialogsSlice = createSlice({
   name: 'dialogs',
@@ -23,7 +17,7 @@ const dialogsSlice = createSlice({
   },
   reducers: {
     updateNewMessage: (state, action) => {
-      const { body } = action.payload.payload;
+      const { body } = action.payload;
       state.newMessageBody = body;
     },
     sendMessage: (state) => {

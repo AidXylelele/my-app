@@ -1,8 +1,4 @@
-import {
-  sendMessage,
-  updateNewMessage,
-  updateNewMessageAction,
-} from '../../redux/dialogsSlice';
+import { sendMessage, updateNewMessage } from '../../redux/dialogsSlice';
 import { connect } from 'react-redux';
 import Dialogs from './Dialogs';
 
@@ -17,7 +13,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     onMessageChange: (text) => {
-      dispatch(updateNewMessage(updateNewMessageAction({ body: text })));
+      dispatch(updateNewMessage({ body: text }));
     },
     sendNewMessage: () => {
       dispatch(sendMessage());

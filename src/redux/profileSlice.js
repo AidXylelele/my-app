@@ -1,10 +1,4 @@
-import { createAction, createSlice } from '@reduxjs/toolkit';
-
-const UPDATE_NEW_POST_TEXT = 'UPDATE-NEW-POST-TEXT';
-
-export const updateNewPostAction = createAction({
-  type: UPDATE_NEW_POST_TEXT,
-});
+import { createSlice } from '@reduxjs/toolkit';
 
 const profileSlice = createSlice({
   name: 'dialogs',
@@ -17,7 +11,7 @@ const profileSlice = createSlice({
   },
   reducers: {
     updateNewPost: (state, action) => {
-      const { newText } = action.payload.payload;
+      const { newText } = action.payload;
       state.newPostText = newText;
     },
     addPost: (state) => {
