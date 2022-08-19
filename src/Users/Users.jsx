@@ -1,43 +1,35 @@
 import React from 'react';
 import styles from './Users.module.css';
+import * as axios from 'axios';
 
 const Users = (props) => {
-  if (props.usersData.length === 0) {
-    props.onSetNewUsers([
-      {
-        id: 1,
-        avatar:
-          'https://yt3.ggpht.com/ytc/AKedOLT8IWBS5QKF7ED2_Cq-4tX5q9U165rawWgvjTHB=s900-c-k-c0x00ffffff-no-rj',
-        followed: true,
-        fullName: 'Mariia',
-        status: 'Hello!',
-        location: { city: 'Kyev', country: 'Ukraine' },
-      },
-      {
-        id: 2,
-        avatar:
-          'https://yt3.ggpht.com/ytc/AKedOLT8IWBS5QKF7ED2_Cq-4tX5q9U165rawWgvjTHB=s900-c-k-c0x00ffffff-no-rj',
-        followed: false,
-        fullName: 'Alex',
-        status: 'Have a pleasent journey!',
-        location: { city: 'Kyev', country: 'Ukraine' },
-      },
-    ]);
-  }
+  const getUsers = () => {
+    if (props.usersData.length === 0) {
+      axios
+        .get('https://social-network.samuraijs.com/api/1.0/users')
+        .then((response) => {
+          console.log(response);
+          props.onSetNewUsers(response.data.items);
+        });
+    }
+  };
 
   return (
     <div>
+      <button onClick={getUsers}>Load Users</button>
       {props.usersData.map((item, key) => (
         <div key={key}>
-          <div key={key}>{item.fullName}</div>
+          <div key={key}>{item.name}</div>
           <img
             className={styles.avatar}
-            src={item.avatar}
+            src={
+              'https://icon-library.com/images/users-icon-png/users-icon-png-6.jpg'
+            }
             alt="There is an avatar"
           />
           <span>
-            <p>{item.location.city}</p>
-            <p>{item.location.country}</p>
+            <p>{'item.location.city'}</p>
+            <p>{'item.location.country'}</p>
           </span>
           <span>
             <p>{item.status}</p>
