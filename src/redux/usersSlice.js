@@ -7,6 +7,7 @@ const usersSlice = createSlice({
     pageSize: 5,
     totalUsersCount: 0,
     selectedPage: 1,
+    isFetching: false,
   },
   reducers: {
     followToNewUser: (state, action) => {
@@ -29,8 +30,18 @@ const usersSlice = createSlice({
       const { number } = action.payload;
       state.totalUsersCount = number;
     },
+    setPreLoader: (state, action) => {
+      const { flag } = action.payload;
+      state.isFetching = flag;
+    },
   },
 });
 
 export default usersSlice.reducer;
-export const { followToNewUser, setNewUsers, setCurrentPage, setTotalCurrentUsersCount } = usersSlice.actions;
+export const {
+  followToNewUser,
+  setNewUsers,
+  setCurrentPage,
+  setTotalCurrentUsersCount,
+  setPreLoader,
+} = usersSlice.actions;

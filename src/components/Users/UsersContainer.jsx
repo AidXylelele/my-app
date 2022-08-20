@@ -5,9 +5,11 @@ import {
   followToNewUser,
   setCurrentPage,
   setNewUsers,
+  setPreLoader,
   setTotalCurrentUsersCount,
-} from '../redux/usersSlice';
+} from '../../redux/usersSlice';
 import Users from './Users';
+import PreLoader from '../common/Preloader/Preloader';
 
 const mapStateToProps = (state) => {
   return {
@@ -15,6 +17,7 @@ const mapStateToProps = (state) => {
     pageSize: state.usersPage.pageSize,
     totalUsersCount: state.usersPage.totalUsersCount,
     selectedPage: state.usersPage.selectedPage,
+    isFetching: state.usersPage.isFetching,
   };
 };
 
@@ -32,27 +35,34 @@ const mapDispatchToProps = (dispatch) => {
     onSetTotalUsersCount: (number) => {
       dispatch(setTotalCurrentUsersCount({ number: number }));
     },
+    onSetPreLoader: (boolean) => {
+      dispatch(setPreLoader({ flag: boolean }));
+    },
   };
 };
 
 class UsersAPIComponent extends React.Component {
   componentDidMount() {
+    this.props.onSetPreLoader(true);
     axios
       .get(
         `https://social-network.samuraijs.com/api/1.0/users?page=${this.props.selectedPage}&count=${this.props.pageSize}`
       )
       .then((response) => {
+        this.props.onSetPreLoader(false);
         this.props.onSetNewUsers(response.data.items);
         this.props.onSetTotalUsersCount(response.data.totalCount);
       });
   }
   onPageChanged = (number) => {
     this.props.onSetCurrentPage(number);
+    this.props.onSetPreLoader(true);
     axios
       .get(
         `https://social-network.samuraijs.com/api/1.0/users?page=${number}&count=${this.props.pageSize}`
       )
       .then((response) => {
+        this.props.onSetPreLoader(false);
         this.props.onSetNewUsers(response.data.items);
       });
   };
@@ -65,14 +75,17 @@ class UsersAPIComponent extends React.Component {
       countOfPages.push(i);
     }
     return (
-      <Users
-        onPageChanged={this.onPageChanged}
-        onSetCurrentPage={this.props.onSetCurrentPage}
-        selectedPage={this.props.selectedPage}
-        usersData={this.props.usersData}
-        onFollowChange={this.props.onFollowChange}
-        countOfPages={countOfPages}
-      />
+      <>
+        {this.props.isFetching ? <PreLoader /> : null}
+        <Users
+          onPageChanged={this.onPageChanged}
+          onSetCurrentPage={this.props.onSetCurrentPage}
+          selectedPage={this.props.selectedPage}
+          usersData={this.props.usersData}
+          onFollowChange={this.props.onFollowChange}
+          countOfPages={countOfPages}
+        />
+      </>
     );
   }
 }
