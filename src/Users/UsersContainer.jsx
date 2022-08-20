@@ -1,10 +1,18 @@
 import { connect } from 'react-redux';
-import { followToNewUser, setNewUsers } from '../redux/usersSlice';
+import {
+  followToNewUser,
+  setCurrentPage,
+  setNewUsers,
+  setTotalCurrentUsersCount,
+} from '../redux/usersSlice';
 import Users from './Users';
 
 const mapStateToProps = (state) => {
   return {
     usersData: state.usersPage.usersData,
+    pageSize: state.usersPage.pageSize,
+    totalUsersCount: state.usersPage.totalUsersCount,
+    selectedPage: state.usersPage.selectedPage,
   };
 };
 
@@ -15,6 +23,12 @@ const mapDispatchToProps = (dispatch) => {
     },
     onSetNewUsers: (users) => {
       dispatch(setNewUsers({ users: users }));
+    },
+    onSetCurrentPage: (number) => {
+      dispatch(setCurrentPage({ number: number }));
+    },
+    onSetTotalUsersCount: (number) => {
+      dispatch(setTotalCurrentUsersCount({ number: number }));
     },
   };
 };
