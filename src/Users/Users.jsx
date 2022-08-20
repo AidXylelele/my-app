@@ -7,7 +7,7 @@ class Users extends React.Component {
     axios
       .get('https://social-network.samuraijs.com/api/1.0/users')
       .then((response) => {
-        props.onSetNewUsers(response.data.items);
+        this.props.onSetNewUsers(response.data.items);
       });
   }
   render() {
