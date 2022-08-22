@@ -1,4 +1,6 @@
 import React from 'react';
+import { NavLink } from 'react-router-dom';
+import Profile from '../Profile/Profile';
 import styles from './Users.module.css';
 
 const Users = (props) => {
@@ -16,15 +18,17 @@ const Users = (props) => {
       {props.usersData.map((item, key) => (
         <div key={key}>
           <div key={key}>{item.name}</div>
-          <img
-            className={styles.avatar}
-            src={
-              item.photos.large
-                ? item.photos.large
-                : 'https://icon-library.com/images/users-icon-png/users-icon-png-6.jpg'
-            }
-            alt="There is an avatar"
-          />
+          <NavLink to={'./../profile/' + item.id} element={<Profile />}>
+            <img
+              className={styles.avatar}
+              src={
+                item.photos.large
+                  ? item.photos.large
+                  : 'https://icon-library.com/images/users-icon-png/users-icon-png-6.jpg'
+              }
+              alt="There is an avatar"
+            />
+          </NavLink>
           <span>
             <p>{item.status}</p>
           </span>
