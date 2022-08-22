@@ -1,13 +1,14 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 const profileSlice = createSlice({
-  name: 'dialogs',
+  name: 'profile',
   initialState: {
     postsData: [
       { id: 1, message: 'Hello, world!', likesCount: 12 },
       { id: 2, message: 'It is my second post', likesCount: 11 },
     ],
     newPostText: '',
+    profileOfUser: null,
   },
   reducers: {
     updateNewPost: (state, action) => {
@@ -24,8 +25,12 @@ const profileSlice = createSlice({
       state.postsData.push(newPost);
       state.newPostText = '';
     },
+    setUserProfile: (state, action) => {
+      const { item } = action.payload;
+      state.profileOfUser = item;
+    },
   },
 });
 
 export default profileSlice.reducer;
-export const { updateNewPost, addPost } = profileSlice.actions;
+export const { updateNewPost, addPost, setUserProfile } = profileSlice.actions;
