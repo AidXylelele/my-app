@@ -36,13 +36,34 @@ const Navbar = () => {
         </NavLink>
       </div>
       <div className={styles.item}>
-        <a>News</a>
+        <NavLink
+          to="/music"
+          className={(navData) =>
+            navData.isActive ? styles.active : styles.item
+          }
+        >
+          Music
+        </NavLink>
       </div>
       <div className={styles.item}>
-        <a>Music</a>
+        <NavLink
+          to="/news"
+          className={(navData) =>
+            navData.isActive ? styles.active : styles.item
+          }
+        >
+          News
+        </NavLink>
       </div>
       <div className={styles.item}>
-        <a>Settings</a>
+        <NavLink
+          to="/settings"
+          className={(navData) =>
+            navData.isActive ? styles.active : styles.item
+          }
+        >
+          Settings
+        </NavLink>
       </div>
     </nav>
   );

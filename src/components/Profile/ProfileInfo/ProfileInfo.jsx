@@ -14,7 +14,7 @@ const ProfileInfo = (props) => {
           alt="There is an avatar"
           src={
             props.profile.photos.large
-              ? props.profile
+              ? props.profile.photos.large
               : 'https://yt3.ggpht.com/ytc/AKedOLT8IWBS5QKF7ED2_Cq-4tX5q9U165rawWgvjTHB=s900-c-k-c0x00ffffff-no-rj'
           }
         ></img>
