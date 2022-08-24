@@ -3,6 +3,10 @@ import styles from './MyPosts.module.css';
 import Post from './Post/Post';
 
 const MyPosts = (props) => {
+  if (!props.profileOfUser) {
+    return null;
+  }
+
   const postsElements = props.postsData.map((post, idx) => (
     <Post message={post.message} like={post.likesCount} key={idx} />
   ));
