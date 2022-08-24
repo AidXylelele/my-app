@@ -10,6 +10,7 @@ import {
 } from '../../redux/usersSlice';
 import Users from './Users';
 import PreLoader from '../common/Preloader/Preloader';
+import { useEffect } from 'react';
 
 const mapStateToProps = (state) => {
   return {
@@ -41,54 +42,68 @@ const mapDispatchToProps = (dispatch) => {
   };
 };
 
-class UsersAPIComponent extends React.Component {
-  componentDidMount() {
-    this.props.onSetPreLoader(true);
+const UsersAPIComponent = (props) => {
+  const {
+    onSetPreLoader,
+    onSetNewUsers,
+    onSetTotalUsersCount,
+    onSetCurrentPage,
+  } = props;
+
+  useEffect(() => {
+    onSetPreLoader(true);
     axios
       .get(
-        `https://social-network.samuraijs.com/api/1.0/users?page=${this.props.selectedPage}&count=${this.props.pageSize}`
+        `https://social-network.samuraijs.com/api/1.0/users?page=${props.selectedPage}&count=${props.pageSize}`,
+        {
+          withCredentials: true,
+        }
       )
       .then((response) => {
-        this.props.onSetPreLoader(false);
-        this.props.onSetNewUsers(response.data.items);
-        this.props.onSetTotalUsersCount(response.data.totalCount);
+        onSetPreLoader(false);
+        onSetNewUsers(response.data.items);
+        onSetTotalUsersCount(response.data.totalCount);
       });
-  }
-  onPageChanged = (number) => {
-    this.props.onSetCurrentPage(number);
-    this.props.onSetPreLoader(true);
+  }, [onSetNewUsers, onSetPreLoader, onSetTotalUsersCount]);
+
+  const onPageChanged = (number) => {
+    onSetCurrentPage(number);
+    onSetPreLoader(true);
     axios
       .get(
-        `https://social-network.samuraijs.com/api/1.0/users?page=${number}&count=${this.props.pageSize}`
+        `https://social-network.samuraijs.com/api/1.0/users?page=${number}&count=${props.pageSize}`,
+        {
+          withCredentials: true,
+        }
       )
       .then((response) => {
-        this.props.onSetPreLoader(false);
-        this.props.onSetNewUsers(response.data.items);
+        onSetPreLoader(false);
+        onSetNewUsers(response.data.items);
       });
   };
-  render() {
-    const pagesCount = Math.ceil(
-      this.props.totalUsersCount / this.props.pageSize
-    );
-    const countOfPages = [];
-    for (let i = 1; i <= pagesCount; i++) {
-      countOfPages.push(i);
-    }
-    return (
-      <>
-        {this.props.isFetching ? <PreLoader /> : null}
-        <Users
-          onPageChanged={this.onPageChanged}
-          onSetCurrentPage={this.props.onSetCurrentPage}
-          selectedPage={this.props.selectedPage}
-          usersData={this.props.usersData}
-          onFollowChange={this.props.onFollowChange}
-          countOfPages={countOfPages}
-        />
-      </>
-    );
+
+  const pagesCount = Math.ceil(props.totalUsersCount / props.pageSize);
+
+  const countOfPages = [];
+
+  for (let i = 1; i <= pagesCount; i++) {
+    countOfPages.push(i);
   }
-}
+
+  return (
+    <>
+      {props.isFetching ? <PreLoader /> : null}
+      <Users
+        onPageChanged={onPageChanged}
+        onSetCurrentPage={props.onSetCurrentPage}
+        selectedPage={props.selectedPage}
+        usersData={props.usersData}
+        onFollowChange={props.onFollowChange}
+        countOfPages={countOfPages}
+      />
+    </>
+  );
+};
 
 const UsersContainer = connect(
   mapStateToProps,
