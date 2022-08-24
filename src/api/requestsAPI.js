@@ -1,10 +1,15 @@
 import axios from 'axios';
 
 const configForRequests = {
+  profileConfig: {
+    name: 'get',
+    http: 'profile/',
+    elements: [''],
+  },
   authConfig: {
     name: 'get',
     http: 'auth/me',
-    elements: [],
+    elements: [''],
   },
   usersConfig: {
     name: 'get',
@@ -14,12 +19,12 @@ const configForRequests = {
   followConfig: {
     name: 'post',
     http: 'follow/',
-    elements: [],
+    elements: [''],
   },
   unfollowConfig: {
     name: 'delete',
     http: 'follow/',
-    elements: [],
+    elements: [''],
   },
 };
 
