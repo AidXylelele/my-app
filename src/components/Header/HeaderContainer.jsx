@@ -1,6 +1,6 @@
-import axios from 'axios';
 import React, { useEffect, useRef } from 'react';
 import { connect } from 'react-redux';
+import { configForRequests, usersRequests } from '../../api/requestsAPI';
 import { setAuthed, setUserData } from '../../redux/authSlice';
 import Header from './Header';
 
@@ -8,16 +8,12 @@ const HeaderContainer = (props) => {
   const { onSetUserData, isAuthed, onSetAuthed } = props;
   const refContainer = useRef(isAuthed);
   useEffect(() => {
-    axios
-      .get('https://social-network.samuraijs.com/api/1.0/auth/me', {
-        withCredentials: true,
-      })
-      .then((response) => {
-        if (response.data.resultCode === 0) {
-          onSetAuthed(!refContainer.current);
-          onSetUserData(response.data.data);
-        }
-      });
+    usersRequests(configForRequests.authConfig, []).then((response) => {
+      if (response.resultCode === 0) {
+        onSetAuthed(!refContainer.current);
+        onSetUserData(response.data);
+      }
+    });
   }, [onSetAuthed, onSetUserData]);
   return <Header {...props} />;
 };

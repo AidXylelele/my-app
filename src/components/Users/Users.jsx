@@ -1,46 +1,10 @@
-import axios from 'axios';
 import React from 'react';
 import { NavLink } from 'react-router-dom';
+import { configForRequests, followRequests } from '../../api/requestsAPI';
 import Profile from '../Profile/Profile';
 import styles from './Users.module.css';
 
-const configForRequests = {
-  postConfig: {
-    name: 'post',
-    http: 'https://social-network.samuraijs.com/api/1.0/follow/',
-    params: [
-      {},
-      {
-        withCredentials: true,
-        headers: {
-          'API-KEY': '8723fb12-ffdb-46fc-a2bf-f6ce9b484d92',
-        },
-      },
-    ],
-  },
-  deleteConfig: {
-    name: 'delete',
-    http: 'https://social-network.samuraijs.com/api/1.0/follow/',
-    params: [
-      {
-        withCredentials: true,
-        headers: {
-          'API-KEY': '8723fb12-ffdb-46fc-a2bf-f6ce9b484d92',
-        },
-      },
-    ],
-  },
-};
-
 const Users = (props) => {
-  const getFollowFromServer = (config, func, id) => {
-    axios[config.name](config.http + id, ...config.params).then((response) => {
-      if (response.data.resultCode === 0) {
-        func(id);
-      }
-    });
-  };
-
   return (
     <div>
       {props.countOfPages.map((num, idx) => (
@@ -73,8 +37,8 @@ const Users = (props) => {
             {item.followed ? (
               <button
                 onClick={() => {
-                  getFollowFromServer(
-                    configForRequests.deleteConfig,
+                  followRequests(
+                    configForRequests.unfollowConfig,
                     props.onFollowChange,
                     item.id
                   );
@@ -85,8 +49,8 @@ const Users = (props) => {
             ) : (
               <button
                 onClick={() => {
-                  getFollowFromServer(
-                    configForRequests.postConfig,
+                  followRequests(
+                    configForRequests.followConfig,
                     props.onFollowChange,
                     item.id
                   );

@@ -1,5 +1,4 @@
 import React from 'react';
-import axios from 'axios';
 import { connect } from 'react-redux';
 import {
   followToNewUser,
@@ -11,6 +10,7 @@ import {
 import Users from './Users';
 import PreLoader from '../common/Preloader/Preloader';
 import { useEffect } from 'react';
+import { configForRequests, usersRequests } from '../../api/requestsAPI';
 
 const mapStateToProps = (state) => {
   return {
@@ -55,18 +55,13 @@ const UsersAPIComponent = (props) => {
 
   useEffect(() => {
     onSetPreLoader(true);
-    axios
-      .get(
-        `https://social-network.samuraijs.com/api/1.0/users?page=${selectedPage}&count=${pageSize}`,
-        {
-          withCredentials: true,
-        }
-      )
-      .then((response) => {
+    usersRequests(configForRequests.usersConfig, [selectedPage, pageSize]).then(
+      (response) => {
         onSetPreLoader(false);
-        onSetNewUsers(response.data.items);
-        onSetTotalUsersCount(response.data.totalCount);
-      });
+        onSetNewUsers(response.items);
+        onSetTotalUsersCount(response.totalCount);
+      }
+    );
   }, [
     onSetNewUsers,
     onSetPreLoader,
@@ -78,17 +73,12 @@ const UsersAPIComponent = (props) => {
   const onPageChanged = (number) => {
     onSetCurrentPage(number);
     onSetPreLoader(true);
-    axios
-      .get(
-        `https://social-network.samuraijs.com/api/1.0/users?page=${number}&count=${pageSize}`,
-        {
-          withCredentials: true,
-        }
-      )
-      .then((response) => {
+    usersRequests(configForRequests.usersConfig, [number, pageSize]).then(
+      (response) => {
         onSetPreLoader(false);
-        onSetNewUsers(response.data.items);
-      });
+        onSetNewUsers(response.items);
+      }
+    );
   };
 
   const pagesCount = Math.ceil(totalUsersCount / pageSize);
