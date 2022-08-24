@@ -48,13 +48,16 @@ const UsersAPIComponent = (props) => {
     onSetNewUsers,
     onSetTotalUsersCount,
     onSetCurrentPage,
+    selectedPage,
+    pageSize,
+    totalUsersCount,
   } = props;
 
   useEffect(() => {
     onSetPreLoader(true);
     axios
       .get(
-        `https://social-network.samuraijs.com/api/1.0/users?page=${props.selectedPage}&count=${props.pageSize}`,
+        `https://social-network.samuraijs.com/api/1.0/users?page=${selectedPage}&count=${pageSize}`,
         {
           withCredentials: true,
         }
@@ -64,14 +67,20 @@ const UsersAPIComponent = (props) => {
         onSetNewUsers(response.data.items);
         onSetTotalUsersCount(response.data.totalCount);
       });
-  }, [onSetNewUsers, onSetPreLoader, onSetTotalUsersCount]);
+  }, [
+    onSetNewUsers,
+    onSetPreLoader,
+    onSetTotalUsersCount,
+    pageSize,
+    selectedPage,
+  ]);
 
   const onPageChanged = (number) => {
     onSetCurrentPage(number);
     onSetPreLoader(true);
     axios
       .get(
-        `https://social-network.samuraijs.com/api/1.0/users?page=${number}&count=${props.pageSize}`,
+        `https://social-network.samuraijs.com/api/1.0/users?page=${number}&count=${pageSize}`,
         {
           withCredentials: true,
         }
@@ -82,7 +91,7 @@ const UsersAPIComponent = (props) => {
       });
   };
 
-  const pagesCount = Math.ceil(props.totalUsersCount / props.pageSize);
+  const pagesCount = Math.ceil(totalUsersCount / pageSize);
 
   const countOfPages = [];
 
