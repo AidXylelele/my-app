@@ -91,15 +91,18 @@ const UsersAPIComponent = (props) => {
 
   return (
     <>
-      {props.isFetching ? <PreLoader /> : null}
-      <Users
-        onPageChanged={onPageChanged}
-        onSetCurrentPage={props.onSetCurrentPage}
-        selectedPage={props.selectedPage}
-        usersData={props.usersData}
-        onFollowChange={props.onFollowChange}
-        countOfPages={countOfPages}
-      />
+      {props.isFetching ? (
+        <PreLoader />
+      ) : (
+        <Users
+          onPageChanged={onPageChanged}
+          onSetCurrentPage={props.onSetCurrentPage}
+          selectedPage={props.selectedPage}
+          usersData={props.usersData}
+          onFollowChange={props.onFollowChange}
+          countOfPages={countOfPages}
+        />
+      )}
     </>
   );
 };
