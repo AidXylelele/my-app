@@ -2,7 +2,6 @@ import { connect } from 'react-redux';
 import {
   addPost,
   updateNewPost,
-  updateNewPostAction,
 } from '../../../redux/profileSlice';
 import MyPosts from './MyPosts';
 
