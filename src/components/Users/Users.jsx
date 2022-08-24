@@ -5,7 +5,6 @@ import Profile from '../Profile/Profile';
 import styles from './Users.module.css';
 
 const Users = (props) => {
-  
   return (
     <div>
       <div className={styles.line}>
