@@ -5,17 +5,16 @@ import Profile from '../Profile/Profile';
 import styles from './Users.module.css';
 
 const Users = (props) => {
+  
   return (
     <div>
-      {props.countOfPages.map((num, idx) => (
-        <span
-          key={idx}
-          className={props.selectedPage === num ? styles.selectedPage : ''}
-          onClick={() => props.onPageChanged(num)}
-        >
-          {num}
-        </span>
-      ))}
+      <div className={styles.line}>
+        <span onClick={() => props.firstPage()}>{'<<'}</span>
+        <span onClick={() => props.prevPage(props.selectedPage)}>{'<--'}</span>
+        <span>{props.selectedPage}</span>
+        <span onClick={() => props.nextPage(props.selectedPage)}>{'-->'}</span>
+        <span onClick={() => props.lastPage()}>{'>>'}</span>
+      </div>
       {props.usersData.map((item, key) => (
         <div key={key}>
           <div key={key}>{item.name}</div>

@@ -89,6 +89,29 @@ const UsersAPIComponent = (props) => {
     countOfPages.push(i);
   }
 
+  const nextPage = (pageNumber) => {
+    if (pageNumber === pagesCount) return;
+    let nextPage = ++pageNumber;
+    onPageChanged(nextPage);
+  };
+
+  const prevPage = (pageNumber) => {
+    if (pageNumber === 1) return;
+    const nextPage = --pageNumber;
+    onPageChanged(nextPage);
+  };
+
+  const lastPage = () => {
+    const nextPage = pagesCount;
+    if (selectedPage === nextPage) return;
+    onPageChanged(nextPage);
+  };
+
+  const firstPage = () => {
+    const nextPage = 1;
+    if (selectedPage === nextPage) return;
+    onPageChanged(nextPage);
+  };
   return (
     <>
       {props.isFetching ? (
@@ -101,6 +124,11 @@ const UsersAPIComponent = (props) => {
           usersData={props.usersData}
           onFollowChange={props.onFollowChange}
           countOfPages={countOfPages}
+          pagesCount={pagesCount}
+          nextPage={nextPage}
+          prevPage={prevPage}
+          lastPage={lastPage}
+          firstPage={firstPage}
         />
       )}
     </>
