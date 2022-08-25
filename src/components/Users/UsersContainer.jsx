@@ -70,7 +70,7 @@ const UsersAPIComponent = (props) => {
 
   const onPageChanged = (number) => {
     onSetCurrentPage(number);
-    onGetUsers(selectedPage, pageSize);
+    onGetUsers(number, pageSize);
   };
 
   const pagesCount = Math.ceil(totalUsersCount / pageSize);
