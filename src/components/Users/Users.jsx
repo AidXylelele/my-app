@@ -39,10 +39,13 @@ const Users = (props) => {
                   props.onSetBlockButtons(item.id, true);
                   followRequests(
                     configForRequests.unfollowConfig,
-                    props.onFollowChange,
-                    props.onSetBlockButtons,
-                    item.id,
-                    false
+                    {
+                      functions: [
+                        [props.onFollowChange, item.id],
+                        [props.onSetBlockButtons, item.id, false],
+                      ],
+                    },
+                    item.id
                   );
                 }}
               >
@@ -55,10 +58,13 @@ const Users = (props) => {
                   props.onSetBlockButtons(item.id, true);
                   followRequests(
                     configForRequests.followConfig,
-                    props.onFollowChange,
-                    props.onSetBlockButtons,
-                    item.id,
-                    false
+                    {
+                      functions: [
+                        [props.onFollowChange, item.id],
+                        [props.onSetBlockButtons, item.id, false],
+                      ],
+                    },
+                    item.id
                   );
                 }}
               >

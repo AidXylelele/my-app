@@ -47,11 +47,12 @@ const axiosRequest = axios.create({
   },
 });
 
-const followRequests = (config, func, func2, id, flag) => {
+const followRequests = (config, params, id) => {
   axiosRequest[config.name](config.http + id).then((response) => {
     if (response.data.resultCode === 0) {
-      func(id);
-      func2(id, flag);
+      for (const element of params.functions) {
+        element[0](...element.filter((item) => typeof item !== 'function'));
+      }
     }
   });
 };
