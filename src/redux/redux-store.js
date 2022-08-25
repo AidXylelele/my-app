@@ -1,4 +1,9 @@
-import { configureStore, combineReducers } from '@reduxjs/toolkit';
+import {
+  configureStore,
+  combineReducers,
+  applyMiddleware,
+} from '@reduxjs/toolkit';
+import thunkMiddleWare from 'redux-thunk';
 import authSlice from './authSlice';
 import dialogsSlice from './dialogsSlice';
 import profileSlice from './profileSlice';
@@ -13,6 +18,9 @@ const reducers = combineReducers({
   auth: authSlice,
 });
 
-export const store = configureStore({ reducer: reducers });
+export const store = configureStore(
+  { reducer: reducers },
+  applyMiddleware(thunkMiddleWare)
+);
 
 window.store = store;

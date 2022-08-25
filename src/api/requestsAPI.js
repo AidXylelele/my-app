@@ -47,14 +47,8 @@ const axiosRequest = axios.create({
   },
 });
 
-const followRequests = (config, params, id) => {
-  axiosRequest[config.name](config.http + id).then((response) => {
-    if (response.data.resultCode === 0) {
-      for (const element of params.functions) {
-        element[0](...element.filter((item) => typeof item !== 'function'));
-      }
-    }
-  });
+const followRequests = (config, id) => {
+  return axiosRequest[config.name](config.http + id);
 };
 
 const usersRequests = (config, params) => {

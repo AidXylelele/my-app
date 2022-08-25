@@ -1,17 +1,18 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import {
-  followToNewUser,
-  setBlockOfButtons,
-  setCurrentPage,
-  setNewUsers,
-  setPreLoader,
-  setTotalCurrentUsersCount,
+  followToNewUsersAction,
+  getBlockBtnThunkCreator,
+  getUsersThunkCreator,
+  setBlockOfButtonsAction,
+  setCurrentPageAction,
+  setNewUsersAction,
+  setPreloaderAction,
+  setTotalCurrentUsersCountAction,
 } from '../../redux/usersSlice';
 import Users from './Users';
 import PreLoader from '../common/Preloader/Preloader';
 import { useEffect } from 'react';
-import { configForRequests, usersRequests } from '../../api/requestsAPI';
 
 const mapStateToProps = (state) => {
   return {
@@ -27,63 +28,49 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     onFollowChange: (id) => {
-      dispatch(followToNewUser({ id }));
+      dispatch(followToNewUsersAction(id));
     },
     onSetNewUsers: (users) => {
-      dispatch(setNewUsers({ users }));
+      dispatch(setNewUsersAction(users));
     },
     onSetCurrentPage: (number) => {
-      dispatch(setCurrentPage({ number }));
+      dispatch(setCurrentPageAction(number));
     },
     onSetTotalUsersCount: (number) => {
-      dispatch(setTotalCurrentUsersCount({ number }));
+      dispatch(setTotalCurrentUsersCountAction(number));
     },
     onSetPreLoader: (flag) => {
-      dispatch(setPreLoader({ flag }));
+      dispatch(setPreloaderAction(flag));
     },
     onSetBlockButtons: (id, flag) => {
-      dispatch(setBlockOfButtons({ id, flag }));
+      dispatch(setBlockOfButtonsAction({ id, flag }));
+    },
+    onGetUsers: (selectedPage, pageSize) => {
+      dispatch(getUsersThunkCreator(selectedPage, pageSize));
+    },
+    onGetBlockBtn: (id, configName) => {
+      dispatch(getBlockBtnThunkCreator(id, configName));
     },
   };
 };
 
 const UsersAPIComponent = (props) => {
   const {
-    onSetPreLoader,
-    onSetNewUsers,
-    onSetTotalUsersCount,
     onSetCurrentPage,
+    onGetUsers,
     selectedPage,
     pageSize,
     totalUsersCount,
   } = props;
 
   useEffect(() => {
-    onSetPreLoader(true);
-    usersRequests(configForRequests.usersConfig, [selectedPage, pageSize]).then(
-      (response) => {
-        onSetPreLoader(false);
-        onSetNewUsers(response.items);
-        onSetTotalUsersCount(response.totalCount);
-      }
-    );
-  }, [
-    onSetNewUsers,
-    onSetPreLoader,
-    onSetTotalUsersCount,
-    pageSize,
-    selectedPage,
-  ]);
+    console.log('hey');
+    onGetUsers(selectedPage, pageSize);
+  }, [onGetUsers, selectedPage, pageSize]);
 
   const onPageChanged = (number) => {
     onSetCurrentPage(number);
-    onSetPreLoader(true);
-    usersRequests(configForRequests.usersConfig, [number, pageSize]).then(
-      (response) => {
-        onSetPreLoader(false);
-        onSetNewUsers(response.items);
-      }
-    );
+    onGetUsers(selectedPage, pageSize);
   };
 
   const pagesCount = Math.ceil(totalUsersCount / pageSize);
@@ -123,20 +110,14 @@ const UsersAPIComponent = (props) => {
         <PreLoader />
       ) : (
         <Users
-          onPageChanged={onPageChanged}
-          onSetCurrentPage={props.onSetCurrentPage}
           selectedPage={props.selectedPage}
           usersData={props.usersData}
-          onFollowChange={props.onFollowChange}
-          countOfPages={countOfPages}
-          pagesCount={pagesCount}
           nextPage={nextPage}
           prevPage={prevPage}
           lastPage={lastPage}
           firstPage={firstPage}
           followRequests={props.followRequests}
-          isFetching={props.isFetching}
-          onSetBlockButtons={props.onSetBlockButtons}
+          onGetBlockBtn={props.onGetBlockBtn}
         />
       )}
     </>

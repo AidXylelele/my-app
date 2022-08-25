@@ -1,6 +1,5 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
-import { configForRequests, followRequests } from '../../api/requestsAPI';
 import Profile from '../Profile/Profile';
 import styles from './Users.module.css';
 
@@ -36,17 +35,7 @@ const Users = (props) => {
               <button
                 disabled={props.followRequests.some((idx) => idx === item.id)}
                 onClick={() => {
-                  props.onSetBlockButtons(item.id, true);
-                  followRequests(
-                    configForRequests.unfollowConfig,
-                    {
-                      functions: [
-                        [props.onFollowChange, item.id],
-                        [props.onSetBlockButtons, item.id, false],
-                      ],
-                    },
-                    item.id
-                  );
+                  props.onGetBlockBtn(item.id, 'unfollowConfig');
                 }}
               >
                 UNFOLLOW
@@ -55,17 +44,7 @@ const Users = (props) => {
               <button
                 disabled={props.followRequests.some((idx) => idx === item.id)}
                 onClick={() => {
-                  props.onSetBlockButtons(item.id, true);
-                  followRequests(
-                    configForRequests.followConfig,
-                    {
-                      functions: [
-                        [props.onFollowChange, item.id],
-                        [props.onSetBlockButtons, item.id, false],
-                      ],
-                    },
-                    item.id
-                  );
+                  props.onGetBlockBtn(item.id, 'followConfig');
                 }}
               >
                 FOLLOW
