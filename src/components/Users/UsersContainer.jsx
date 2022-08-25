@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import {
   followToNewUser,
+  setBlockOfButtons,
   setCurrentPage,
   setNewUsers,
   setPreLoader,
@@ -19,25 +20,29 @@ const mapStateToProps = (state) => {
     totalUsersCount: state.usersPage.totalUsersCount,
     selectedPage: state.usersPage.selectedPage,
     isFetching: state.usersPage.isFetching,
+    followRequests: state.usersPage.followRequests,
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    onFollowChange: (idOfPerson) => {
-      dispatch(followToNewUser({ id: idOfPerson }));
+    onFollowChange: (id) => {
+      dispatch(followToNewUser({ id }));
     },
     onSetNewUsers: (users) => {
-      dispatch(setNewUsers({ users: users }));
+      dispatch(setNewUsers({ users }));
     },
     onSetCurrentPage: (number) => {
-      dispatch(setCurrentPage({ number: number }));
+      dispatch(setCurrentPage({ number }));
     },
     onSetTotalUsersCount: (number) => {
-      dispatch(setTotalCurrentUsersCount({ number: number }));
+      dispatch(setTotalCurrentUsersCount({ number }));
     },
-    onSetPreLoader: (boolean) => {
-      dispatch(setPreLoader({ flag: boolean }));
+    onSetPreLoader: (flag) => {
+      dispatch(setPreLoader({ flag }));
+    },
+    onSetBlockButtons: (id, flag) => {
+      dispatch(setBlockOfButtons({ id, flag }));
     },
   };
 };
@@ -129,6 +134,9 @@ const UsersAPIComponent = (props) => {
           prevPage={prevPage}
           lastPage={lastPage}
           firstPage={firstPage}
+          followRequests={props.followRequests}
+          isFetching={props.isFetching}
+          onSetBlockButtons={props.onSetBlockButtons}
         />
       )}
     </>

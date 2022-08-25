@@ -34,11 +34,15 @@ const Users = (props) => {
           <div>
             {item.followed ? (
               <button
+                disabled={props.followRequests.some((idx) => idx === item.id)}
                 onClick={() => {
+                  props.onSetBlockButtons(item.id, true);
                   followRequests(
                     configForRequests.unfollowConfig,
                     props.onFollowChange,
-                    item.id
+                    props.onSetBlockButtons,
+                    item.id,
+                    false
                   );
                 }}
               >
@@ -46,11 +50,15 @@ const Users = (props) => {
               </button>
             ) : (
               <button
+                disabled={props.followRequests.some((idx) => idx === item.id)}
                 onClick={() => {
+                  props.onSetBlockButtons(item.id, true);
                   followRequests(
                     configForRequests.followConfig,
                     props.onFollowChange,
-                    item.id
+                    props.onSetBlockButtons,
+                    item.id,
+                    false
                   );
                 }}
               >
