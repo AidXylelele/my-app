@@ -14,10 +14,10 @@ const Post = (props) => {
       </div>
       <div className={styles.reactionsOfUsers}>
         <div className={styles.replyToPost}>
-          <a>Reply</a>
+          <a href='/reply'>Reply</a>
         </div>
         <div className={styles.counterOfLikes}>
-          <a>like: {props.like}</a>
+          <a href='/like'>like: {props.like}</a>
         </div>
       </div>
     </div>
