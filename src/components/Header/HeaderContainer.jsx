@@ -1,20 +1,18 @@
 import React, { useEffect, useRef } from 'react';
 import { connect } from 'react-redux';
-import { configForRequests, usersRequests } from '../../api/requestsAPI';
-import { setAuthed, setUserData } from '../../redux/authSlice';
+import {
+  getAuthThunkCreator,
+  setAuthedAction,
+  setUserDataAction,
+} from '../../redux/authSlice';
 import Header from './Header';
 
 const HeaderContainer = (props) => {
-  const { onSetUserData, isAuthed, onSetAuthed } = props;
+  const { isAuthed, onGetAuthedThunk } = props;
   const refContainer = useRef(isAuthed);
   useEffect(() => {
-    usersRequests(configForRequests.authConfig, []).then((response) => {
-      if (response.resultCode === 0) {
-        onSetAuthed(!refContainer.current);
-        onSetUserData(response.data);
-      }
-    });
-  }, [onSetAuthed, onSetUserData]);
+    onGetAuthedThunk(refContainer);
+  }, [onGetAuthedThunk]);
   return <Header {...props} />;
 };
 
@@ -28,10 +26,13 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     onSetUserData: (data) => {
-      dispatch(setUserData({ data }));
+      dispatch(setUserDataAction(data));
     },
     onSetAuthed: (flag) => {
-      dispatch(setAuthed({ flag }));
+      dispatch(setAuthedAction(flag));
+    },
+    onGetAuthedThunk: (container) => {
+      dispatch(getAuthThunkCreator(container));
     },
   };
 };

@@ -44,7 +44,6 @@ const UsersAPIComponent = (props) => {
   } = props;
 
   useEffect(() => {
-    console.log('hey');
     onGetUsers(selectedPage, pageSize);
   }, [onGetUsers, selectedPage, pageSize]);
 

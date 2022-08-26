@@ -61,6 +61,7 @@ export const getUsersThunkCreator = (selectedPage, pageSize) => (dispatch) => {
     }
   );
 };
+
 export const getBlockBtnThunkCreator = (id, configName) => (dispatch) => {
   dispatch(setBlockOfButtonsAction({ id, flag: true }));
   followRequests(configForRequests[configName], id).then((response) => {
