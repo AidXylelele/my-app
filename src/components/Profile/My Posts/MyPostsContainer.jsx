@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 import {
-  addPost,
-  updateNewPost,
+  addPostAction,
+  updateNewPostAction,
 } from '../../../redux/profileSlice';
 import MyPosts from './MyPosts';
 
@@ -16,10 +16,10 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     updateNewPostText: (text) => {
-      dispatch(updateNewPost({ newText: text }));
+      dispatch(updateNewPostAction(text));
     },
     addNewPost: () => {
-      dispatch(addPost());
+      dispatch(addPostAction());
     },
   };
 };

@@ -1,20 +1,18 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
-import { setUserProfile } from '../../redux/profileSlice';
+import {
+  getProfileThunkCreator,
+  setUserProfileAction,
+} from '../../redux/profileSlice';
 import Profile from './Profile';
 import { useParams } from 'react-router-dom';
-import { configForRequests, usersRequests } from '../../api/requestsAPI';
 
 const ProfileContainer = (props) => {
   const { userId } = useParams();
-  const { onSetUserProfile } = props;
+  const { onGetProfile } = props;
   useEffect(() => {
-    usersRequests(configForRequests.profileConfig, [userId ? userId : 2]).then(
-      (response) => {
-        onSetUserProfile(response);
-      }
-    );
-  }, [onSetUserProfile, userId]);
+    onGetProfile(userId);
+  }, [onGetProfile, userId]);
   return <Profile profileOfUser={props.profileOfUser} />;
 };
 
@@ -27,7 +25,10 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     onSetUserProfile: (item) => {
-      dispatch(setUserProfile({ item }));
+      dispatch(setUserProfileAction(item));
+    },
+    onGetProfile: (userId) => {
+      dispatch(getProfileThunkCreator(userId));
     },
   };
 };

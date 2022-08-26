@@ -1,4 +1,5 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createAction, createSlice } from '@reduxjs/toolkit';
+import { configForRequests, usersRequests } from '../api/requestsAPI';
 
 const profileSlice = createSlice({
   name: 'profile',
@@ -12,8 +13,8 @@ const profileSlice = createSlice({
   },
   reducers: {
     updateNewPost: (state, action) => {
-      const { newText } = action.payload;
-      state.newPostText = newText;
+      const text = action.payload;
+      state.newPostText = text;
     },
     addPost: (state) => {
       const newPost = {
@@ -26,11 +27,23 @@ const profileSlice = createSlice({
       state.newPostText = '';
     },
     setUserProfile: (state, action) => {
-      const { item } = action.payload;
+      const item = action.payload;
       state.profileOfUser = item;
     },
   },
 });
+
+export const updateNewPostAction = createAction('profile/updateNewPost');
+export const addPostAction = createAction('profile/addPost');
+export const setUserProfileAction = createAction('profile/setUserProfile');
+
+export const getProfileThunkCreator = (userId) => (dispatch) => {
+   usersRequests(configForRequests.profileConfig, [userId ? userId : 2]).then(
+     (response) => {
+       dispatch(setUserProfileAction(response));
+     }
+   );
+};
 
 export default profileSlice.reducer;
 export const { updateNewPost, addPost, setUserProfile } = profileSlice.actions;
