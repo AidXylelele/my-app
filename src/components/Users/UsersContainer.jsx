@@ -1,14 +1,9 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import {
-  followToNewUsersAction,
   getBlockBtnThunkCreator,
   getUsersThunkCreator,
-  setBlockOfButtonsAction,
   setCurrentPageAction,
-  setNewUsersAction,
-  setPreloaderAction,
-  setTotalCurrentUsersCountAction,
 } from '../../redux/usersSlice';
 import Users from './Users';
 import PreLoader from '../common/Preloader/Preloader';
@@ -27,23 +22,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    onFollowChange: (id) => {
-      dispatch(followToNewUsersAction(id));
-    },
-    onSetNewUsers: (users) => {
-      dispatch(setNewUsersAction(users));
-    },
     onSetCurrentPage: (number) => {
       dispatch(setCurrentPageAction(number));
-    },
-    onSetTotalUsersCount: (number) => {
-      dispatch(setTotalCurrentUsersCountAction(number));
-    },
-    onSetPreLoader: (flag) => {
-      dispatch(setPreloaderAction(flag));
-    },
-    onSetBlockButtons: (id, flag) => {
-      dispatch(setBlockOfButtonsAction({ id, flag }));
     },
     onGetUsers: (selectedPage, pageSize) => {
       dispatch(getUsersThunkCreator(selectedPage, pageSize));
