@@ -1,4 +1,4 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createAction, createSlice } from '@reduxjs/toolkit';
 
 const dialogsSlice = createSlice({
   name: 'dialogs',
@@ -17,7 +17,7 @@ const dialogsSlice = createSlice({
   },
   reducers: {
     updateNewMessage: (state, action) => {
-      const { body } = action.payload;
+      const body = action.payload;
       state.newMessageBody = body;
     },
     sendMessage: (state) => {
@@ -28,6 +28,9 @@ const dialogsSlice = createSlice({
     },
   },
 });
+
+export const updateNewMessageAction = createAction('dialogs/updateNewMessage');
+export const sendMessageAction = createAction('dialogs/sendMessage');
 
 export default dialogsSlice.reducer;
 export const { updateNewMessage, sendMessage } = dialogsSlice.actions;
