@@ -6,6 +6,8 @@ import {
 } from '../../redux/profileSlice';
 import Profile from './Profile';
 import { Navigate, useParams } from 'react-router-dom';
+import { compose } from 'redux';
+import { withAuthRedirect } from '../hoc/AuthRedirect';
 
 const ProfileContainer = (props) => {
   const { userId } = useParams();
@@ -24,7 +26,6 @@ const ProfileContainer = (props) => {
 const mapStateToProps = (state) => {
   return {
     profileOfUser: state.profilePage.profileOfUser,
-    isAuthed: state.auth.isAuthed,
   };
 };
 
@@ -39,4 +40,9 @@ const mapDispatchToProps = (dispatch) => {
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(ProfileContainer);
+const withAuthProfileContainer = compose(
+  connect(mapStateToProps, mapDispatchToProps),
+  withAuthRedirect
+)(ProfileContainer);
+
+export default withAuthProfileContainer;
