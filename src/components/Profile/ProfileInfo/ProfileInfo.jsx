@@ -1,6 +1,7 @@
 import React from 'react';
 import PreLoader from '../../common/Preloader/Preloader';
 import styles from './ProfileInfo.module.css';
+import Status from './Status';
 
 const ProfileInfo = (props) => {
   if (!props.profile) {
@@ -21,6 +22,9 @@ const ProfileInfo = (props) => {
         <div className={styles.descriptionBlock}>
           <div>
             <h3>{props.profile.fullName}</h3>
+          </div>
+          <div>
+            <Status />
           </div>
           <div>
             <p> Looking for a job: {props.profile.lookingForAJob.toString()}</p>
