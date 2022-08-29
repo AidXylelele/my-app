@@ -8,6 +8,7 @@ import {
 import Users from './Users';
 import PreLoader from '../common/Preloader/Preloader';
 import { useEffect } from 'react';
+import { Navigate } from 'react-router-dom';
 
 const mapStateToProps = (state) => {
   return {
@@ -17,6 +18,7 @@ const mapStateToProps = (state) => {
     selectedPage: state.usersPage.selectedPage,
     isFetching: state.usersPage.isFetching,
     followRequests: state.usersPage.followRequests,
+    isAuthed: state.auth.isAuthed,
   };
 };
 
@@ -52,6 +54,9 @@ const UsersAPIComponent = (props) => {
     onGetUsers(number, pageSize);
   };
 
+  if (!props.isAuthed) {
+    return <Navigate to={'/login'} />;
+  }
   const pagesCount = Math.ceil(totalUsersCount / pageSize);
 
   const countOfPages = [];
