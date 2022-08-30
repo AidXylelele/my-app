@@ -16,14 +16,14 @@ const configForRequests = {
     http: 'users?',
     elements: ['page=', '&count='],
   },
-  updateStatusConfig: {
-    name: 'put',
-    http: 'profile/status',
-  },
   authConfig: {
     name: 'get',
     http: 'auth/me',
     elements: [''],
+  },
+  updateStatusConfig: {
+    name: 'put',
+    http: 'profile/status',
   },
   followConfig: {
     name: 'post',
@@ -67,8 +67,10 @@ const deleteAndPostRequests = (config, id) => {
 };
 
 const putRequests = (config, data) => {
-  return axiosRequest[config.name](config, data).then((response) => {
-    return response.data;
-  });
+  return axiosRequest[config.name](config.http, { status: data }).then(
+    (response) => {
+      return response.data;
+    }
+  );
 };
 export { deleteAndPostRequests, getRequests, putRequests, configForRequests };

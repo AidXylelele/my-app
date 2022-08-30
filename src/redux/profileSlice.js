@@ -1,5 +1,9 @@
 import { createAction, createSlice } from '@reduxjs/toolkit';
-import { configForRequests, getRequests } from '../api/requestsAPI';
+import {
+  configForRequests,
+  getRequests,
+  putRequests,
+} from '../api/requestsAPI';
 
 const profileSlice = createSlice({
   name: 'profile',
@@ -10,6 +14,7 @@ const profileSlice = createSlice({
     ],
     newPostText: '',
     profileOfUser: null,
+    userStatus: '',
   },
   reducers: {
     updateNewPost: (state, action) => {
@@ -30,19 +35,39 @@ const profileSlice = createSlice({
       const item = action.payload;
       state.profileOfUser = item;
     },
+    setUserStatus: (state, action) => {
+      const text = action.payload;
+      state.userStatus = text;
+    },
   },
 });
 
 export const updateNewPostAction = createAction('profile/updateNewPost');
 export const addPostAction = createAction('profile/addPost');
 export const setUserProfileAction = createAction('profile/setUserProfile');
+export const setUserStatusAction = createAction('profile/setUserStatus');
 
 export const getProfileThunkCreator = (userId) => (dispatch) => {
-   getRequests(configForRequests.profileConfig, [userId ? userId : 2]).then(
-     (response) => {
-       dispatch(setUserProfileAction(response));
-     }
-   );
+  getRequests(configForRequests.profileConfig, [userId ? userId : 25601]).then(
+    (response) => {
+      console.log('get', response);
+      dispatch(setUserProfileAction(response));
+    }
+  );
+};
+
+export const getUserStatusThunkCreator = (userId) => (dispatch) => {
+  getRequests(configForRequests.statusConfig, [userId ? userId : 25601]).then(
+    (response) => {
+      dispatch(setUserStatusAction(response));
+    }
+  );
+};
+
+export const updateUserStatusThunkCreator = (data) => (dispatch) => {
+  putRequests(configForRequests.updateStatusConfig, data).then((response) => {
+    if (!response.data.resultCode) dispatch(setUserStatusAction(data));
+  });
 };
 
 export default profileSlice.reducer;

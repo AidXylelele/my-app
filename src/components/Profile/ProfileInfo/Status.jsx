@@ -2,12 +2,18 @@ import React from 'react';
 class Status extends React.Component {
   state = {
     isActive: false,
+    userStatus: this.props.userStatus,
   };
 
   toggleInput = () => {
-    console.log(this.state.isActive);
     this.setState({
       isActive: !this.state.isActive,
+    });
+  };
+
+  onChangeInput = (e) => {
+    this.setState({
+      userStatus: e.currentTarget.value,
     });
   };
 
@@ -18,13 +24,22 @@ class Status extends React.Component {
           <span>
             <input
               autoFocus={true}
-              onBlur={this.toggleInput}
+              onBlur={() => {
+                this.toggleInput();
+                this.props.onUpdateUserStatus(this.state.userStatus);
+              }}
+              onChange={this.onChangeInput}
               type="text"
+              value={this.state.userStatus}
               placeholder="Enter status"
             />
           </span>
         ) : (
-          <span onDoubleClick={this.toggleInput}>Here is your status!</span>
+          <span onDoubleClick={this.toggleInput}>
+            {this.props.userStatus
+              ? this.props.userStatus
+              : 'Here is your status!'}
+          </span>
         )}
       </div>
     );

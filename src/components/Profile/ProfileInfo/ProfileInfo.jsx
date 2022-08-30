@@ -24,7 +24,10 @@ const ProfileInfo = (props) => {
             <h3>{props.profile.fullName}</h3>
           </div>
           <div>
-            <Status />
+            <Status
+              userStatus={props.userStatus}
+              onUpdateUserStatus={props.onUpdateUserStatus}
+            />
           </div>
           <div>
             <p> Looking for a job: {props.profile.lookingForAJob.toString()}</p>
