@@ -1,5 +1,5 @@
 import { createAction, createSlice } from '@reduxjs/toolkit';
-import { configForRequests, usersRequests } from '../api/requestsAPI';
+import { configForRequests, getRequests } from '../api/requestsAPI';
 
 const authSlice = createSlice({
   name: 'auth',
@@ -27,7 +27,7 @@ export const setUserDataAction = createAction('auth/setUserData');
 export const setAuthedAction = createAction('auth/setAuthed');
 
 export const getAuthThunkCreator = (container) => (dispatch) => {
-  usersRequests(configForRequests.authConfig, []).then((response) => {
+  getRequests(configForRequests.authConfig, []).then((response) => {
     if (response.resultCode === 0) {
       dispatch(setAuthedAction(!container.current));
       dispatch(setUserDataAction(response.data));

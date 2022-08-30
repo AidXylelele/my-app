@@ -1,5 +1,5 @@
 import { createAction, createSlice } from '@reduxjs/toolkit';
-import { configForRequests, usersRequests } from '../api/requestsAPI';
+import { configForRequests, getRequests } from '../api/requestsAPI';
 
 const profileSlice = createSlice({
   name: 'profile',
@@ -38,7 +38,7 @@ export const addPostAction = createAction('profile/addPost');
 export const setUserProfileAction = createAction('profile/setUserProfile');
 
 export const getProfileThunkCreator = (userId) => (dispatch) => {
-   usersRequests(configForRequests.profileConfig, [userId ? userId : 2]).then(
+   getRequests(configForRequests.profileConfig, [userId ? userId : 2]).then(
      (response) => {
        dispatch(setUserProfileAction(response));
      }

@@ -1,8 +1,8 @@
 import { createAction, createSlice } from '@reduxjs/toolkit';
 import {
   configForRequests,
-  followRequests,
-  usersRequests,
+  deleteAndPostRequests,
+  getRequests,
 } from '../api/requestsAPI';
 
 const usersSlice = createSlice({
@@ -53,7 +53,7 @@ const usersSlice = createSlice({
 
 export const getUsersThunkCreator = (selectedPage, pageSize) => (dispatch) => {
   dispatch(setPreloaderAction(true));
-  usersRequests(configForRequests.usersConfig, [selectedPage, pageSize]).then(
+  getRequests(configForRequests.usersConfig, [selectedPage, pageSize]).then(
     (response) => {
       dispatch(setPreloaderAction(false));
       dispatch(setNewUsersAction(response.items));
@@ -64,7 +64,7 @@ export const getUsersThunkCreator = (selectedPage, pageSize) => (dispatch) => {
 
 export const getBlockBtnThunkCreator = (id, configName) => (dispatch) => {
   dispatch(setBlockOfButtonsAction({ id, flag: true }));
-  followRequests(configForRequests[configName], id).then((response) => {
+  deleteAndPostRequests(configForRequests[configName], id).then((response) => {
     if (response.data.resultCode === 0) {
       dispatch(followToNewUsersAction(id));
       dispatch(setBlockOfButtonsAction({ id, flag: false }));

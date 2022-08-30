@@ -6,6 +6,16 @@ const configForRequests = {
     http: 'profile/',
     elements: [''],
   },
+  statusConfig: {
+    name: 'get',
+    http: 'profile/status/',
+    elements: [''],
+  },
+  updateStatusConfig: {
+    name: 'put',
+    http: 'profile/status',
+    elements: [''],
+  },
   authConfig: {
     name: 'get',
     http: 'auth/me',
@@ -31,7 +41,7 @@ const configForRequests = {
 const creatingFullHttp = (config, data) => {
   const { elements, http } = config;
   let result = http;
-  if (data.length !== 0) {
+  if (data.length) {
     for (let i = 0; i < elements.length; i++) {
       result += elements[i] + data[i];
     }
@@ -47,11 +57,7 @@ const axiosRequest = axios.create({
   },
 });
 
-const followRequests = (config, id) => {
-  return axiosRequest[config.name](config.http + id);
-};
-
-const usersRequests = (config, params) => {
+const getRequests = (config, params) => {
   return axiosRequest[config.name](creatingFullHttp(config, params)).then(
     (response) => {
       return response.data;
@@ -59,4 +65,13 @@ const usersRequests = (config, params) => {
   );
 };
 
-export { followRequests, usersRequests, configForRequests };
+const deleteAndPostRequests = (config, id) => {
+  return axiosRequest[config.name](config.http + id);
+};
+
+const putRequests = (config, data) => {
+  return axiosRequest[config.name](config, data).then((response) => {
+    return response.data;
+  });
+};
+export { deleteAndPostRequests, getRequests, putRequests, configForRequests };
