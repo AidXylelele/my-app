@@ -11,30 +11,27 @@ const configForRequests = {
     http: 'profile/status/',
     elements: [''],
   },
+  usersConfig: {
+    name: 'get',
+    http: 'users?',
+    elements: ['page=', '&count='],
+  },
   updateStatusConfig: {
     name: 'put',
     http: 'profile/status',
-    elements: [''],
   },
   authConfig: {
     name: 'get',
     http: 'auth/me',
     elements: [''],
   },
-  usersConfig: {
-    name: 'get',
-    http: 'users?',
-    elements: ['page=', '&count='],
-  },
   followConfig: {
     name: 'post',
     http: 'follow/',
-    elements: [''],
   },
   unfollowConfig: {
     name: 'delete',
     http: 'follow/',
-    elements: [''],
   },
 };
 
