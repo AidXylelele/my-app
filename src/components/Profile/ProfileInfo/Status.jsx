@@ -1,57 +1,47 @@
 import React from 'react';
-class Status extends React.Component {
-  state = {
-    isActive: false,
-    userStatus: this.props.userStatus,
+import { useEffect } from 'react';
+import { useState } from 'react';
+
+const Status = (props) => {
+  const [isActive, setIsActive] = useState(false);
+  const [localUserStatus, setLocalUserStatus] = useState(props.userStatus);
+  const { userStatus } = props;
+
+  useEffect(() => {
+    setLocalUserStatus(userStatus);
+  }, [userStatus, setLocalUserStatus]);
+
+  const toggleInput = () => {
+    setIsActive(!isActive);
   };
 
-  componentDidUpdate(prevProps) {
-    if (prevProps.userStatus !== this.props.userStatus) {
-      this.setState({
-        userStatus: this.props.userStatus,
-      });
-    }
-  }
-
-  toggleInput = () => {
-    this.setState({
-      isActive: !this.state.isActive,
-    });
+  const onChangeInput = (e) => {
+    setLocalUserStatus(e.currentTarget.value);
   };
 
-  onChangeInput = (e) => {
-    this.setState({
-      userStatus: e.currentTarget.value,
-    });
-  };
-
-  render() {
-    return (
-      <div>
-        {this.state.isActive ? (
-          <span>
-            <input
-              autoFocus={true}
-              onBlur={() => {
-                this.toggleInput();
-                this.props.onUpdateUserStatus(this.state.userStatus);
-              }}
-              onChange={this.onChangeInput}
-              type="text"
-              value={this.state.userStatus}
-              placeholder="Enter status"
-            />
-          </span>
-        ) : (
-          <span onDoubleClick={this.toggleInput}>
-            {this.props.userStatus
-              ? this.props.userStatus
-              : 'Here is your status!'}
-          </span>
-        )}
-      </div>
-    );
-  }
-}
+  return (
+    <div>
+      {isActive ? (
+        <span>
+          <input
+            autoFocus={true}
+            onBlur={() => {
+              toggleInput();
+              props.onUpdateUserStatus(localUserStatus);
+            }}
+            onChange={onChangeInput}
+            type="text"
+            value={localUserStatus}
+            placeholder="Enter status"
+          />
+        </span>
+      ) : (
+        <span onDoubleClick={toggleInput}>
+          {props.userStatus ? props.userStatus : 'Here is your status!'}
+        </span>
+      )}
+    </div>
+  );
+};
 
 export default Status;
