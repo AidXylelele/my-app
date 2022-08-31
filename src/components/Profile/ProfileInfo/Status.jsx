@@ -5,6 +5,14 @@ class Status extends React.Component {
     userStatus: this.props.userStatus,
   };
 
+  componentDidUpdate(prevProps) {
+    if (prevProps.userStatus !== this.props.userStatus) {
+      this.setState({
+        userStatus: this.props.userStatus,
+      });
+    }
+  }
+
   toggleInput = () => {
     this.setState({
       isActive: !this.state.isActive,

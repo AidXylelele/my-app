@@ -50,7 +50,6 @@ export const setUserStatusAction = createAction('profile/setUserStatus');
 export const getProfileThunkCreator = (userId) => (dispatch) => {
   getRequests(configForRequests.profileConfig, [userId ? userId : 25601]).then(
     (response) => {
-      console.log('get', response);
       dispatch(setUserProfileAction(response));
     }
   );
