@@ -29,7 +29,13 @@ const LoginForm = (props) => {
         <input
           className={styles.input}
           placeholder="Login"
-          {...register('name', { required: 'This field is required' })}
+          {...register('name', {
+            required: 'This field is required!',
+            minLength: {
+              value: 2,
+              message: 'Min length is two!',
+            },
+          })}
         />
         {errors.name && <p className={styles.warning}>{errors.name.message}</p>}
       </div>
@@ -38,7 +44,7 @@ const LoginForm = (props) => {
           className={styles.input}
           placeholder="Password"
           {...register('email', {
-            required: 'This field is required',
+            required: 'This field is required!',
             pattern: {
               value:
                 /^([a-z0-9_-]+\.)*[a-z0-9_-]+@[a-z0-9_-]+(\.[a-z0-9_-]+)*\.[a-z]{2,6}$/,
