@@ -3,6 +3,7 @@ import styles from './Dialogs.module.css';
 import DialogItem from './DialogItem/DialogItem';
 import Message from './Message/Message';
 import { Navigate } from 'react-router-dom';
+import DialogForm from './DialogForm/DialogForm';
 
 const Dialogs = (props) => {
   const dialogsElemnts = props.dialogsData.map((dialog, idx) => (
@@ -12,15 +13,6 @@ const Dialogs = (props) => {
   const messagesElemnts = props.messagesData.map((element, idx) => (
     <Message message={element.message} key={idx} />
   ));
-
-  const onSendNewMessageClick = () => {
-    props.sendNewMessage();
-  };
-
-  const controllerOfTextArea = (event) => {
-    const text = event.target.value;
-    props.onMessageChange(text);
-  };
 
   if (!props.isAuthed) {
     return <Navigate to={'/login'} />;
@@ -34,16 +26,7 @@ const Dialogs = (props) => {
       <div className={styles.messages}>
         <div>{messagesElemnts}</div>
         <div>
-          <div>
-            <textarea
-              value={props.newMessageBody}
-              onChange={controllerOfTextArea}
-              placeholder="Type your message..."
-            ></textarea>
-          </div>
-          <div>
-            <button onClick={onSendNewMessageClick}>Send</button>
-          </div>
+          <DialogForm onSendNewMessageClick={props.sendNewMessage} />
         </div>
       </div>
     </div>

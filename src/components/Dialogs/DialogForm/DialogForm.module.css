@@ -1,0 +1,45 @@
+.input {
+    width: 100%;
+    padding: 30px;
+    border-radius: 15px;
+    height: 150px;
+    font-weight: 900;
+    font-size: 16px;
+    background-color: #EEEEEE;
+    border: 1px solid rgb(255 255 255 / 18%);
+    box-shadow: 0 8px 32px 0 rgb(0 0 0 / 37%);
+}
+
+.button {
+    display: block;
+    appearance: none;
+    margin-top: 40px;
+    border: 1px solid #333;
+    margin-bottom: 20px;
+    text-transform: uppercase;
+    padding: 10px 20px;
+    border-radius: 10px;
+    border: none;
+    color: #333;
+    font-weight: 700;
+    background-color: #06bc6d;
+    border: 3px solid transparent;
+    transition: background-color ease-out 0.5s;
+}
+
+.button:hover {
+    background-color: transparent;
+    border: 3px solid #06bc6d;
+    transition: border ease-out 0.5s;
+    color: #06bc6d;
+}
+
+.warning {
+    color: #ff4d00;
+    font-size: 16px;
+}
+
+.warning::before {
+    display: inline;
+    content: "⚠ ";
+}

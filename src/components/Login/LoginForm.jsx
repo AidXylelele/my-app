@@ -6,7 +6,6 @@ const LoginForm = (props) => {
   const {
     register,
     handleSubmit,
-    // watch,
     reset,
     formState: { errors },
   } = useForm({
@@ -14,13 +13,8 @@ const LoginForm = (props) => {
   });
 
   const onSubmit = (data) => {
-    console.log(data);
     reset();
   };
-
-  // console.log(watch('email'));
-  // console.log(watch('name'));
-  console.log(errors);
 
   return (
     <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>

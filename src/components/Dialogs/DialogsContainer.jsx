@@ -1,7 +1,4 @@
-import {
-  sendMessageAction,
-  updateNewMessageAction,
-} from '../../redux/dialogsSlice';
+import { sendMessageAction } from '../../redux/dialogsSlice';
 import { connect } from 'react-redux';
 import Dialogs from './Dialogs';
 import { compose } from 'redux';
@@ -11,18 +8,14 @@ const mapStateToProps = (state) => {
   return {
     dialogsData: state.dialogsPage.dialogsData,
     messagesData: state.dialogsPage.messagesData,
-    newMessageBody: state.dialogsPage.newMessageBody,
     isAuthed: state.auth.isAuthed,
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    onMessageChange: (text) => {
-      dispatch(updateNewMessageAction(text));
-    },
-    sendNewMessage: () => {
-      dispatch(sendMessageAction());
+    sendNewMessage: (text) => {
+      dispatch(sendMessageAction(text));
     },
   };
 };
