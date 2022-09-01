@@ -1,6 +1,7 @@
 import React from 'react';
 import styles from './MyPosts.module.css';
 import Post from './Post/Post';
+import PostForm from './Post/PostForm/PostForm';
 
 const MyPosts = (props) => {
   if (!props.profileOfUser) {
@@ -11,32 +12,13 @@ const MyPosts = (props) => {
     <Post message={post.message} like={post.likesCount} key={idx} />
   ));
 
-  const newPostElement = React.createRef();
-
-  const sendNewPost = () => {
-    props.addNewPost();
-  };
-
-  const controllerOfTextArea = () => {
-    const text = newPostElement.current.value;
-    props.updateNewPostText(text);
-  };
-
   return (
     <div className={styles.posts}>
       <div className={styles.postBlock}>
         <div>
           <h1>New Post</h1>
           <div className={styles.postText}>
-            <textarea
-              placeholder="Your text..."
-              ref={newPostElement}
-              onChange={controllerOfTextArea}
-              value={props.newPostText}
-            />
-          </div>
-          <div className={styles.postButton}>
-            <button onClick={sendNewPost}>Add post</button>
+            <PostForm onAddNewPost={props.addNewPost} />
           </div>
         </div>
         <div className={styles.userPosts}>

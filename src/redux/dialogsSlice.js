@@ -3,7 +3,6 @@ import { createAction, createSlice } from '@reduxjs/toolkit';
 const dialogsSlice = createSlice({
   name: 'dialogs',
   initialState: {
-    newMessageBody: '',
     messagesData: [
       { id: 1, message: 'Hello' },
       { id: 2, message: 'How are you?' },

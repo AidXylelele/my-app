@@ -1,25 +1,18 @@
 import { connect } from 'react-redux';
-import {
-  addPostAction,
-  updateNewPostAction,
-} from '../../../redux/profileSlice';
+import { addPostAction } from '../../../redux/profileSlice';
 import MyPosts from './MyPosts';
 
 const mapStateToProps = (state) => {
   return {
     postsData: state.profilePage.postsData,
-    newPostText: state.profilePage.newPostText,
     profileOfUser: state.profilePage.profileOfUser,
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    updateNewPostText: (text) => {
-      dispatch(updateNewPostAction(text));
-    },
-    addNewPost: () => {
-      dispatch(addPostAction());
+    addNewPost: (text) => {
+      dispatch(addPostAction(text));
     },
   };
 };

@@ -12,24 +12,18 @@ const profileSlice = createSlice({
       { id: 1, message: 'Hello, world!', likesCount: 12 },
       { id: 2, message: 'It is my second post', likesCount: 11 },
     ],
-    newPostText: '',
     profileOfUser: null,
     userStatus: '',
   },
   reducers: {
-    updateNewPost: (state, action) => {
+    addPost: (state, action) => {
       const text = action.payload;
-      state.newPostText = text;
-    },
-    addPost: (state) => {
       const newPost = {
         id: 5,
-        message: state.newPostText,
+        message: text,
         likesCount: 0,
       };
-      if (state.newPostText === '') return state;
       state.postsData.push(newPost);
-      state.newPostText = '';
     },
     setUserProfile: (state, action) => {
       const item = action.payload;
@@ -42,7 +36,6 @@ const profileSlice = createSlice({
   },
 });
 
-export const updateNewPostAction = createAction('profile/updateNewPost');
 export const addPostAction = createAction('profile/addPost');
 export const setUserProfileAction = createAction('profile/setUserProfile');
 export const setUserStatusAction = createAction('profile/setUserStatus');
@@ -70,4 +63,4 @@ export const updateUserStatusThunkCreator = (data) => (dispatch) => {
 };
 
 export default profileSlice.reducer;
-export const { updateNewPost, addPost, setUserProfile } = profileSlice.actions;
+export const { addPost, setUserProfile } = profileSlice.actions;

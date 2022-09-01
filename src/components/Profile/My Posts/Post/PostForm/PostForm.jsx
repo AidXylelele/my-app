@@ -1,8 +1,8 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
-import styles from './DialogForm.module.css';
+import styles from './PostForm.module.css';
 
-const DialogForm = (props) => {
+const PostForm = (props) => {
   const {
     register,
     handleSubmit,
@@ -13,7 +13,7 @@ const DialogForm = (props) => {
   });
 
   const onSubmit = (data) => {
-    props.onSendNewMessageClick(data.newMessage);
+    props.onAddNewPost(data.post);
     reset();
   };
 
@@ -21,21 +21,19 @@ const DialogForm = (props) => {
     <form onSubmit={handleSubmit(onSubmit)}>
       <input
         className={styles.input}
-        placeholder="Your message..."
-        {...register('newMessage', {
-          required: 'This field is required!',
+        placeholder="Your post..."
+        {...register('post', {
+          required: 'This field must be filled!',
           maxLength: {
-            value: 300,
-            message: 'Limit of the message is 300 symbols!',
+            value: 500,
+            message: 'Limit of the message is 500 symbols!',
           },
         })}
       />
-      {errors.newMessage && (
-        <p className={styles.warning}>{errors.newMessage.message}</p>
-      )}
+      {errors.post && <p className={styles.warning}>{errors.post.message}</p>}
       <input className={styles.button} type="submit" />
     </form>
   );
 };
 
-export default DialogForm;
+export default PostForm;
