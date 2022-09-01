@@ -1,6 +1,6 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
-import styles from './Login.module.css';
+import styles from './LoginForm.module.css';
 
 const LoginForm = (props) => {
   const {
@@ -62,12 +62,4 @@ const LoginForm = (props) => {
   );
 };
 
-const Login = (props) => {
-  return (
-    <>
-      <LoginForm />
-    </>
-  );
-};
-
-export default Login;
+export default LoginForm;
