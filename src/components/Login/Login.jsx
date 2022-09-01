@@ -1,14 +1,17 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
+import styles from './Login.module.css';
 
 const LoginForm = (props) => {
   const {
     register,
     handleSubmit,
-    watch,
+    // watch,
     reset,
     formState: { errors },
-  } = useForm();
+  } = useForm({
+    mode: 'onBlur',
+  });
 
   const onSubmit = (data) => {
     console.log(data);
@@ -20,17 +23,20 @@ const LoginForm = (props) => {
   console.log(errors);
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
-      <div>
+    <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
+      <h1>Login</h1>
+      <div className={styles.inputBlock}>
         <input
-          placeholder="Name"
+          className={styles.input}
+          placeholder="Login"
           {...register('name', { required: 'This field is required' })}
         />
-        {errors.name && <div>{errors.name.message}</div>}
+        {errors.name && <p className={styles.warning}>{errors.name.message}</p>}
       </div>
-      <div>
+      <div className={styles.inputBlock}>
         <input
-          placeholder="E-mail"
+          className={styles.input}
+          placeholder="Password"
           {...register('email', {
             required: 'This field is required',
             pattern: {
@@ -40,10 +46,12 @@ const LoginForm = (props) => {
             },
           })}
         />
-        {errors.email && <div>{errors.email.message}</div>}
+        {errors.email && (
+          <p className={styles.warning}>{errors.email.message}</p>
+        )}
       </div>
 
-      <input type="submit" />
+      <input className={styles.button} type="submit" />
     </form>
   );
 };
@@ -51,7 +59,6 @@ const LoginForm = (props) => {
 const Login = (props) => {
   return (
     <>
-      <h1>Login</h1>
       <LoginForm />
     </>
   );
