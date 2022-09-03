@@ -23,7 +23,7 @@ const PostForm = (props) => {
         className={styles.input}
         placeholder="Your post..."
         {...register('post', {
-          required: 'This field must be filled!',
+          required: 'This field is required!',
           maxLength: {
             value: 500,
             message: 'Limit of the message is 500 symbols!',
