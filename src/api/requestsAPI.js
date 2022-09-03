@@ -29,6 +29,14 @@ const configForRequests = {
     name: 'post',
     http: 'follow/',
   },
+  loginConfig: {
+    name: 'post',
+    http: '/auth/login',
+  },
+  logOutConfig: {
+    name: 'delete',
+    http: '/auth/login',
+  },
   unfollowConfig: {
     name: 'delete',
     http: 'follow/',
