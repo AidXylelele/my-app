@@ -1,5 +1,9 @@
 import { createAction, createSlice } from '@reduxjs/toolkit';
-import { configForRequests, getRequests } from '../api/requestsAPI';
+import {
+  configForRequests,
+  deleteAndPostRequests,
+  getRequests,
+} from '../api/requestsAPI';
 
 const authSlice = createSlice({
   name: 'auth',
@@ -12,9 +16,9 @@ const authSlice = createSlice({
   reducers: {
     setUserData: (state, action) => {
       const data = action.payload;
-      state.userId = data.id;
-      state.login = data.login;
-      state.email = data.email;
+      data.id ? (state.userId = data.id) : (state.userId = null);
+      data.login ? (state.login = data.login) : (state.login = null);
+      data.email ? (state.email = data.email) : (state.email = null);
     },
     setAuthed: (state, action) => {
       const flag = action.payload;
@@ -31,6 +35,25 @@ export const getAuthThunkCreator = (container) => (dispatch) => {
     if (response.resultCode === 0) {
       dispatch(setAuthedAction(!container.current));
       dispatch(setUserDataAction(response.data));
+    }
+  });
+};
+
+export const getLoginThunkCreator = (data, container) => (dispatch) => {
+  deleteAndPostRequests(configForRequests.loginConfig, '', data).then(
+    (response) => {
+      if (response.data.resultCode === 0) {
+        dispatch(getAuthThunkCreator(container));
+      }
+    }
+  );
+};
+
+export const getLogOutThunkCreator = (container) => (dispatch) => {
+  deleteAndPostRequests(configForRequests.logOutConfig, '').then((response) => {
+    if (response.data.resultCode === 0) {
+      dispatch(setAuthedAction(!container.current));
+      dispatch(setUserDataAction({}));
     }
   });
 };

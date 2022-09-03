@@ -3,6 +3,8 @@ import { useForm } from 'react-hook-form';
 import styles from './LoginForm.module.css';
 
 const LoginForm = (props) => {
+  const { isAuthed } = props;
+
   const {
     register,
     handleSubmit,
@@ -13,6 +15,7 @@ const LoginForm = (props) => {
   });
 
   const onSubmit = (data) => {
+    props.onLogin(data, { current: isAuthed });
     reset();
   };
 
@@ -23,22 +26,12 @@ const LoginForm = (props) => {
         <input
           className={styles.input}
           placeholder="Login"
-          {...register('name', {
+          {...register('email', {
             required: 'This field is required!',
             minLength: {
               value: 2,
               message: 'Min length is two!',
             },
-          })}
-        />
-        {errors.name && <p className={styles.warning}>{errors.name.message}</p>}
-      </div>
-      <div className={styles.inputBlock}>
-        <input
-          className={styles.input}
-          placeholder="Password"
-          {...register('email', {
-            required: 'This field is required!',
             pattern: {
               value:
                 /^([a-z0-9_-]+\.)*[a-z0-9_-]+@[a-z0-9_-]+(\.[a-z0-9_-]+)*\.[a-z]{2,6}$/,
@@ -48,6 +41,18 @@ const LoginForm = (props) => {
         />
         {errors.email && (
           <p className={styles.warning}>{errors.email.message}</p>
+        )}
+      </div>
+      <div className={styles.inputBlock}>
+        <input
+          className={styles.input}
+          placeholder="Password"
+          {...register('password', {
+            required: 'This field is required!',
+          })}
+        />
+        {errors.password && (
+          <p className={styles.warning}>{errors.password.message}</p>
         )}
       </div>
 

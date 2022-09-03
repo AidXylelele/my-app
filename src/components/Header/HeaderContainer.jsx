@@ -10,6 +10,7 @@ import Header from './Header';
 const HeaderContainer = (props) => {
   const { isAuthed, onGetAuthedThunk } = props;
   const refContainer = useRef(isAuthed);
+
   useEffect(() => {
     onGetAuthedThunk(refContainer);
   }, [onGetAuthedThunk]);

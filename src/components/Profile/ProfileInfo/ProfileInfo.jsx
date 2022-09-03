@@ -7,6 +7,7 @@ const ProfileInfo = (props) => {
   if (!props.profile) {
     return <PreLoader />;
   }
+
   return (
     <div>
       <div className={styles.profileInfoWrapper}>

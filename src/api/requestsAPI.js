@@ -31,11 +31,11 @@ const configForRequests = {
   },
   loginConfig: {
     name: 'post',
-    http: '/auth/login',
+    http: 'auth/login',
   },
   logOutConfig: {
     name: 'delete',
-    http: '/auth/login',
+    http: 'auth/login',
   },
   unfollowConfig: {
     name: 'delete',
