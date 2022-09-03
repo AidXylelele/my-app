@@ -70,8 +70,8 @@ const getRequests = (config, params) => {
   );
 };
 
-const deleteAndPostRequests = (config, id) => {
-  return axiosRequest[config.name](config.http + id);
+const deleteAndPostRequests = (config, id, data = {}) => {
+  return axiosRequest[config.name](config.http + id, data);
 };
 
 const putRequests = (config, data) => {
