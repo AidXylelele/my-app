@@ -21,7 +21,6 @@ const HeaderContainer = (props) => {
 const mapStateToProps = (state) => {
   return {
     isAuthed: state.auth.isAuthed,
-    userName: state.auth.login,
   };
 };
 
