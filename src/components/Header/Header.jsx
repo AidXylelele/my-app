@@ -1,5 +1,6 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
+import Logout from '../Login/Logout';
 import styles from './Header.module.css';
 
 const Header = (props) => {
@@ -11,7 +12,7 @@ const Header = (props) => {
       ></img>
       <div className={styles.loginBlock}>
         {props.isAuthed ? (
-          <NavLink to={'/login'}>{props.userName}</NavLink>
+          <Logout isAuthed={props.isAuthed} onLogout={props.onLogout} />
         ) : (
           <NavLink to={'/login'}>Login</NavLink>
         )}

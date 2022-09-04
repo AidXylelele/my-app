@@ -2,6 +2,7 @@ import React, { useEffect, useRef } from 'react';
 import { connect } from 'react-redux';
 import {
   getAuthThunkCreator,
+  getLogOutThunkCreator,
   setAuthedAction,
   setUserDataAction,
 } from '../../redux/authSlice';
@@ -34,6 +35,9 @@ const mapDispatchToProps = (dispatch) => {
     },
     onGetAuthedThunk: (container) => {
       dispatch(getAuthThunkCreator(container));
+    },
+    onLogout: (container) => {
+      dispatch(getLogOutThunkCreator(container));
     },
   };
 };

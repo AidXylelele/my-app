@@ -28,10 +28,6 @@ const LoginForm = (props) => {
           placeholder="Login"
           {...register('email', {
             required: 'This field is required!',
-            minLength: {
-              value: 2,
-              message: 'Min length is two!',
-            },
             pattern: {
               value:
                 /^([a-z0-9_-]+\.)*[a-z0-9_-]+@[a-z0-9_-]+(\.[a-z0-9_-]+)*\.[a-z]{2,6}$/,
@@ -45,6 +41,7 @@ const LoginForm = (props) => {
       </div>
       <div className={styles.inputBlock}>
         <input
+          type={'password'}
           className={styles.input}
           placeholder="Password"
           {...register('password', {
@@ -55,7 +52,14 @@ const LoginForm = (props) => {
           <p className={styles.warning}>{errors.password.message}</p>
         )}
       </div>
-
+      <div>
+        <input
+          type={'checkbox'}
+          {...register('rememberMe')}
+          id={'rememberMe'}
+        />
+        <label htmlFor="rememberMe">remember me</label>
+      </div>
       <input className={styles.button} type="submit" />
     </form>
   );
