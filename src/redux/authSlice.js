@@ -4,6 +4,8 @@ import {
   deleteAndPostRequests,
   getRequests,
 } from '../api/requestsAPI';
+import JSConfetti from 'js-confetti';
+const confetti = new JSConfetti();
 
 const authSlice = createSlice({
   name: 'auth',
@@ -40,13 +42,20 @@ export const getAuthThunkCreator = (container) => (dispatch) => {
 };
 
 export const getLoginThunkCreator = (data, container) => (dispatch) => {
-  deleteAndPostRequests(configForRequests.loginConfig, '', data).then(
-    (response) => {
+  deleteAndPostRequests(configForRequests.loginConfig, '', data)
+    .then((response) => {
       if (response.data.resultCode === 0) {
         dispatch(getAuthThunkCreator(container));
+        return true;
       }
-    }
-  );
+    })
+    .then((flag) => {
+      if (flag)
+        confetti.addConfetti({
+          emojis: ['🌈', '⚡️', '💥', '✨', '💫', '🌸'],
+          confettiRadius: 6,
+        });
+    });
 };
 
 export const getLogOutThunkCreator = (container) => (dispatch) => {
