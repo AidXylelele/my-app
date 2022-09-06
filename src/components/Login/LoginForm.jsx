@@ -16,7 +16,7 @@ const LoginForm = (props) => {
 
   const onSubmit = async (data) => {
     await onLogin(data, { current: isAuthed });
-    reset();
+    reset({ password: '' });
   };
 
   return (
