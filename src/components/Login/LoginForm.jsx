@@ -9,14 +9,14 @@ const LoginForm = (props) => {
     register,
     handleSubmit,
     reset,
-    formState: { errors },
+    formState: { errors, isDirty },
   } = useForm({
     mode: 'onBlur',
   });
 
   const onSubmit = async (data) => {
     await onLogin(data, { current: isAuthed });
-    reset({ password: '' });
+    reset();
   };
 
   return (
@@ -60,8 +60,13 @@ const LoginForm = (props) => {
         />
         <label htmlFor="rememberMe">remember me</label>
       </div>
-      <span>{error}</span>
-      <input className={styles.button} type="submit" />
+      <span className={error ? styles.warning : ''}>{error}</span>
+      <input
+        disable={isDirty.toString()}
+        className={styles.button}
+        type="submit"
+        value="send"
+      />
     </form>
   );
 };
