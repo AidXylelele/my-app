@@ -3,7 +3,7 @@ import { useForm } from 'react-hook-form';
 import styles from './LoginForm.module.css';
 
 const LoginForm = (props) => {
-  const { isAuthed } = props;
+  const { isAuthed, onLogin } = props;
 
   const {
     register,
@@ -15,7 +15,7 @@ const LoginForm = (props) => {
   });
 
   const onSubmit = (data) => {
-    props.onLogin(data, { current: isAuthed });
+    onLogin(data, { current: isAuthed });
     reset();
   };
 

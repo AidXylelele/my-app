@@ -14,6 +14,7 @@ const authSlice = createSlice({
     login: null,
     email: null,
     isAuthed: false,
+    error: null,
   },
   reducers: {
     setUserData: (state, action) => {
@@ -26,11 +27,16 @@ const authSlice = createSlice({
       const flag = action.payload;
       state.isAuthed = flag;
     },
+    setError: (state, action) => {
+      const error = action.payload;
+      state.error = error;
+    },
   },
 });
 
 export const setUserDataAction = createAction('auth/setUserData');
 export const setAuthedAction = createAction('auth/setAuthed');
+export const setErrorAction = createAction('auth/setError');
 
 export const getAuthThunkCreator = (container) => (dispatch) => {
   getRequests(configForRequests.authConfig, []).then((response) => {
@@ -44,17 +50,20 @@ export const getAuthThunkCreator = (container) => (dispatch) => {
 export const getLoginThunkCreator = (data, container) => (dispatch) => {
   deleteAndPostRequests(configForRequests.loginConfig, '', data)
     .then((response) => {
-      if (response.data.resultCode === 0) {
+      if (!response.data.resultCode) {
         dispatch(getAuthThunkCreator(container));
-        return true;
       }
+      return response.data;
     })
-    .then((flag) => {
-      if (flag)
+    .then((response) => {
+      if (!response.resultCode) {
         confetti.addConfetti({
           emojis: ['🌈', '⚡️', '💥', '✨', '💫', '🌸'],
           confettiRadius: 6,
         });
+      } else {
+        dispatch(setErrorAction(response.messages.toString()));
+      }
     });
 };
 
