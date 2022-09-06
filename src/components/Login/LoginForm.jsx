@@ -3,7 +3,7 @@ import { useForm } from 'react-hook-form';
 import styles from './LoginForm.module.css';
 
 const LoginForm = (props) => {
-  const { isAuthed, onLogin } = props;
+  const { isAuthed, onLogin, error } = props;
 
   const {
     register,
@@ -14,9 +14,9 @@ const LoginForm = (props) => {
     mode: 'onBlur',
   });
 
-  const onSubmit = (data) => {
-    onLogin(data, { current: isAuthed });
-    reset();
+  const onSubmit = async (data) => {
+    await onLogin(data, { current: isAuthed });
+    reset({ password: '' });
   };
 
   return (
@@ -60,6 +60,7 @@ const LoginForm = (props) => {
         />
         <label htmlFor="rememberMe">remember me</label>
       </div>
+      <span>{error}</span>
       <input className={styles.button} type="submit" />
     </form>
   );

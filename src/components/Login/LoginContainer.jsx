@@ -14,6 +14,7 @@ const Login = (props) => {
 
 const mapStatetoProps = (state) => ({
   isAuthed: state.auth.isAuthed,
+  error: state.auth.error,
 });
 
 const mapDispatchToProps = (dispatch) => ({

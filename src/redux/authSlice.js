@@ -61,9 +61,8 @@ export const getLoginThunkCreator = (data, container) => (dispatch) => {
           emojis: ['🌈', '⚡️', '💥', '✨', '💫', '🌸'],
           confettiRadius: 6,
         });
-      } else {
-        dispatch(setErrorAction(response.messages.toString()));
       }
+      dispatch(setErrorAction(response.messages.toString()));
     });
 };
 
