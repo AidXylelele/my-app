@@ -53,7 +53,7 @@
 .userData {
     box-sizing: border-box;
     height: 200px;
-    width: 600px;
+    width: 60%;
     display: flex;
     flex-wrap: wrap;
     justify-content: space-around;
