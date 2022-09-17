@@ -52,7 +52,7 @@
 
 .userData {
     box-sizing: border-box;
-    height: 200px;
+    min-height: 200px;
     width: 60%;
     display: flex;
     flex-wrap: wrap;
@@ -69,8 +69,63 @@
     flex-direction: column;
     justify-content: center;
     width: 55%;
-    height: 150px;
+    height: max-content;
+    padding: 20px;
     background-color: #DCD7D5;
     border: 1px solid rgb(255 255 255 / 18%);
     border-radius: 30px;
+}
+
+.userName {
+    font-size: 18px;
+    font-weight: 900;
+    padding: 5px 15px;
+    margin: 5px auto;
+    text-align: center;
+    width: fit-content;
+    height: fit-content;
+    border-bottom: 3px solid black;
+}
+
+.userStatus {
+    font-size: 18px;
+    padding: 5px;
+    margin: 0 auto;
+    text-align: center;
+    width: fit-content;
+    height: max-content;
+    font-weight: 600;
+    background-color: #ffffff;
+    border-radius: 10px;
+}
+
+.containerOfInfo {
+    margin: 10px;
+}
+
+.containerOfInfo>div {
+    display: inline-block;
+    padding: 5px 15px;
+}
+
+.containerOfInfo>p {
+    display: inline;
+    margin-right: 10px;
+    font-weight: 500;
+}
+
+button {
+    appearance: none;
+    border: none;
+    background-color: #a7a5a5;
+    padding: 7px;
+    border-radius: 5px;
+    border-bottom: 3px solid;
+    border-color: #4d4949;
+}
+
+button:active {
+    border-color: transparent;
+    -webkit-transform: translateY(3px);
+    transform: translateY(3px);
 }

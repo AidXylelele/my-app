@@ -43,10 +43,15 @@ const Users = (props) => {
             />
           </NavLink>
           <div className={styles.info}>
-            <div key={key}>{item.name}</div>
-            <span>
-              <p>{item.status}</p>
-            </span>
+            <div key={key} className={styles.userName}>
+              {item.name}
+            </div>
+            {item.status ? (
+              <span className={styles.containerOfInfo}>
+                <p className={styles.beforeStatus}>User status:</p>
+                <div className={styles.userStatus}>{item.status}</div>
+              </span>
+            ) : null}
             <div>
               {item.followed ? (
                 <button
