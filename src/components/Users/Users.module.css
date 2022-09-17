@@ -115,6 +115,7 @@
 }
 
 button {
+    cursor: pointer;
     appearance: none;
     border: none;
     background-color: #a7a5a5;
