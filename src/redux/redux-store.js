@@ -4,6 +4,7 @@ import {
   applyMiddleware,
 } from '@reduxjs/toolkit';
 import thunkMiddleWare from 'redux-thunk';
+import appSlice from './appSlice';
 import authSlice from './authSlice';
 import dialogsSlice from './dialogsSlice';
 import profileSlice from './profileSlice';
@@ -16,6 +17,7 @@ const reducers = combineReducers({
   usersPage: usersSlice,
   sideBar: sideBarReducer,
   auth: authSlice,
+  app: appSlice,
 });
 
 export const store = configureStore(
