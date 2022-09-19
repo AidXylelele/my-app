@@ -3,12 +3,17 @@ import { connect } from 'react-redux';
 import Dialogs from './Dialogs';
 import { compose } from 'redux';
 import { withAuthRedirect } from '../hoc/AuthRedirect';
+import {
+  dialogsDataSelector,
+  isAuthedSelector,
+  messagesDataSelector,
+} from '../../redux/dialogSelectors';
 
 const mapStateToProps = (state) => {
   return {
-    dialogsData: state.dialogsPage.dialogsData,
-    messagesData: state.dialogsPage.messagesData,
-    isAuthed: state.auth.isAuthed,
+    dialogsData: dialogsDataSelector(state),
+    messagesData: messagesDataSelector(state),
+    isAuthed: isAuthedSelector(state),
   };
 };
 
