@@ -14,39 +14,37 @@ const Navbar2 = (props) => {
   return (
     <>
       <IconContext.Provider value={{ color: '#fff' }}>
-        <div className={styles.wrapper}>
-          <div
-            className={styles.navbar}
-            style={sideBar ? { display: 'none' } : {}}
-          >
-            <Link to="#" className={styles.menu_bars}>
-              <FaIcons.FaBars
-                style={{ color: 'black' }}
-                onClick={showSideBar}
-              />
-            </Link>
-          </div>
-          <div
-            className={styles.nav_menu_active}
-            style={!sideBar ? { display: 'none' } : {}}
-          >
-            <ul className={styles.nav_menu_items} onClick={showSideBar}>
-              <li className={styles.navbar_toggle}>
-                <Link to="#" className={styles.menu_bars}>
-                  <AiIcons.AiOutlineClose />
-                </Link>
-              </li>
+        <div
+          className={styles.navbar}
+          style={sideBar ? { display: 'none' } : {}}
+          onClick={showSideBar}
+        >
+          <Link to="#" className={styles.navbar_open}>
+            <FaIcons.FaBars style={{ color: 'black' }} />
+          </Link>
+        </div>
+        <div
+          className={styles.nav_menu_active}
+          style={!sideBar ? { display: 'none' } : {}}
+        >
+          <div className={styles.wrapper_active_menu}>
+            <ul className={styles.nav_menu_items}>
               {SidebarData.map((item, idx) => {
                 return (
                   <li key={idx} className={styles.nav_text}>
                     <Link to={item.path}>
                       {item.icon}
-                      <span>{item.title}</span>
+                      <span className={styles.title}>{item.title}</span>
                     </Link>
                   </li>
                 );
               })}
             </ul>
+            <div className={styles.navbar_toggle} onClick={showSideBar}>
+              <Link to="#" className={styles.menu_bars}>
+                <AiIcons.AiOutlineClose />
+              </Link>
+            </div>
           </div>
         </div>
       </IconContext.Provider>

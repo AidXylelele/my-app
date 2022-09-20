@@ -1,26 +1,25 @@
 import React from 'react';
 import * as FaIcons from 'react-icons/fa';
-import * as AiIcons from 'react-icons/ai';
-import * as IoIcons from 'react-icons/io';
-import * as CgIcons from 'react-icons/cg'
+import * as VscIcons from 'react-icons/vsc';
+import * as CgIcons from 'react-icons/cg';
 
 export const SidebarData = [
   {
     title: 'Profile',
     path: '/profile',
-    icon: <CgIcons.CgProfile />,
+    icon: <CgIcons.CgProfile style={{ color: 'black' }} />,
     cName: 'nav_text',
   },
   {
     title: 'Messages',
     path: '/dialogs',
-    icon: <AiIcons.AiOutlineMessage />,
+    icon: <VscIcons.VscCommentDiscussion style={{ color: 'black' }} />,
     cName: 'nav_text',
   },
   {
     title: 'Users',
     path: '/users',
-    icon: <FaIcons.FaUserFriends />,
+    icon: <FaIcons.FaUserFriends style={{ color: 'black' }} />,
     cName: 'nav_text',
   },
 ];
