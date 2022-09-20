@@ -1,6 +1,5 @@
 import React, { useEffect, useRef } from 'react';
 import './App.css';
-import Navbar from './components/Navbar/Navbar';
 import { Route, BrowserRouter, Routes } from 'react-router-dom';
 import DialogsContainer from './components/Dialogs/DialogsContainer';
 import UsersContainer from './components/Users/UsersContainer';
