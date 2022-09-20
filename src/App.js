@@ -10,6 +10,7 @@ import LoginContainer from './components/Login/LoginContainer';
 import { connect } from 'react-redux';
 import { getInitializedThunkCreator } from './redux/appSlice';
 import PreLoader from './components/common/Preloader/Preloader';
+import Navbar2 from './components/Navbar/Navbar2';
 
 const App = (props) => {
   const { onSetInitialized, initialized } = props;
@@ -27,7 +28,7 @@ const App = (props) => {
     <BrowserRouter>
       <div className="app-wrapper">
         <HeaderContainer />
-        <Navbar />
+        <Navbar2 />
         <div className="app-wrapper-content">
           <Routes>
             <Route path="/profile" element={<ProfileContainer />}>

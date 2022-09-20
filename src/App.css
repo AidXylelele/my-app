@@ -10,7 +10,7 @@ body>#root>div {
   display: grid;
   min-height: 100%;
   grid-template-rows: 75px 1fr;
-  grid-template-columns: 2fr 10fr;
+  grid-template-columns: auto 1fr;
   grid-template-areas:
     'header header'
     'nav content';
