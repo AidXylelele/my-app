@@ -1,11 +1,15 @@
 import { connect } from 'react-redux';
 import { addPostAction } from '../../../redux/profileSlice';
+import {
+  postDataSelector,
+  profileOfUserSelector,
+} from '../../../redux/selectors';
 import MyPosts from './MyPosts';
 
 const mapStateToProps = (state) => {
   return {
-    postsData: state.profilePage.postsData,
-    profileOfUser: state.profilePage.profileOfUser,
+    postsData: postDataSelector(state),
+    profileOfUser: profileOfUserSelector(state),
   };
 };
 

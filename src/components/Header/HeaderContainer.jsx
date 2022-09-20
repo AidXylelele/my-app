@@ -4,6 +4,7 @@ import {
   getLogOutThunkCreator,
   setUserDataAction,
 } from '../../redux/authSlice';
+import { isAuthedSelector } from '../../redux/selectors';
 import Header from './Header';
 
 const HeaderContainer = (props) => {
@@ -12,7 +13,7 @@ const HeaderContainer = (props) => {
 
 const mapStateToProps = (state) => {
   return {
-    isAuthed: state.auth.isAuthed,
+    isAuthed: isAuthedSelector(state),
   };
 };
 

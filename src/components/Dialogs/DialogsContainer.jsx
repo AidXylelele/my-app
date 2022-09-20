@@ -7,7 +7,7 @@ import {
   dialogsDataSelector,
   isAuthedSelector,
   messagesDataSelector,
-} from '../../redux/dialogSelectors';
+} from '../../redux/selectors';
 
 const mapStateToProps = (state) => {
   return {

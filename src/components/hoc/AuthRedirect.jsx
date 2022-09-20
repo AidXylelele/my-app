@@ -1,10 +1,11 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Navigate } from 'react-router-dom';
+import { isAuthedSelector } from '../../redux/selectors';
 
 const mapStateToProps = (state) => {
   return {
-    isAuthed: state.auth.isAuthed,
+    isAuthed: isAuthedSelector(state),
   };
 };
 

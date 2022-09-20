@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Navigate } from 'react-router-dom';
 import { getLoginThunkCreator } from '../../redux/authSlice';
+import { isAuthedSelector, loginErrorSelector } from '../../redux/selectors';
 import LoginForm from './LoginForm';
 
 const Login = (props) => {
@@ -13,8 +14,8 @@ const Login = (props) => {
 };
 
 const mapStatetoProps = (state) => ({
-  isAuthed: state.auth.isAuthed,
-  error: state.auth.error,
+  isAuthed: isAuthedSelector(state),
+  error: loginErrorSelector(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({

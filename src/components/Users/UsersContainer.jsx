@@ -9,16 +9,25 @@ import Users from './Users';
 import PreLoader from '../common/Preloader/Preloader';
 import { useEffect } from 'react';
 import { Navigate } from 'react-router-dom';
+import {
+  followRequestsSelector,
+  isAuthedSelector,
+  isFetchingSelector,
+  pageSizeSelector,
+  selectedPageSelector,
+  totalUsersCountSelector,
+  usersDataSelector,
+} from '../../redux/selectors';
 
 const mapStateToProps = (state) => {
   return {
-    usersData: state.usersPage.usersData,
-    pageSize: state.usersPage.pageSize,
-    totalUsersCount: state.usersPage.totalUsersCount,
-    selectedPage: state.usersPage.selectedPage,
-    isFetching: state.usersPage.isFetching,
-    followRequests: state.usersPage.followRequests,
-    isAuthed: state.auth.isAuthed,
+    usersData: usersDataSelector(state),
+    pageSize: pageSizeSelector(state),
+    totalUsersCount: totalUsersCountSelector(state),
+    selectedPage: selectedPageSelector(state),
+    isFetching: isFetchingSelector(state),
+    followRequests: followRequestsSelector(state),
+    isAuthed: isAuthedSelector(state),
   };
 };
 

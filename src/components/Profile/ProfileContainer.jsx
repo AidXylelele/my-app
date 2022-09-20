@@ -10,6 +10,10 @@ import Profile from './Profile';
 import { Navigate, useParams } from 'react-router-dom';
 import { compose } from 'redux';
 import { withAuthRedirect } from '../hoc/AuthRedirect';
+import {
+  profileOfUserSelector,
+  userStatusSelector,
+} from '../../redux/selectors';
 
 const ProfileContainer = (props) => {
   const { userId } = useParams();
@@ -34,8 +38,8 @@ const ProfileContainer = (props) => {
 
 const mapStateToProps = (state) => {
   return {
-    profileOfUser: state.profilePage.profileOfUser,
-    userStatus: state.profilePage.userStatus,
+    profileOfUser: profileOfUserSelector(state),
+    userStatus: userStatusSelector(state),
   };
 };
 
