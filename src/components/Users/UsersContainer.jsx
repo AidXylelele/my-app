@@ -8,7 +8,6 @@ import {
 import Users from './Users';
 import PreLoader from '../common/Preloader/Preloader';
 import { useEffect } from 'react';
-import { Navigate } from 'react-router-dom';
 import {
   followRequestsSelector,
   isAuthedSelector,
@@ -18,6 +17,8 @@ import {
   totalUsersCountSelector,
   usersDataSelector,
 } from '../../redux/selectors';
+import { withAuthRedirect } from '../hoc/AuthRedirect';
+import { compose } from 'redux';
 
 const mapStateToProps = (state) => {
   return {
@@ -63,9 +64,6 @@ const UsersAPIComponent = (props) => {
     onGetUsers(number, pageSize);
   };
 
-  if (!props.isAuthed) {
-    return <Navigate to={'/login'} />;
-  }
   const pagesCount = Math.ceil(totalUsersCount / pageSize);
 
   const countOfPages = [];
@@ -117,9 +115,9 @@ const UsersAPIComponent = (props) => {
   );
 };
 
-const UsersContainer = connect(
-  mapStateToProps,
-  mapDispatchToProps
+const UsersContainer = compose(
+  connect(mapStateToProps, mapDispatchToProps),
+  withAuthRedirect
 )(UsersAPIComponent);
 
 export default UsersContainer;
