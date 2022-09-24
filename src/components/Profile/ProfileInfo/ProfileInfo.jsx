@@ -22,11 +22,14 @@ const ProfileInfo = (props) => {
         ></img>
         <div className={styles.descriptionBlock}>
           <div className={styles.userName}>{props.profile.fullName}</div>
+          
           <span className={styles.containerOfStatus}>
-            <p className={styles.beforeStatus}>Your status:</p>
+            <p className={styles.beforeStatus}>Status:</p>
             <Status
               userStatus={props.userStatus}
               onUpdateUserStatus={props.onUpdateUserStatus}
+              myId={props.myUserId}
+              userId={props.profile.userId}
             />
           </span>
           <div>

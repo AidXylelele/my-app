@@ -7,10 +7,11 @@ import {
   updateUserStatusThunkCreator,
 } from '../../redux/profileSlice';
 import Profile from './Profile';
-import { Navigate, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { compose } from 'redux';
 import { withAuthRedirect } from '../hoc/AuthRedirect';
 import {
+  myUserIdSelector,
   profileOfUserSelector,
   userStatusSelector,
 } from '../../redux/selectors';
@@ -22,13 +23,10 @@ const ProfileContainer = (props) => {
     onGetProfile(userId);
     onGetUserStatus(userId);
   }, [onGetProfile, onGetUserStatus, userId]);
-
-  if (!props.isAuthed) {
-    return <Navigate to={'/login'} />;
-  }
-
+console.log(props)
   return (
     <Profile
+      myUserId={props.myUserId}
       profileOfUser={props.profileOfUser}
       userStatus={props.userStatus}
       onUpdateUserStatus={props.onUpdateUserStatus}
@@ -38,6 +36,7 @@ const ProfileContainer = (props) => {
 
 const mapStateToProps = (state) => {
   return {
+    myUserId: myUserIdSelector(state),
     profileOfUser: profileOfUserSelector(state),
     userStatus: userStatusSelector(state),
   };

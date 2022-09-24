@@ -49,6 +49,10 @@ const isFetchingSelector = (state) => {
 const followRequestsSelector = (state) => {
   return state.usersPage.followRequests;
 };
+
+const myUserIdSelector = (state) => {
+  return state.auth.userId;
+};
 export {
   dialogsDataSelector,
   messagesDataSelector,
@@ -63,4 +67,5 @@ export {
   selectedPageSelector,
   isFetchingSelector,
   followRequestsSelector,
+  myUserIdSelector,
 };
