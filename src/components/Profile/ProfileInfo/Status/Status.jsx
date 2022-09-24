@@ -6,14 +6,14 @@ import styles from './Status.module.css';
 const Status = (props) => {
   const [isActive, setIsActive] = useState(false);
   const [localUserStatus, setLocalUserStatus] = useState(props.userStatus);
-  const { userStatus, myId, userId } = props;
+  const { userStatus, isMyPage } = props;
 
   useEffect(() => {
     setLocalUserStatus(userStatus);
   }, [userStatus, setLocalUserStatus]);
 
   const toggleInput = () => {
-    if (myId === userId) {
+    if (isMyPage) {
       setIsActive(!isActive);
     }
   };
@@ -39,14 +39,12 @@ const Status = (props) => {
             placeholder="Enter status"
           />
         </span>
-      ) : myId === userId ? (
+      ) : isMyPage ? (
         <span className={styles.status} onDoubleClick={toggleInput}>
           {props.userStatus ? props.userStatus : 'Here is your status!'}
         </span>
       ) : (
-        <span className={styles.status}>
-          {props.userStatus}
-        </span>
+        <span className={styles.status}>{props.userStatus}</span>
       )}
     </div>
   );

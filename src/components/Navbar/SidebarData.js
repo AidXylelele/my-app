@@ -6,7 +6,7 @@ import * as CgIcons from 'react-icons/cg';
 export const SidebarData = [
   {
     title: 'Profile',
-    path: '/profile',
+    path: '/profile/25601',
     icon: <CgIcons.CgProfile style={{ color: 'black' }} />,
     cName: 'nav_text',
   },

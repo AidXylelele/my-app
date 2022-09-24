@@ -15,18 +15,21 @@ import {
   profileOfUserSelector,
   userStatusSelector,
 } from '../../redux/selectors';
+import { useState } from 'react';
 
 const ProfileContainer = (props) => {
   const { userId } = useParams();
-  const { onGetProfile, onGetUserStatus } = props;
+  const { onGetProfile, onGetUserStatus, myUserId } = props;
+  const [isMyPage, setIsMyPage] = useState(myUserId == userId);
+
   useEffect(() => {
     onGetProfile(userId);
     onGetUserStatus(userId);
-  }, [onGetProfile, onGetUserStatus, userId]);
-console.log(props)
+    setIsMyPage(userId == myUserId);
+  }, [onGetProfile, onGetUserStatus, setIsMyPage, userId]);
   return (
     <Profile
-      myUserId={props.myUserId}
+      isMyPage={isMyPage}
       profileOfUser={props.profileOfUser}
       userStatus={props.userStatus}
       onUpdateUserStatus={props.onUpdateUserStatus}

@@ -9,7 +9,7 @@ const Profile = (props) => {
         profile={props.profileOfUser}
         userStatus={props.userStatus}
         onUpdateUserStatus={props.onUpdateUserStatus}
-        myUserId={props.myUserId}
+        isMyPage={props.isMyPage}
       />
       <MyPostsContainer />
     </div>

@@ -22,16 +22,16 @@ const ProfileInfo = (props) => {
         ></img>
         <div className={styles.descriptionBlock}>
           <div className={styles.userName}>{props.profile.fullName}</div>
-          
-          <span className={styles.containerOfStatus}>
-            <p className={styles.beforeStatus}>Status:</p>
-            <Status
-              userStatus={props.userStatus}
-              onUpdateUserStatus={props.onUpdateUserStatus}
-              myId={props.myUserId}
-              userId={props.profile.userId}
-            />
-          </span>
+          {!props.userStatus && !props.isMyPage ? null : (
+            <span className={styles.containerOfStatus}>
+              <p className={styles.beforeStatus}>Status:</p>
+              <Status
+                userStatus={props.userStatus}
+                onUpdateUserStatus={props.onUpdateUserStatus}
+                isMyPage={props.isMyPage}
+              />
+            </span>
+          )}
           <div>
             <span className={styles.containerOfJob}>
               <p className={styles.beforeLookingForAJob}>Looking for a job:</p>
