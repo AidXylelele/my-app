@@ -1,6 +1,7 @@
 .posts {
   padding: 20px 50px;
-  margin: 50px;
+  margin: 50px auto;
+  width: 60%;
   background-color: #E6CDAE;
   border-radius: 30px;
   border: 1px solid rgb(255 255 255 / 18%);

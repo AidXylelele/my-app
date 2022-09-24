@@ -25,6 +25,7 @@ const Status = (props) => {
       {isActive ? (
         <span>
           <input
+          className={styles.statusInput}
             autoFocus={true}
             onBlur={() => {
               toggleInput();
