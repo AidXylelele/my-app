@@ -41,19 +41,15 @@ export const setUserProfileAction = createAction('profile/setUserProfile');
 export const setUserStatusAction = createAction('profile/setUserStatus');
 
 export const getProfileThunkCreator = (userId) => (dispatch) => {
-  getRequests(configForRequests.profileConfig, [userId ? userId : 25601]).then(
-    (response) => {
-      dispatch(setUserProfileAction(response));
-    }
-  );
+  getRequests(configForRequests.profileConfig, [userId]).then((response) => {
+    dispatch(setUserProfileAction(response));
+  });
 };
 
 export const getUserStatusThunkCreator = (userId) => (dispatch) => {
-  getRequests(configForRequests.statusConfig, [userId ? userId : 25601]).then(
-    (response) => {
-      dispatch(setUserStatusAction(response));
-    }
-  );
+  getRequests(configForRequests.statusConfig, [userId]).then((response) => {
+    dispatch(setUserStatusAction(response));
+  });
 };
 
 export const updateUserStatusThunkCreator = (data) => (dispatch) => {
