@@ -1,7 +1,7 @@
 import React from 'react';
 import PreLoader from '../../common/Preloader/Preloader';
 import styles from './ProfileInfo.module.css';
-import Status from './Status';
+import Status from './Status/Status';
 
 const ProfileInfo = (props) => {
   if (!props.profile) {
@@ -9,7 +9,7 @@ const ProfileInfo = (props) => {
   }
 
   return (
-    <div>
+    <div className={styles.wrapper}>
       <div className={styles.profileInfoWrapper}>
         <img
           className={styles.avatar}
@@ -21,17 +21,19 @@ const ProfileInfo = (props) => {
           }
         ></img>
         <div className={styles.descriptionBlock}>
-          <div>
-            <h3>{props.profile.fullName}</h3>
-          </div>
-          <div>
+          <div className={styles.userName}>{props.profile.fullName}</div>
+          <span className={styles.containerOfStatus}>
+            <p className={styles.beforeStatus}>Your status:</p>
             <Status
               userStatus={props.userStatus}
               onUpdateUserStatus={props.onUpdateUserStatus}
             />
-          </div>
+          </span>
           <div>
-            <p> Looking for a job: {props.profile.lookingForAJob.toString()}</p>
+            <span className={styles.containerOfJob}>
+              <p className={styles.beforeLookingForAJob}>Looking for a job:</p>
+              <div>{props.profile.lookingForAJob ? `✅` : `❌`}</div>
+            </span>
           </div>
           <div>
             <p>

@@ -1,6 +1,7 @@
 import React from 'react';
 import { useEffect } from 'react';
 import { useState } from 'react';
+import styles from './Status.module.css';
 
 const Status = (props) => {
   const [isActive, setIsActive] = useState(false);
@@ -36,7 +37,7 @@ const Status = (props) => {
           />
         </span>
       ) : (
-        <span onDoubleClick={toggleInput}>
+        <span className={styles.status} onDoubleClick={toggleInput}>
           {props.userStatus ? props.userStatus : 'Here is your status!'}
         </span>
       )}

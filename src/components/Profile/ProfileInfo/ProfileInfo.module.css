@@ -2,12 +2,21 @@
     box-sizing: border-box;
 }
 
+.wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
 .profileInfoWrapper {
-    display: grid;
-    grid-template-columns: 1fr 2fr;
-    grid-gap: 75px;
-    padding: 30px;
-    margin: 50px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    align-items: center;
+    width: 60%;
+    padding: 35px 15px;
+    margin: 50px 0px;
     background-color: #495F75;
     border: 1px solid rgb(255 255 255 / 18%);
     box-shadow: 0 8px 32px 0 rgb(0 0 0 / 70%);
@@ -15,14 +24,62 @@
 }
 
 .descriptionBlock {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    width: 50%;
     background-color: #DCD7D5;
     border: 1px solid rgb(255 255 255 / 18%);
     box-shadow: 0 8px 32px 0 rgb(0 0 0 / 70%);
     border-radius: 30px;
+    padding: 30px;
 }
 
 .avatar {
-    height: 250px;
-    width: 250px;
+    height: 255px;
+    width: 255px;
     border-radius: 30px;
+}
+
+.containerOfJob {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.containerOfJob>div {
+    display: inline-block;
+    font-size: 22px;
+}
+
+.containerOfJob>p {
+    font-size: 18px;
+    font-weight: 500;
+    margin-right: 10px;
+}
+
+.userName {
+    font-size: 18px;
+    font-weight: 900;
+    padding: 5px 15px;
+    margin: 0px auto;
+    text-align: center;
+    width: fit-content;
+    height: fit-content;
+    border-bottom: 3px solid black;
+}
+
+.containerOfStatus {
+    margin: 16px 0;
+}
+
+.containerOfStatus>div {
+    display: inline-block;
+    padding: 5px 15px;
+}
+
+.containerOfStatus>p {
+    display: inline;
+    margin-right: 10px;
+    font-weight: 600;
 }
