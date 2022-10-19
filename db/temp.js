@@ -1,21 +1,35 @@
 const pool = require('./db');
 
 async function getRes() {
-  let res = await pool.query(`SELECT * FROM sessions;`);
+  let res = await pool.query(`DELETE FROM sessions;`);
   res = res.rows;
-
-  console.log('porev pidor', res);
+  console.log(res);
 }
 
-async function setValue(token) {
-  let value = await pool.query(`
+async function setValue(token, data, callback) {
+  await pool.query(`
     INSERT INTO sessions(
-	token) VALUES (
-	 '${token}');
+	token, data) VALUES (
+	 '${token}', '${data}');
     `);
-  console.log('porev pidor', value);
+  return callback(token);
 }
 
+async function getValue(token, callback) {
+  const value = await pool.query(`
+   SELECT token, data
+    FROM sessions
+    WHERE token='${token}'`);
+  const [object] = value.rows;
+  if (object === undefined) return;
+  return callback(object.data);
+}
 
-
-module.exports = {setValue, getRes };
+async function deleteValue(key, callback) {
+  await pool.query(`DELETE
+      FROM sessions
+      WHERE token='${key}'`);
+  return callback(key);
+}
+getRes();
+module.exports = { setValue, getRes, getValue, deleteValue };

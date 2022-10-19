@@ -35,6 +35,7 @@ ALTER TABLE IF EXISTS public.posts
 CREATE TABLE IF NOT EXISTS public.sessions
 (
     token text COLLATE pg_catalog."default" NOT NULL,
+    data json NOT NULL,
     CONSTRAINT sessions_pkey PRIMARY KEY (token)
 )
 
