@@ -80,9 +80,9 @@ class Storage extends Map {
     }
   }
 
- async delete(key) {
+  delete(key) {
     console.log('Delete: ', key);
-    await deleteValue(key, () => {
+    deleteValue(key, () => {
       console.log(`Session deleted: ${key}`);
     });
 
