@@ -1,0 +1,2 @@
+CREATE USER admin WITH PASSWORD 'Qwerty123';
+CREATE DATABASE application OWNER admin;
