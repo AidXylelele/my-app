@@ -10,6 +10,7 @@ import { connect } from 'react-redux';
 import { getInitializedThunkCreator } from './redux/appSlice';
 import PreLoader from './components/common/Preloader/Preloader';
 import Navbar2 from './components/Navbar/Navbar2';
+import RegisterContainer from './components/Register/RegisterContainer';
 
 const App = (props) => {
   const { onSetInitialized, initialized } = props;
@@ -36,6 +37,7 @@ const App = (props) => {
             <Route path="/dialogs" element={<DialogsContainer />} />
             <Route path="/users" element={<UsersContainer />} />
             <Route path="/login" element={<LoginContainer />} />
+            <Route path="/register" element={<RegisterContainer />} />
           </Routes>
         </div>
       </div>

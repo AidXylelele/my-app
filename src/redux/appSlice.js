@@ -4,7 +4,7 @@ import { getAuthThunkCreator } from './authSlice';
 const appSlice = createSlice({
   name: 'app',
   initialState: {
-    initialized: false,
+    initialized: true,
   },
   reducers: {
     setInitialized: (state, action) => {

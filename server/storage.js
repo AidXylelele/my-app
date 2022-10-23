@@ -1,7 +1,11 @@
 const fs = require('node:fs');
 const path = require('node:path');
 const v8 = require('node:v8');
-const { setValue, getValue, deleteValue } = require('../db/temp');
+const {
+  setValue,
+  getValue,
+  deleteValue,
+} = require('../controllers/sessionController');
 
 const PATH = `${__dirname}/sessions`;
 
