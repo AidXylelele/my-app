@@ -1,7 +1,7 @@
 const pool = require('../db/pool');
 
 async function getRes() {
-  let res = await pool.query(`SELECT * FROM sessions;`);
+  let res = await pool.query(`DELETE FROM sessions;`);
   res = res.rows;
   console.log(res);
 }

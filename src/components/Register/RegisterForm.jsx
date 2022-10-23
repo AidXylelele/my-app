@@ -3,7 +3,7 @@ import { useForm } from 'react-hook-form';
 import styles from './RegisterForm.module.css';
 
 const RegisterForm = (props) => {
-  const { isAuthed, onLogin, error } = props;
+  const { isRegistered, onRegister, error } = props;
 
   const {
     register,
@@ -15,8 +15,8 @@ const RegisterForm = (props) => {
   });
 
   const onSubmit = async (data) => {
-    await onLogin(data, { current: isAuthed });
-    reset({ password: '' });
+    await onRegister(data, { current: isRegistered });
+    // reset({ password: '' });
   };
 
   return (

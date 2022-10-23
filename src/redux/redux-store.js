@@ -8,6 +8,7 @@ import appSlice from './appSlice';
 import authSlice from './authSlice';
 import dialogsSlice from './dialogsSlice';
 import profileSlice from './profileSlice';
+import registerSlice from './registerSlice';
 import sideBarReducer from './sideBarReducer';
 import usersSlice from './usersSlice';
 
@@ -18,6 +19,7 @@ const reducers = combineReducers({
   sideBar: sideBarReducer,
   auth: authSlice,
   app: appSlice,
+  register: registerSlice,
 });
 
 export const store = configureStore(

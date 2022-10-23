@@ -1,4 +1,5 @@
 const http = require('node:http');
+const { setUserValue } = require('./controllers/registrationController.js');
 
 const Client = require('./server/client.js');
 const Session = require('./server/session.js');
@@ -8,6 +9,9 @@ const routing = {
   '/start': async (client) => {
     Session.start(client);
     return `Session token is: ${client.token}`;
+  },
+  '/register': async (client) => {
+    return setUserValue(client.req);
   },
   '/destroy': async (client) => {
     const result = `Session destroyed: ${client.token}`;
@@ -62,6 +66,16 @@ http
         const type = typeof data;
         const serializer = types[type];
         const result = serializer(data);
+        res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3000');
+        res.setHeader('Access-Control-Allow-Credentials', 'true');
+        res.setHeader(
+          'Access-Control-Allow-Methods',
+          'GET,HEAD,OPTIONS,POST,PUT'
+        );
+        res.setHeader(
+          'Access-Control-Allow-Headers',
+          'Access-Control-Allow-Headers, Access-Control-Allow-Origin, Accept, X-Requested-With, Content-Type, Access-Control-Request-Method, Access-Control-Request-Headers'
+        );
         client.sendCookie();
         res.end(result);
       },

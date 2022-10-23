@@ -53,6 +53,11 @@ const followRequestsSelector = (state) => {
 const myUserIdSelector = (state) => {
   return state.auth.userId;
 };
+
+const isRegisteredSelector = (state) => {
+  return state.register.isRegistered;
+};
+
 export {
   dialogsDataSelector,
   messagesDataSelector,
@@ -68,4 +73,5 @@ export {
   isFetchingSelector,
   followRequestsSelector,
   myUserIdSelector,
+  isRegisteredSelector,
 };

@@ -29,6 +29,10 @@ const configForRequests = {
     name: 'post',
     http: 'follow/',
   },
+  registerConfig: {
+    name: 'post',
+    http: '/register',
+  },
   loginConfig: {
     name: 'post',
     http: 'auth/login',
@@ -55,10 +59,10 @@ const creatingFullHttp = (config, data) => {
 };
 
 const axiosRequest = axios.create({
-  baseURL: 'https://social-network.samuraijs.com/api/1.0/',
+  baseURL: 'http://localhost:8000/',
   withCredentials: true,
   headers: {
-    'API-KEY': '8723fb12-ffdb-46fc-a2bf-f6ce9b484d92',
+    'Access-Control-Allow-Origin': 'http://localhost:3000/',
   },
 });
 
