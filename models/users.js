@@ -8,8 +8,9 @@ const createNewUser = async (data) => {
 	id, email, name, surname, status) VALUES (
 	 '${uuidv4()}', '${data.email}', '${data.name}', '${data.surname}', '' );
     `);
+    return 'User created!';
   } catch (error) {
-    console.log('Failed');
+    return 'Fail';
   }
 };
 

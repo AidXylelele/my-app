@@ -13,7 +13,7 @@ const routing = {
   '/register': async (client) => {
     const { method } = client.req;
     if (method == 'POST') {
-      return setUserValue(client.req);
+      return await setUserValue(client.req);
     }
   },
   '/destroy': async (client) => {

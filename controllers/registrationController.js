@@ -8,26 +8,22 @@ async function getRes() {
   console.log(res);
 }
 
-async function setUserValue(request) {
+function setUserValue(request) {
   let body = [];
-  request
-    .on('error', (err) => {
-      console.error(err);
-    })
-    .on('data', (chunk) => {
-      body.push(chunk);
-    })
-    .on('end', () => {
-      new Promise((resolve, reject) => {
+  return new Promise((resolve) =>
+    request
+      .on('error', (err) => {
+        console.error(err);
+      })
+      .on('data', (chunk) => {
+        body.push(chunk);
+      })
+      .on('end', () => {
         body = Buffer.concat(body).toString();
         const dataObj = parseRequestBody(body);
-        resolve(dataObj);
-      }).then((data) => {
-        createNewUser(data);
-      });
-    });
-  console.log('ready');
-  return 'Good work!';
+        resolve(createNewUser(dataObj));
+      })
+  );
 }
 
 getRes();
