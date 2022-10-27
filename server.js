@@ -11,7 +11,10 @@ const routing = {
     return `Session token is: ${client.token}`;
   },
   '/register': async (client) => {
-    return setUserValue(client.req);
+    const { method } = client.req;
+    if (method == 'POST') {
+      return setUserValue(client.req);
+    }
   },
   '/destroy': async (client) => {
     const result = `Session destroyed: ${client.token}`;
@@ -49,6 +52,7 @@ const types = {
 
 http
   .createServer(async (req, res) => {
+    console.log(req);
     const client = await Client.getInstance(req, res);
     const { method, url, headers } = req;
     console.log(`${method} ${url} ${headers.cookie}`);
