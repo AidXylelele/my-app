@@ -54,10 +54,6 @@ const myUserIdSelector = (state) => {
   return state.auth.userId;
 };
 
-const isRegisteredSelector = (state) => {
-  return state.register.isRegistered;
-};
-
 const registerErrorSelector = (state) => {
   return state.register.error;
 };
@@ -77,6 +73,5 @@ export {
   isFetchingSelector,
   followRequestsSelector,
   myUserIdSelector,
-  isRegisteredSelector,
   registerErrorSelector,
 };

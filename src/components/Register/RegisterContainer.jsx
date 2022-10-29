@@ -2,17 +2,14 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Navigate } from 'react-router-dom';
 import { getRegisteredThunkCreator } from '../../redux/registerSlice';
-import {
-  isRegisteredSelector,
-  registerErrorSelector,
-} from '../../redux/selectors';
+import { registerErrorSelector } from '../../redux/selectors';
 import RegisterForm from './RegisterForm';
 
 const Register = (props) => {
   return (
     <>
       {props.isRegistered ? (
-        <Navigate to={`/login}`} />
+        <Navigate to={`/register}`} />
       ) : (
         <RegisterForm {...props} />
       )}
@@ -21,7 +18,6 @@ const Register = (props) => {
 };
 
 const mapStatetoProps = (state) => ({
-  isRegistered: isRegisteredSelector(state),
   error: registerErrorSelector(state),
 });
 

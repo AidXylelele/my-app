@@ -6,9 +6,9 @@ const Session = require('./server/session.js');
 
 const routing = {
   '/': async () => '<h1>welcome to homepage</h1><hr>',
-  '/start': async (client) => {
-    Session.start(client);
-    return `Session token is: ${client.token}`;
+  '/auth/login': async (client) => {
+    // Session.start(client);
+    return `login`;
   },
   '/register': async (client) => {
     const { method } = client.req;
