@@ -58,6 +58,10 @@ const isRegisteredSelector = (state) => {
   return state.register.isRegistered;
 };
 
+const registerErrorSelector = (state) => {
+  return state.register.error;
+};
+
 export {
   dialogsDataSelector,
   messagesDataSelector,
@@ -74,4 +78,5 @@ export {
   followRequestsSelector,
   myUserIdSelector,
   isRegisteredSelector,
+  registerErrorSelector,
 };

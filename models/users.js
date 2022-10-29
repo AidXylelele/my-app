@@ -11,7 +11,7 @@ const createNewUser = async (data) => {
     }' );
     `);
     return {
-      messages: 'Successfully',
+      messages: '',
       data: { ...data, resultCode: 0 },
     };
   } catch (error) {

@@ -42,19 +42,20 @@ export const setErrorAction = createAction('register/setError');
 export const getRegisteredThunkCreator = (data, container) => (dispatch) => {
   return deleteAndPostRequests(configForRequests.registerConfig, '', data)
     .then((response) => {
-      if (!response.data.resultCode) {
-        dispatch(getAuthThunkCreator(container));
-      }
-      return response;
+      // if (!response.data.resultCode) {
+      //   dispatch(getAuthThunkCreator(container));
+      // }
+      return response.data;
     })
-    .then((data) => {
-      if (!data.resultCode) {
+    .then((response) => {
+      if (!response.data.resultCode) {
         confetti.addConfetti({
           emojis: ['🌈', '⚡️', '💥', '✨', '💫', '🌸'],
           confettiRadius: 6,
         });
       }
-      dispatch(setErrorAction(data.messages.toString()));
+      console.log(response.messages);
+      dispatch(setErrorAction(response.messages));
     });
 };
 
