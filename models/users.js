@@ -5,12 +5,21 @@ const createNewUser = async (data) => {
   try {
     await pool.query(`
     INSERT INTO users(
-	id, email, name, surname, status) VALUES (
-	 '${uuidv4()}', '${data.email}', '${data.name}', '${data.surname}', '' );
+	id, email, name, surname, status, password) VALUES (
+	 '${uuidv4()}', '${data.email}', '${data.name}', '${data.surname}', '', '${
+      data.password
+    }' );
     `);
-    return 'User created!';
+    return {
+      messages: 'Successfully',
+      data: { ...data, resultCode: 0 },
+    };
   } catch (error) {
-    return 'Fail';
+    console.log(error);
+    return {
+      messages: 'User with the same E-mail was created!',
+      data: { resultCode: 1 },
+    };
   }
 };
 

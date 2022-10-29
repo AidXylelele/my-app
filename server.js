@@ -52,7 +52,6 @@ const types = {
 
 http
   .createServer(async (req, res) => {
-    console.log(req);
     const client = await Client.getInstance(req, res);
     const { method, url, headers } = req;
     console.log(`${method} ${url} ${headers.cookie}`);

@@ -4,6 +4,9 @@ import {
   deleteAndPostRequests,
   getRequests,
 } from '../api/requestsAPI';
+import { getAuthThunkCreator } from './authSlice';
+import JSConfetti from 'js-confetti';
+const confetti = new JSConfetti();
 
 const registerSlice = createSlice({
   name: 'register',
@@ -37,11 +40,22 @@ export const setRegisteredAction = createAction('register/setRegistered');
 export const setErrorAction = createAction('register/setError');
 
 export const getRegisteredThunkCreator = (data, container) => (dispatch) => {
-  return deleteAndPostRequests(configForRequests.registerConfig, '', data).then(
-    (response) => {
+  return deleteAndPostRequests(configForRequests.registerConfig, '', data)
+    .then((response) => {
+      if (!response.data.resultCode) {
+        dispatch(getAuthThunkCreator(container));
+      }
       return response;
-    }
-  );
+    })
+    .then((data) => {
+      if (!data.resultCode) {
+        confetti.addConfetti({
+          emojis: ['🌈', '⚡️', '💥', '✨', '💫', '🌸'],
+          confettiRadius: 6,
+        });
+      }
+      dispatch(setErrorAction(data.messages.toString()));
+    });
 };
 
 export default registerSlice.reducer;
