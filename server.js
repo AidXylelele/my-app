@@ -3,7 +3,7 @@ const {
   getRequestData,
   authUser,
 } = require('./controllers/registrationController.js');
-const { createNewUser } = require('./models/users.js');
+const { createNewUser, findUserByToken } = require('./models/users.js');
 const Client = require('./server/client.js');
 const Session = require('./server/session.js');
 
@@ -14,15 +14,19 @@ const routing = {
       return await getRequestData(client.req, authUser).then((data) => {
         if (data) {
           Session.start(client, data.id);
+          return {
+            messages: '',
+            data: { resultCode: 0 },
+          };
         }
       });
     }
   },
   '/auth/me': async (client) => {
     const { method } = client.req;
-    if (method == 'POST') {
-      if (client.session) {
-        return client.session;
+    if (method == 'GET') {
+      if (client.cookie) {
+        return await findUserByToken(client.cookie);
       }
       return 'res';
     }

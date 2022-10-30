@@ -12,7 +12,6 @@ const createNewUser = async (data) => {
     `);
     return data;
   } catch (error) {
-    console.log(error);
     return 'User with the same E-mail was created!';
   }
 };
@@ -23,9 +22,18 @@ const findUser = async (data) => {
      SELECT * FROM users WHERE email = '${data.email}'`);
     return result.rows[0];
   } catch (error) {
-    console.log(error);
     return 'User does`t exist!';
   }
 };
 
-module.exports = { createNewUser, findUser };
+const findUserByToken = async (cookie) => {
+  try {
+    const result = await pool.query(`
+     SELECT * FROM users WHERE token = '${cookie.token}'`);
+    return { messages: '', data: { ...result.rows[0], resultCode: 0 } };
+  } catch (error) {
+    return 'User does`t exist!';
+  }
+};
+
+module.exports = { createNewUser, findUser, findUserByToken };

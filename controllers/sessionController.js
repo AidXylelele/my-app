@@ -8,7 +8,6 @@ async function getRes() {
 
 async function setValue(token, data, callback) {
   try {
-    console.log('SETVALUE', data.id);
     await pool.query(`
    UPDATE users SET token = '${token}', data = '${data}' WHERE id = '${
       JSON.parse(data).id

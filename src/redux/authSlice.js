@@ -40,7 +40,7 @@ export const setErrorAction = createAction('auth/setError');
 
 export const getAuthThunkCreator = (container) => (dispatch) => {
   return getRequests(configForRequests.authConfig, []).then((response) => {
-    if (response.resultCode === 0) {
+    if (!response.resultCode) {
       dispatch(setAuthedAction(!container.current));
       dispatch(setUserDataAction(response.data));
     }
@@ -50,7 +50,7 @@ export const getAuthThunkCreator = (container) => (dispatch) => {
 export const getLoginThunkCreator = (data, container) => (dispatch) => {
   deleteAndPostRequests(configForRequests.loginConfig, '', data)
     .then((response) => {
-      if (!response.data.resultCode) {
+      if (!response.data.data.resultCode) {
         dispatch(getAuthThunkCreator(container));
       }
       return response.data;

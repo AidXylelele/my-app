@@ -20,12 +20,12 @@ import { useState } from 'react';
 const ProfileContainer = (props) => {
   const { userId } = useParams();
   const { onGetProfile, onGetUserStatus, myUserId } = props;
-  const [isMyPage, setIsMyPage] = useState(myUserId == userId);
+  const [isMyPage, setIsMyPage] = useState(myUserId === userId);
 
   useEffect(() => {
     onGetProfile(userId);
     onGetUserStatus(userId);
-    setIsMyPage(userId == myUserId);
+    setIsMyPage(userId === myUserId);
   }, [onGetProfile, onGetUserStatus, setIsMyPage, userId]);
   return (
     <Profile

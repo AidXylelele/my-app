@@ -1,10 +1,5 @@
 import { createAction, createSlice } from '@reduxjs/toolkit';
-import {
-  configForRequests,
-  deleteAndPostRequests,
-  getRequests,
-} from '../api/requestsAPI';
-import { getAuthThunkCreator } from './authSlice';
+import { configForRequests, deleteAndPostRequests } from '../api/requestsAPI';
 import JSConfetti from 'js-confetti';
 const confetti = new JSConfetti();
 

@@ -8,7 +8,6 @@ const RegisterForm = (props) => {
   const {
     register,
     handleSubmit,
-    reset,
     formState: { errors, isDirty },
   } = useForm({
     mode: 'onBlur',
