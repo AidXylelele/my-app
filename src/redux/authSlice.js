@@ -62,7 +62,7 @@ export const getLoginThunkCreator = (data, container) => (dispatch) => {
           confettiRadius: 6,
         });
       }
-      dispatch(setErrorAction(response.messages.toString()));
+      dispatch(setErrorAction(response.messages));
     });
 };
 

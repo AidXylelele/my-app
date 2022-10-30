@@ -1,19 +1,36 @@
 const http = require('node:http');
-const { setUserValue } = require('./controllers/registrationController.js');
-
+const {
+  getRequestData,
+  authUser,
+} = require('./controllers/registrationController.js');
+const { createNewUser } = require('./models/users.js');
 const Client = require('./server/client.js');
 const Session = require('./server/session.js');
 
 const routing = {
-  '/': async () => '<h1>welcome to homepage</h1><hr>',
   '/auth/login': async (client) => {
-    // Session.start(client);
-    return `login`;
+    const { method } = client.req;
+    if (method == 'POST') {
+      return await getRequestData(client.req, authUser).then((data) => {
+        if (data) {
+          Session.start(client, data.id);
+        }
+      });
+    }
+  },
+  '/auth/me': async (client) => {
+    const { method } = client.req;
+    if (method == 'POST') {
+      if (client.session) {
+        return client.session;
+      }
+      return 'res';
+    }
   },
   '/register': async (client) => {
     const { method } = client.req;
     if (method == 'POST') {
-      return await setUserValue(client.req);
+      return await getRequestData(client.req, createNewUser);
     }
   },
   '/destroy': async (client) => {

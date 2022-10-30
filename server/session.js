@@ -1,6 +1,5 @@
 const storage = require('./storage.js');
 
-
 const TOKEN_LENGTH = 32;
 const ALPHA_UPPER = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
 const ALPHA_LOWER = 'abcdefghijklmnopqrstuvwxyz';
@@ -19,17 +18,17 @@ const generateToken = () => {
 };
 
 class Session extends Map {
-  constructor(token) {
+  constructor(token, id) {
     super();
     this.token = token;
+    this.id = id;
   }
 
-  static start(client) {
-    
+  static start(client, id) {
     if (client.session) return client.session;
     const token = generateToken();
     client.token = token;
-    const session = new Session(token);
+    const session = new Session(token, id);
     client.session = session;
     client.setCookie('token', token);
     storage.set(token, session);

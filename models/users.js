@@ -10,17 +10,22 @@ const createNewUser = async (data) => {
       data.password
     }' );
     `);
-    return {
-      messages: '',
-      data: { ...data, resultCode: 0 },
-    };
+    return data;
   } catch (error) {
     console.log(error);
-    return {
-      messages: 'User with the same E-mail was created!',
-      data: { resultCode: 1 },
-    };
+    return 'User with the same E-mail was created!';
   }
 };
 
-module.exports = { createNewUser };
+const findUser = async (data) => {
+  try {
+    const result = await pool.query(`
+     SELECT * FROM users WHERE email = '${data.email}'`);
+    return result.rows[0];
+  } catch (error) {
+    console.log(error);
+    return 'User does`t exist!';
+  }
+};
+
+module.exports = { createNewUser, findUser };

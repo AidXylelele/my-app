@@ -1,5 +1,6 @@
 const pool = require('../db/pool');
-const { createNewUser } = require('../models/users');
+const { findUser } = require('../models/users');
+
 const { parseRequestBody } = require('../server/utils');
 
 async function getRes() {
@@ -8,7 +9,7 @@ async function getRes() {
   console.log(res);
 }
 
-function setUserValue(request) {
+function getRequestData(request, callback) {
   let body = [];
   return new Promise((resolve) =>
     request
@@ -21,10 +22,18 @@ function setUserValue(request) {
       .on('end', () => {
         body = Buffer.concat(body).toString();
         const dataObj = parseRequestBody(body);
-        resolve(createNewUser(dataObj));
+        resolve(callback(dataObj));
       })
   );
 }
 
+async function authUser(data) {
+  return await findUser(data).then((response) => {
+    if (data.password == response.password) {
+      return response;
+    }
+  });
+}
+
 getRes();
-module.exports = { setUserValue };
+module.exports = { getRequestData, authUser };
