@@ -8,4 +8,22 @@ const parseRequestBody = (body) => {
   return res;
 };
 
-module.exports = { parseRequestBody };
+function getRequestData(request, callback) {
+  let body = [];
+  return new Promise((resolve) =>
+    request
+      .on('error', (err) => {
+        console.error(err);
+      })
+      .on('data', (chunk) => {
+        body.push(chunk);
+      })
+      .on('end', () => {
+        body = Buffer.concat(body).toString();
+        const dataObj = parseRequestBody(body);
+        resolve(callback(dataObj));
+      })
+  );
+}
+
+module.exports = { getRequestData };
