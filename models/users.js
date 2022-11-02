@@ -30,7 +30,10 @@ const findUserByToken = async (cookie) => {
   try {
     const result = await pool.query(`
      SELECT * FROM users WHERE token = '${cookie.token}'`);
-    return { messages: '', data: { ...result.rows[0], resultCode: 0 } };
+    if (result.rows[0]) {
+      return { messages: '', data: { ...result.rows[0], resultCode: 0 } };
+    }
+    return { messages: '', data: { resultCode: 1 } };
   } catch (error) {
     return 'User does`t exist!';
   }

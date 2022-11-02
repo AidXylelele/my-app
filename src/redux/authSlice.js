@@ -40,7 +40,7 @@ export const setErrorAction = createAction('auth/setError');
 
 export const getAuthThunkCreator = (container) => (dispatch) => {
   return getRequests(configForRequests.authConfig, []).then((response) => {
-    if (!response.resultCode) {
+    if (!response.data.resultCode) {
       dispatch(setAuthedAction(!container.current));
       dispatch(setUserDataAction(response.data));
     }
