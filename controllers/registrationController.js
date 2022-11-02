@@ -3,12 +3,6 @@ const { findUser } = require('../models/users');
 
 const { parseRequestBody } = require('../server/utils');
 
-async function getRes() {
-  let res = await pool.query(`SELECT * FROM users;`);
-  res = res.rows;
-  console.log(res);
-}
-
 function getRequestData(request, callback) {
   let body = [];
   return new Promise((resolve) =>
@@ -35,5 +29,4 @@ async function authUser(data) {
   });
 }
 
-getRes();
 module.exports = { getRequestData, authUser };

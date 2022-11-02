@@ -1,39 +1,26 @@
-const pool = require('../db/pool');
+const {
+  setSessionToken,
+  getSessionToken,
+  deleteSessionToken,
+} = require('../models/sessions');
 
-async function getRes() {
-  let res = await pool.query(`SELECT * FROM users;`);
-  res = res.rows;
-  console.log(res);
+async function setSessionTokenController(session, callback) {
+  await setSessionToken(session);
+  return callback(session.token);
 }
 
-async function setValue(token, data, callback) {
-  try {
-    await pool.query(`
-   UPDATE users SET token = '${token}', data = '${data}' WHERE id = '${
-      JSON.parse(data).id
-    }';`);
-    return callback(token);
-  } catch (error) {
-    return 'Wrong!';
-  }
+async function getSessionTokenController(token, callback) {
+  const result = await getSessionToken(token);
+  return callback(result);
 }
 
-async function getValue(token, callback) {
-  const value = await pool.query(`
-   SELECT token, data
-    FROM users
-    WHERE token='${token}'`);
-  const [object] = value.rows;
-  if (object === undefined) return;
-  return callback(object.data);
+async function deleteSessionTokenController(token, callback) {
+  await deleteSessionToken(token);
+  return callback(token);
 }
 
-async function deleteValue(key, callback) {
-  await pool.query(`DELETE
-      FROM sessions
-      WHERE token='${key}'`);
-  return callback(key);
-}
-
-getRes();
-module.exports = { setValue, getRes, getValue, deleteValue };
+module.exports = {
+  setSessionTokenController,
+  getSessionTokenController,
+  deleteSessionTokenController,
+};
