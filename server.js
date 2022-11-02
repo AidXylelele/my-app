@@ -1,13 +1,24 @@
 const http = require('node:http');
 const Client = require('./server/client.js');
 const { routing, types } = require('./server/routings.js');
+const { match } = require('node-match-path');
 
 http
   .createServer(async (req, res) => {
     const client = await Client.getInstance(req, res);
     const { method, url, headers } = req;
     console.log(`${method} ${url} ${headers.cookie}`);
-    const handler = routing[url];
+    let handler;
+    let params = {};
+    for (const item in routing) {
+      const result = match(item, url);
+      if (result.matches) {
+        handler = routing[item];
+        params = result.params;
+        console.log('params', params);
+        break;
+      }
+    }
     res.on('finish', () => {
       if (client.session) client.session.save();
     });
@@ -16,7 +27,7 @@ http
       res.end('Not found 404');
       return;
     }
-    handler(client).then(
+    handler(client, params).then(
       (data) => {
         const type = typeof data;
         const serializer = types[type];

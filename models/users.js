@@ -26,6 +26,20 @@ const findUser = async (data) => {
   }
 };
 
+const findUserById = async (params) => {
+  try {
+    const result = await pool.query(`
+     SELECT * FROM users WHERE id = '${params.id}'`);
+    const { id, name, surname, email, status } = result.rows[0];
+    return {
+      messages: '',
+      data: { id, name, surname, email, status, photos: {}, resultCode: 0 },
+    };
+  } catch (error) {
+    return 'User does`t exist!';
+  }
+};
+
 const findUserByToken = async (cookie) => {
   try {
     const result = await pool.query(`
@@ -39,4 +53,4 @@ const findUserByToken = async (cookie) => {
   }
 };
 
-module.exports = { createNewUser, findUser, findUserByToken };
+module.exports = { createNewUser, findUser, findUserByToken, findUserById };

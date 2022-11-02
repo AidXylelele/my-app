@@ -21,7 +21,9 @@ const ProfileInfo = (props) => {
           }
         ></img>
         <div className={styles.descriptionBlock}>
-          <div className={styles.userName}>{props.profile.fullName}</div>
+          <div
+            className={styles.userName}
+          >{`${props.profile.name} ${props.profile.surname}`}</div>
           {!props.userStatus && !props.isMyPage ? null : (
             <span className={styles.containerOfStatus}>
               <p className={styles.beforeStatus}>Status:</p>

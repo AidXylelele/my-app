@@ -42,19 +42,19 @@ export const setUserStatusAction = createAction('profile/setUserStatus');
 
 export const getProfileThunkCreator = (userId) => (dispatch) => {
   getRequests(configForRequests.profileConfig, [userId]).then((response) => {
-    dispatch(setUserProfileAction(response));
+    dispatch(setUserProfileAction(response.data));
   });
 };
 
 export const getUserStatusThunkCreator = (userId) => (dispatch) => {
   getRequests(configForRequests.statusConfig, [userId]).then((response) => {
-    dispatch(setUserStatusAction(response));
+    dispatch(setUserStatusAction(response.data));
   });
 };
 
 export const updateUserStatusThunkCreator = (data) => (dispatch) => {
   putRequests(configForRequests.updateStatusConfig, data).then((response) => {
-    if (!response.data.resultCode) dispatch(setUserStatusAction(data));
+    if (!response.data.data.resultCode) dispatch(setUserStatusAction(data));
   });
 };
 

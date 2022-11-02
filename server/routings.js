@@ -1,4 +1,8 @@
-const { createNewUser, findUserByToken } = require('../models/users.js');
+const {
+  createNewUser,
+  findUserByToken,
+  findUserById,
+} = require('../models/users.js');
 const {
   authUserController,
 } = require('../controllers/registrationController.js');
@@ -6,7 +10,7 @@ const Session = require('./session.js');
 const { getRequestData } = require('./utils.js');
 
 const routing = {
-  '/auth/login': async (client) => {
+  '/auth/login': async (client, params) => {
     const { method } = client.req;
     if (method == 'POST') {
       return await getRequestData(client.req, authUserController).then(
@@ -28,7 +32,7 @@ const routing = {
       };
     }
   },
-  '/auth/me': async (client) => {
+  '/auth/me': async (client, params) => {
     const { method } = client.req;
     if (method == 'GET') {
       if (client.cookie) {
@@ -37,16 +41,17 @@ const routing = {
       return 'res';
     }
   },
-  '/register': async (client) => {
+  '/register': async (client, params) => {
     const { method } = client.req;
     if (method == 'POST') {
       return await getRequestData(client.req, createNewUser);
     }
   },
-  '/destroy': async (client) => {
-    const result = `Session destroyed: ${client.token}`;
-    Session.delete(client);
-    return result;
+  '/profile/:id': async (client, params) => {
+    const { method } = client.req;
+    if (method == 'GET') {
+      return await findUserById(params);
+    }
   },
   '/api/method1': async (client) => {
     if (client.session) {
