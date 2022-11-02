@@ -10,7 +10,7 @@ const createNewUser = async (data) => {
       data.password
     }' );
     `);
-    return data;
+    return { ...data, resultCode: 0 };
   } catch (error) {
     return 'User with the same E-mail was created!';
   }

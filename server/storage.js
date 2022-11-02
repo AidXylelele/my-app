@@ -24,7 +24,7 @@ class Storage extends Map {
     if (value) {
       console.log(key);
       const data = JSON.stringify(value);
-      setSessionTokenController(key, data, (key) => {
+      setSessionTokenController(data, (key) => {
         console.log(`Session saved: ${key}`);
       });
     }

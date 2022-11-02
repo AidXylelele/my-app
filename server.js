@@ -20,6 +20,12 @@ const routing = {
           };
         }
       });
+    } else if (method == 'DELETE') {
+      Session.delete(client);
+      return {
+        messages: '',
+        data: { resultCode: 0 },
+      };
     }
   },
   '/auth/me': async (client) => {
@@ -94,7 +100,7 @@ http
         res.setHeader('Access-Control-Allow-Credentials', 'true');
         res.setHeader(
           'Access-Control-Allow-Methods',
-          'GET,HEAD,OPTIONS,POST,PUT'
+          'GET,HEAD,OPTIONS,POST,PUT, DELETE'
         );
         res.setHeader(
           'Access-Control-Allow-Headers',

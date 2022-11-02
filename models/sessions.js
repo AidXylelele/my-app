@@ -24,6 +24,7 @@ async function getSessionToken(token) {
     FROM users
     WHERE token='${token}'`);
     const [object] = value.rows;
+    console.log('hello', object.data);
     if (object) return object.data;
   } catch (error) {
     return 'Oops! Something went wrong!';
@@ -33,7 +34,7 @@ async function getSessionToken(token) {
 async function deleteSessionToken(token) {
   try {
     await pool.query(
-      `UPDATE users SET token = '', data = '' WHERE token = '${token}';`
+      `UPDATE users SET token = '', data = '{}' WHERE token = '${token}';`
     );
     return 'Session was destroyed!';
   } catch (error) {

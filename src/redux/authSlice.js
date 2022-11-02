@@ -68,7 +68,8 @@ export const getLoginThunkCreator = (data, container) => (dispatch) => {
 
 export const getLogOutThunkCreator = (container) => (dispatch) => {
   deleteAndPostRequests(configForRequests.logOutConfig, '').then((response) => {
-    if (response.data.resultCode === 0) {
+    console.log('response', response);
+    if (response.data.data.resultCode === 0) {
       dispatch(setAuthedAction(!container.current));
       dispatch(setUserDataAction({}));
     }
