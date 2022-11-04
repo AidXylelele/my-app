@@ -1,9 +1,12 @@
-const { createNewUser, findUser } = require('../models/users.js');
+const Session = require('./session.js');
+const { getRequestData } = require('./utils.js');
 const {
   authUserController,
 } = require('../controllers/registrationController.js');
-const Session = require('./session.js');
-const { getRequestData } = require('./utils.js');
+const {
+  findUserController,
+  createNewUserController,
+} = require('../controllers/userController.js');
 
 const routing = {
   '/auth/login': async (client, params) => {
@@ -32,7 +35,7 @@ const routing = {
     const { method } = client.req;
     if (method == 'GET') {
       if (client.cookie) {
-        return await findUser(client.cookie);
+        return await findUserController(client.cookie);
       }
       return 'res';
     }
@@ -40,13 +43,13 @@ const routing = {
   '/register': async (client, params) => {
     const { method } = client.req;
     if (method == 'POST') {
-      return await getRequestData(client.req, createNewUser);
+      return await getRequestData(client.req, createNewUserController);
     }
   },
   '/profile/:id': async (client, params) => {
     const { method } = client.req;
     if (method == 'GET') {
-      return await findUser(params);
+      return await findUserController(params);
     }
   },
   '/api/method1': async (client) => {

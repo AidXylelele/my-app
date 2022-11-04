@@ -1,14 +1,11 @@
 const pool = require('../db/pool');
-const { v4: uuidv4 } = require('uuid');
 
-const createNewUser = async (data) => {
+const createNewUser = async (data, id) => {
   try {
     await pool.query(`
     INSERT INTO users(
 	id, email, name, surname, status, password) VALUES (
-	 '${uuidv4()}', '${data.email}', '${data.name}', '${data.surname}', '', '${
-      data.password
-    }' );
+	 '${id}', '${data.email}', '${data.name}', '${data.surname}', '', '${data.password}' );
     `);
     return { ...data, resultCode: 0 };
   } catch (error) {
