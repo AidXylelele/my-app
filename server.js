@@ -15,7 +15,6 @@ http
       if (result.matches) {
         handler = routing[item];
         params = result.params;
-        console.log('params', params);
         break;
       }
     }

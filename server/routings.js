@@ -1,8 +1,4 @@
-const {
-  createNewUser,
-  findUserByToken,
-  findUserById,
-} = require('../models/users.js');
+const { createNewUser, findUser } = require('../models/users.js');
 const {
   authUserController,
 } = require('../controllers/registrationController.js');
@@ -19,7 +15,7 @@ const routing = {
             Session.start(client, data.id);
             return {
               messages: '',
-              data: { resultCode: 0 },
+              resultCode: 0,
             };
           }
         }
@@ -28,7 +24,7 @@ const routing = {
       Session.delete(client);
       return {
         messages: '',
-        data: { resultCode: 0 },
+        resultCode: 0,
       };
     }
   },
@@ -36,7 +32,7 @@ const routing = {
     const { method } = client.req;
     if (method == 'GET') {
       if (client.cookie) {
-        return await findUserByToken(client.cookie);
+        return await findUser(client.cookie);
       }
       return 'res';
     }
@@ -50,7 +46,7 @@ const routing = {
   '/profile/:id': async (client, params) => {
     const { method } = client.req;
     if (method == 'GET') {
-      return await findUserById(params);
+      return await findUser(params);
     }
   },
   '/api/method1': async (client) => {

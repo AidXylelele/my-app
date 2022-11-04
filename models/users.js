@@ -16,41 +16,18 @@ const createNewUser = async (data) => {
   }
 };
 
-const findUser = async (data) => {
+const findUser = async (dataObject) => {
   try {
+    const key = Object.keys(dataObject).filter(
+      (item) => item == 'email' || item == 'token' || item == 'id'
+    );
     const result = await pool.query(`
-     SELECT * FROM users WHERE email = '${data.email}'`);
-    return result.rows[0];
+     SELECT * FROM users WHERE ${key[0]} = '${dataObject[key[0]]}'`);
+    return { ...result.rows[0], photos: {}, resultCode: 0 };
   } catch (error) {
-    return 'User does`t exist!';
+    console.log(error);
+    return { data: 'User does`t exist!', resultCode: 1 };
   }
 };
 
-const findUserById = async (params) => {
-  try {
-    const result = await pool.query(`
-     SELECT * FROM users WHERE id = '${params.id}'`);
-    const { id, name, surname, email, status } = result.rows[0];
-    return {
-      messages: '',
-      data: { id, name, surname, email, status, photos: {}, resultCode: 0 },
-    };
-  } catch (error) {
-    return 'User does`t exist!';
-  }
-};
-
-const findUserByToken = async (cookie) => {
-  try {
-    const result = await pool.query(`
-     SELECT * FROM users WHERE token = '${cookie.token}'`);
-    if (result.rows[0]) {
-      return { messages: '', data: { ...result.rows[0], resultCode: 0 } };
-    }
-    return { messages: '', data: { resultCode: 1 } };
-  } catch (error) {
-    return 'User does`t exist!';
-  }
-};
-
-module.exports = { createNewUser, findUser, findUserByToken, findUserById };
+module.exports = { createNewUser, findUser };
