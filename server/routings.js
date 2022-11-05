@@ -1,5 +1,5 @@
 const Session = require('./session.js');
-const { getRequestData } = require('./utils.js');
+const RequestService = require('./service/request-service.js');
 const {
   authUserController,
 } = require('../controllers/registrationController.js');
@@ -9,20 +9,21 @@ const {
 } = require('../controllers/userController.js');
 
 const routing = {
-  '/auth/login': async (client, params) => {
+  '/auth/login': async (client) => {
     const { method } = client.req;
     if (method == 'POST') {
-      return await getRequestData(client.req, authUserController).then(
-        (data) => {
-          if (data) {
-            Session.start(client, data.id);
-            return {
-              messages: '',
-              resultCode: 0,
-            };
-          }
+      return await RequestService.getRequestBodyData(
+        client.req,
+        authUserController
+      ).then((data) => {
+        if (data) {
+          Session.start(client, data.id);
+          return {
+            messages: '',
+            resultCode: 0,
+          };
         }
-      );
+      });
     } else if (method == 'DELETE') {
       Session.delete(client);
       return {
@@ -31,7 +32,7 @@ const routing = {
       };
     }
   },
-  '/auth/me': async (client, params) => {
+  '/auth/me': async (client) => {
     const { method } = client.req;
     if (method == 'GET') {
       if (client.cookie) {
@@ -40,10 +41,22 @@ const routing = {
       return 'res';
     }
   },
-  '/register': async (client, params) => {
+  '/register': async (client) => {
     const { method } = client.req;
     if (method == 'POST') {
-      return await getRequestData(client.req, createNewUserController);
+      return await RequestService.getRequestBodyData(
+        client.req,
+        createNewUserController
+      ).then((data) => {
+        console.log(data);
+        if (data) {
+          Session.start(client, data.id);
+          return {
+            messages: '',
+            resultCode: 0,
+          };
+        }
+      });
     }
   },
   '/profile/:id': async (client, params) => {

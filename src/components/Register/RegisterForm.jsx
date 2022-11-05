@@ -15,7 +15,6 @@ const RegisterForm = (props) => {
 
   const onSubmit = async (data) => {
     await onRegister(data, { current: isRegistered });
-    // reset({ password: '' });
   };
 
   return (

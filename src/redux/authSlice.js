@@ -42,7 +42,7 @@ export const getAuthThunkCreator = (container) => (dispatch) => {
   return getRequests(configForRequests.authConfig, []).then((response) => {
     if (!response.resultCode) {
       dispatch(setAuthedAction(!container.current));
-      dispatch(setUserDataAction(response.data));
+      dispatch(setUserDataAction(response));
     }
   });
 };
@@ -50,13 +50,13 @@ export const getAuthThunkCreator = (container) => (dispatch) => {
 export const getLoginThunkCreator = (data, container) => (dispatch) => {
   deleteAndPostRequests(configForRequests.loginConfig, '', data)
     .then((response) => {
-      if (!response.data.resultCode) {
+      if (response.data.resultCode === 0) {
         dispatch(getAuthThunkCreator(container));
       }
       return response.data;
     })
     .then((response) => {
-      if (!response.resultCode) {
+      if (response.resultCode === 0) {
         confetti.addConfetti({
           emojis: ['🌈', '⚡️', '💥', '✨', '💫', '🌸'],
           confettiRadius: 6,
