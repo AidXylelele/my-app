@@ -31,8 +31,8 @@ const findUser = async (dataObject) => {
       if (result.rows[0] !== []) {
         return { ...result.rows[0], photos: {}, resultCode: 0 };
       }
-      return { messages: 'User does`t exist!', resultCode: 1 };
     }
+    return { messages: 'User does`t exist!', resultCode: 1 };
   } catch (error) {
     console.log(error);
     return { messages: 'Something went wrong!', resultCode: 1 };
