@@ -8,6 +8,7 @@ async function authUserController(data) {
     if (checkedPassword) {
       return response;
     }
+    return { messages: 'Invalid password or e-mail!', resultCode: 1 };
   });
 }
 

@@ -13,20 +13,18 @@ const {
 
 const routing = {
   '/auth/login': async (client) => {
-    const { method } = client.req;
-    if (method == 'POST') {
+    if (client.req.method == 'POST') {
       return await RequestService.getRequestBodyData(client.req)
         .then(authUserController)
         .then((data) => {
           return SessionService.start(client, data, Session.start);
         });
-    } else if (method == 'DELETE') {
+    } else if (client.req.method == 'DELETE') {
       SessionService.delete(client, Session.delete);
     }
   },
   '/auth/me': async (client) => {
-    const { method } = client.req;
-    if (method == 'GET') {
+    if (client.req.method == 'GET') {
       if (client.cookie) {
         return await findUserController(client.cookie);
       }
@@ -34,8 +32,7 @@ const routing = {
     }
   },
   '/register': async (client) => {
-    const { method } = client.req;
-    if (method == 'POST') {
+    if (client.req.method == 'POST') {
       return await RequestService.getRequestBodyData(client.req)
         .then(createNewUserController)
         .then((data) => {
@@ -44,16 +41,14 @@ const routing = {
     }
   },
   '/profile/:id': async (client, params) => {
-    const { method } = client.req;
-    if (method == 'GET') {
+    if (client.req.method == 'GET') {
       return await findUserController(params);
     }
   },
   '/profile/status/:id': async (client, params) => {
-    const { method } = client.req;
-    if (method == 'GET') {
+    if (client.req.method == 'GET') {
       return await getUserStatusController(params);
-    } else if (method == 'PUT') {
+    } else if (client.req.method == 'PUT') {
       return await RequestService.getRequestBodyData(client.req).then((data) =>
         updateUserStatusController(data, params)
       );
