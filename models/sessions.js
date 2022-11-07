@@ -24,7 +24,6 @@ async function getSessionToken(token) {
     FROM users
     WHERE token='${token}'`);
     const [object] = value.rows;
-    console.log('hello', object.data);
     if (object) return object.data;
   } catch (error) {
     return 'Oops! Something went wrong!';

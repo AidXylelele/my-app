@@ -6,7 +6,7 @@ const {
 
 async function setSessionTokenController(session, callback) {
   await setSessionToken(session);
-  return callback(session.token);
+  return callback(JSON.parse(session).token);
 }
 
 async function getSessionTokenController(token, callback) {

@@ -1,4 +1,8 @@
-const { createNewUser, findUser } = require('../models/users');
+const {
+  createNewUser,
+  findUser,
+  updateUserStatus,
+} = require('../models/users');
 const { v4: uuidv4 } = require('uuid');
 
 async function createNewUserController(data) {
@@ -10,4 +14,18 @@ async function findUserController(data) {
   return await findUser(data);
 }
 
-module.exports = { createNewUserController, findUserController };
+async function getUserStatusController(data) {
+  const { status } = await findUser(data);
+  return status;
+}
+
+async function updateUserStatusController(data, params) {
+  return await updateUserStatus(data, params);
+}
+
+module.exports = {
+  createNewUserController,
+  findUserController,
+  getUserStatusController,
+  updateUserStatusController,
+};

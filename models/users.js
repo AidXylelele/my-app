@@ -12,6 +12,7 @@ const createNewUser = async (data, id) => {
     `);
     return { id, email, name, surname, resultCode: 0 };
   } catch (error) {
+    console.log(error);
     return {
       messages: 'User with the same E-mail was created!',
       resultCode: 1,
@@ -27,12 +28,29 @@ const findUser = async (dataObject) => {
     if (key) {
       const result = await pool.query(`
      SELECT * FROM users WHERE ${key} = '${dataObject[key]}'`);
-      return { ...result.rows[0], photos: {}, resultCode: 0 };
+      if (result.rows[0] !== []) {
+        return { ...result.rows[0], photos: {}, resultCode: 0 };
+      }
+      return { messages: 'User does`t exist!', resultCode: 1 };
     }
-    return { messages: 'User does`t exist!', resultCode: 1 };
   } catch (error) {
     console.log(error);
+    return { messages: 'Something went wrong!', resultCode: 1 };
   }
 };
 
-module.exports = { createNewUser, findUser };
+const updateUserStatus = async (dataObject, params) => {
+  try {
+    const { id } = params;
+    const { status } = dataObject;
+    await pool.query(
+      ` UPDATE users SET status = '${status}' WHERE id = '${id}';`
+    );
+    return { status, resultCode: 0 };
+  } catch (error) {
+    console.log(error);
+    return { messages: 'Something went wrong!', resultCode: 1 };
+  }
+};
+
+module.exports = { createNewUser, findUser, updateUserStatus };

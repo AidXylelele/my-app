@@ -9,7 +9,7 @@ class RequestService {
     }
     return res;
   }
-  static getRequestBodyData(request, callback) {
+  static getRequestBodyData(request) {
     let body = [];
     return new Promise((resolve) =>
       request
@@ -22,7 +22,7 @@ class RequestService {
         .on('end', () => {
           body = Buffer.concat(body).toString();
           const dataObj = RequestService.parseRequestBody(body);
-          resolve(callback(dataObj));
+          resolve(dataObj);
         })
     );
   }

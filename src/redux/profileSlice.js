@@ -52,10 +52,12 @@ export const getUserStatusThunkCreator = (userId) => (dispatch) => {
   });
 };
 
-export const updateUserStatusThunkCreator = (data) => (dispatch) => {
-  putRequests(configForRequests.updateStatusConfig, data).then((response) => {
-    if (!response.resultCode) dispatch(setUserStatusAction(data));
-  });
+export const updateUserStatusThunkCreator = (data, userId) => (dispatch) => {
+  putRequests(configForRequests.updateStatusConfig, userId, data).then(
+    (response) => {
+      if (!response.resultCode) dispatch(setUserStatusAction(data));
+    }
+  );
 };
 
 export default profileSlice.reducer;

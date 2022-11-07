@@ -6,7 +6,7 @@ import styles from './Status.module.css';
 const Status = (props) => {
   const [isActive, setIsActive] = useState(false);
   const [localUserStatus, setLocalUserStatus] = useState(props.userStatus);
-  const { userStatus, isMyPage } = props;
+  const { userStatus, isMyPage, myUserId } = props;
 
   useEffect(() => {
     setLocalUserStatus(userStatus);
@@ -31,7 +31,7 @@ const Status = (props) => {
             autoFocus={true}
             onBlur={() => {
               toggleInput();
-              props.onUpdateUserStatus(localUserStatus);
+              props.onUpdateUserStatus(localUserStatus, myUserId);
             }}
             onChange={onChangeInput}
             type="text"

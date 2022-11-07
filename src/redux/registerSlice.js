@@ -1,8 +1,6 @@
 import { createAction, createSlice } from '@reduxjs/toolkit';
 import { configForRequests, deleteAndPostRequests } from '../api/requestsAPI';
 import { getLoginThunkCreator } from './authSlice';
-import JSConfetti from 'js-confetti';
-const confetti = new JSConfetti();
 
 const registerSlice = createSlice({
   name: 'register',
@@ -28,13 +26,6 @@ export const getRegisteredThunkCreator = (data, container) => (dispatch) => {
       return response.data;
     })
     .then((response) => {
-      if (!response.resultCode) {
-        confetti.addConfetti({
-          emojis: ['🌈', '⚡️', '💥', '✨', '💫', '🌸'],
-          confettiRadius: 6,
-        });
-      }
-      console.log(response.messages);
       dispatch(setErrorAction(response.messages));
     });
 };

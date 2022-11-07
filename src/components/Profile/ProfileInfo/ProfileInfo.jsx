@@ -28,6 +28,7 @@ const ProfileInfo = (props) => {
             <span className={styles.containerOfStatus}>
               <p className={styles.beforeStatus}>Status:</p>
               <Status
+                myUserId={props.profile.id}
                 userStatus={props.userStatus}
                 onUpdateUserStatus={props.onUpdateUserStatus}
                 isMyPage={props.isMyPage}

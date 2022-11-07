@@ -23,7 +23,7 @@ const configForRequests = {
   },
   updateStatusConfig: {
     name: 'put',
-    http: 'profile/status',
+    http: 'profile/status/',
   },
   followConfig: {
     name: 'post',
@@ -78,8 +78,8 @@ const deleteAndPostRequests = (config, id, data = {}) => {
   return axiosRequest[config.name](config.http + id, data);
 };
 
-const putRequests = (config, data) => {
-  return axiosRequest[config.name](config.http, { status: data }).then(
+const putRequests = (config, id, data) => {
+  return axiosRequest[config.name](config.http + id, { status: data }).then(
     (response) => {
       return response.data;
     }

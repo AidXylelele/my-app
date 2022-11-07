@@ -56,8 +56,8 @@ const mapDispatchToProps = (dispatch) => {
     onGetUserStatus: (userId) => {
       dispatch(getUserStatusThunkCreator(userId));
     },
-    onUpdateUserStatus: (data) => {
-      dispatch(updateUserStatusThunkCreator(data));
+    onUpdateUserStatus: (data, userId) => {
+      dispatch(updateUserStatusThunkCreator(data, userId));
     },
   };
 };
