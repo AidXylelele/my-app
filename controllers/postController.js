@@ -2,17 +2,22 @@ const { getPosts, createPost } = require('../models/posts');
 
 async function getPostsControler(params) {
   try {
-    return await getPosts(params.id);
+    const posts = await getPosts(params.id);
+    return { posts, resultCode: 0 };
   } catch (error) {
-    console.log(error);
+    return {
+      messages: 'User with the same E-mail was created!',
+      resultCode: 1,
+    };
   }
 }
 
 async function createPostController(message, { id }) {
   try {
-    return await createPost(message, id);
+    const post = await createPost(message, id);
+    return { post, resultCode: 0 };
   } catch (error) {
-    console.log(error);
+    return { messages: 'Something went wrong!', resultCode: 1 };
   }
 }
 

@@ -36,7 +36,7 @@ const profileSlice = createSlice({
 export const getProfileThunk = (userId) => (dispatch) => {
   getRequests(configForRequests.profileConfig, [userId])
     .then((response) => {
-      dispatch(setUserProfile(response));
+      if (!response.resultCode) dispatch(setUserProfile(response));
     })
     .then(() => dispatch(getUserPostsThunk(userId)));
 };
@@ -57,7 +57,7 @@ export const updateUserStatusThunk = (data, userId) => (dispatch) => {
 
 export const getUserPostsThunk = (userId) => (dispatch) => {
   getRequests(configForRequests.getPostsConfig, [userId]).then((response) => {
-    dispatch(setUserPosts(response));
+    if (!response.resultCode) dispatch(setUserPosts(response.posts));
   });
 };
 
