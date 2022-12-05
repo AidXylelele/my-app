@@ -10,6 +10,10 @@ const {
   updateUserStatusController,
   getUserStatusController,
 } = require('../controllers/userController.js');
+const {
+  getPostsControler,
+  createPostController,
+} = require('../controllers/postController.js');
 
 const routing = {
   '/auth/login': async (client) => {
@@ -54,12 +58,13 @@ const routing = {
       );
     }
   },
-  '/api/method1': async (client) => {
-    if (client.session) {
-      client.session.set('method1', 'called');
-      return { data: 'example result' };
-    } else {
-      return { data: 'access is denied' };
+  '/profile/posts/:id': async (client, params) => {
+    if (client.req.method == 'GET') {
+      return await getPostsControler(params);
+    } else if (client.req.method == 'POST') {
+      return await RequestService.getRequestBodyData(client.req).then((data) =>
+        createPostController(data.post, params)
+      );
     }
   },
   '/api/method2': async (client) => ({

@@ -1,9 +1,15 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import styles from './MyPosts.module.css';
 import Post from './Post/Post';
 import PostForm from './Post/PostForm/PostForm';
 
 const MyPosts = (props) => {
+  const { profileOfUser, onSetPosts, onCreatePost } = props;
+  useEffect(() => {
+    if (profileOfUser) {
+      onSetPosts(profileOfUser.id);
+    }
+  }, [onSetPosts, profileOfUser]);
   if (!props.profileOfUser) {
     return null;
   }
@@ -18,7 +24,7 @@ const MyPosts = (props) => {
         <div>
           <h1>New Post</h1>
           <div className={styles.postText}>
-            <PostForm onAddNewPost={props.addNewPost} />
+            <PostForm {...{ onCreatePost, userId: profileOfUser.id }} />
           </div>
         </div>
         <div className={styles.userPosts}>

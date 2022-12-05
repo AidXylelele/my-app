@@ -1,5 +1,8 @@
 import { connect } from 'react-redux';
-import { addPostAction } from '../../../redux/profileSlice';
+import {
+  createUserPostThunk,
+  getUserPostsThunk,
+} from '../../../redux/profileSlice';
 import {
   postDataSelector,
   profileOfUserSelector,
@@ -15,8 +18,11 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    addNewPost: (text) => {
-      dispatch(addPostAction(text));
+    onSetPosts: (userId) => {
+      dispatch(getUserPostsThunk(userId));
+    },
+    onCreatePost: (userId, data) => {
+      dispatch(createUserPostThunk(userId, data));
     },
   };
 };

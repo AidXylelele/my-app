@@ -11,7 +11,7 @@ const Profile = (props) => {
         onUpdateUserStatus={props.onUpdateUserStatus}
         isMyPage={props.isMyPage}
       />
-      <MyPostsContainer />
+      <MyPostsContainer isMyPage={props.isMyPage} />
     </div>
   );
 };

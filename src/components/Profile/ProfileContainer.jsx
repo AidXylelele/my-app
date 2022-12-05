@@ -1,11 +1,5 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
-import {
-  getProfileThunkCreator,
-  getUserStatusThunkCreator,
-  setUserProfileAction,
-  updateUserStatusThunkCreator,
-} from '../../redux/profileSlice';
 import Profile from './Profile';
 import { useParams } from 'react-router-dom';
 import { compose } from 'redux';
@@ -16,6 +10,12 @@ import {
   userStatusSelector,
 } from '../../redux/selectors';
 import { useState } from 'react';
+import {
+  getProfileThunk,
+  getUserStatusThunk,
+  setUserProfile,
+  updateUserStatusThunk,
+} from '../../redux/profileSlice';
 
 const ProfileContainer = (props) => {
   const { userId } = useParams();
@@ -48,16 +48,16 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     onSetUserProfile: (item) => {
-      dispatch(setUserProfileAction(item));
+      dispatch(setUserProfile(item));
     },
     onGetProfile: (userId) => {
-      dispatch(getProfileThunkCreator(userId));
+      dispatch(getProfileThunk(userId));
     },
     onGetUserStatus: (userId) => {
-      dispatch(getUserStatusThunkCreator(userId));
+      dispatch(getUserStatusThunk(userId));
     },
     onUpdateUserStatus: (data, userId) => {
-      dispatch(updateUserStatusThunkCreator(data, userId));
+      dispatch(updateUserStatusThunk(data, userId));
     },
   };
 };

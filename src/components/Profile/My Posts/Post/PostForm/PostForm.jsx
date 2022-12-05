@@ -13,7 +13,7 @@ const PostForm = (props) => {
   });
 
   const onSubmit = (data) => {
-    props.onAddNewPost(data.post);
+    props.onCreatePost(data, props.userId);
     reset();
   };
 

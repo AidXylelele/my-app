@@ -45,6 +45,15 @@ const configForRequests = {
     name: 'delete',
     http: 'follow/',
   },
+  getPostsConfig: {
+    name: 'get',
+    http: 'profile/posts/',
+    elements: [''],
+  },
+  createPostConfig: {
+    name: 'post',
+    http: 'profile/posts/',
+  },
 };
 
 const creatingFullHttp = (config, data) => {
