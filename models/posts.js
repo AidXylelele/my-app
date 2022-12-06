@@ -7,7 +7,7 @@ const getPosts = async (user_id) => {
      SELECT * FROM posts WHERE user_id = '${user_id}'`);
     return result.rows;
   } catch (error) {
-    return error;
+    return null;
   }
 };
 
@@ -21,7 +21,7 @@ const createPost = async (message, user_id) => {
     `);
     return { post_id, message };
   } catch (error) {
-    return error;
+    return null;
   }
 };
 

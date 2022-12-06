@@ -42,7 +42,7 @@ export const getAuthThunkCreator = (container) => (dispatch) => {
   return getRequests(configForRequests.authConfig, []).then((response) => {
     if (!response.resultCode) {
       dispatch(setAuthedAction(!container.current));
-      dispatch(setUserDataAction(response));
+      dispatch(setUserDataAction(response.user));
     }
   });
 };
@@ -50,7 +50,7 @@ export const getAuthThunkCreator = (container) => (dispatch) => {
 export const getLoginThunkCreator = (data, container) => (dispatch) => {
   deleteAndPostRequests(configForRequests.loginConfig, '', data)
     .then((response) => {
-      if (response.data.resultCode === 0) {
+      if (!response.data.resultCode) {
         dispatch(getAuthThunkCreator(container));
       }
       return response.data;

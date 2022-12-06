@@ -20,9 +20,7 @@ const routing = {
     if (client.req.method == 'POST') {
       return await RequestService.getRequestBodyData(client.req)
         .then(authUserController)
-        .then((data) => {
-          return SessionService.start(client, data, Session.start);
-        });
+        .then((data) => SessionService.start(client, data, Session.start));
     } else if (client.req.method == 'DELETE') {
       SessionService.delete(client, Session.delete);
     }
@@ -39,9 +37,7 @@ const routing = {
     if (client.req.method == 'POST') {
       return await RequestService.getRequestBodyData(client.req)
         .then(createNewUserController)
-        .then((data) => {
-          return SessionService.start(client, data, Session.start);
-        });
+        .then((data) => SessionService.start(client, data, Session.start));
     }
   },
   '/profile/:id': async (client, params) => {

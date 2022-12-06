@@ -1,24 +1,30 @@
 const { getPosts, createPost } = require('../models/posts');
 
 async function getPostsControler(params) {
-  try {
-    const posts = await getPosts(params.id);
-    return { posts, resultCode: 0 };
-  } catch (error) {
+  return await getPosts(params.id).then((posts) => {
+    if (posts) {
+      return {
+        posts,
+        resultCode: 0,
+      };
+    }
     return {
       messages: 'User with the same E-mail was created!',
       resultCode: 1,
     };
-  }
+  });
 }
 
 async function createPostController(message, { id }) {
-  try {
-    const post = await createPost(message, id);
-    return { post, resultCode: 0 };
-  } catch (error) {
+  return await createPost(message, id).then((post) => {
+    if (post) {
+      return {
+        post,
+        resultCode: 0,
+      };
+    }
     return { messages: 'Something went wrong!', resultCode: 1 };
-  }
+  });
 }
 
 // // @desc    Create a Product

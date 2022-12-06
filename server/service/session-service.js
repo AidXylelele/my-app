@@ -2,11 +2,11 @@ class SessionService {
   constructor() {}
   static start(...args) {
     const [client, response, callback] = args;
-    const { id, messages, resultCode } = response;
-    if (id) {
-      callback(client, id);
+    const { user, resultCode } = response;
+    if (user) {
+      callback(client, user.id);
     }
-    return { messages, resultCode };
+    return { messages: response.messages || '', resultCode };
   }
   static delete(...args) {
     const [client, callback] = args;
