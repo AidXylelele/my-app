@@ -1,4 +1,4 @@
-const { getPosts, createPost } = require('../models/posts');
+const { getPosts, createPost, updatePost } = require('../models/posts');
 
 async function getPostsControler(params) {
   return await getPosts(params.id).then((posts) => {
@@ -26,6 +26,22 @@ async function createPostController(message, { id }) {
     return { messages: 'Something went wrong!', resultCode: 1 };
   });
 }
+
+
+async function updatePostController(message, { id }) {
+   return await updatePost(message, id).then((result) => {
+    if (result) {
+      return {
+        messages: 'Success!',
+        resultCode: 0,
+      };
+    }
+    return { messages: 'Something went wrong!', resultCode: 1 };
+  });
+}
+
+
+
 
 // // @desc    Create a Product
 // // @route   POST /api/products
@@ -102,4 +118,5 @@ async function createPostController(message, { id }) {
 module.exports = {
   getPostsControler,
   createPostController,
+  updatePostController,
 };

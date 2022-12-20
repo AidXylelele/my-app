@@ -54,6 +54,10 @@ const configForRequests = {
     name: 'post',
     http: 'profile/posts/',
   },
+  updatePostConfig: {
+    name: 'put',
+    http: 'profile/posts/',
+  },
 };
 
 const creatingFullHttp = (config, data) => {
@@ -68,7 +72,7 @@ const creatingFullHttp = (config, data) => {
 };
 
 const axiosRequest = axios.create({
-  baseURL: 'http://localhost:8000/',
+  baseURL: 'http://localhost:3002/',
   withCredentials: true,
   headers: {
     'Access-Control-Allow-Origin': 'http://localhost:3000/',

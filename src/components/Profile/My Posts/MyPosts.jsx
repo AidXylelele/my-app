@@ -13,10 +13,10 @@ const MyPosts = (props) => {
   if (!props.profileOfUser) {
     return null;
   }
-
-  const postsElements = props.postsData.map((post, idx) => (
-    <Post message={post.message} like={post.likesCount} key={idx} />
-  ));
+  const postsElements = props.postsData.map((post, idx) => {
+    
+   return <Post post_id={post.post_id} message={post.message} isMyPage={props.isMyPage} like={post.likesCount} key={idx} />
+});
 
   return (
     <div className={styles.posts}>

@@ -68,11 +68,19 @@ export const createUserPostThunk = (data, userId) => (dispatch) => {
     data
   ).then((response) => {
     if (!response.resultCode) {
-      console.log(response);
       dispatch(addPost(response.data.post));
     }
   });
 };
+
+export const updateUserPostThunk = (data, post_id) => (dispatch) => {
+  putRequests(configForRequests.updateStatusConfig, post_id, data).then(
+    (response) => {
+      if (!response.resultCode) dispatch(setUserStatus(data));
+    }
+  );
+};
+
 
 export default profileSlice.reducer;
 export const { addPost, setUserProfile, setUserPosts, setUserStatus } =

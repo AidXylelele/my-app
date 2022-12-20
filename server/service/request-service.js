@@ -16,6 +16,7 @@ class RequestService {
         .on('end', () => {
           body = Buffer.concat(body).toString();
           const dataObj = RequestService.parseRequestBody(body);
+          console.log("GGGGGGGGGGG", dataObj)
           resolve(dataObj);
         })
     );

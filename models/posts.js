@@ -11,6 +11,14 @@ const getPosts = async (user_id) => {
   }
 };
 
+const updatePost = async (message, post_id) => {
+  try {
+   return await pool.query(`UPDATE posts SET message = '${message}' WHERE post_id = '${post_id}';`);
+  } catch (error) {
+    return null;
+  }
+}
+
 const createPost = async (message, user_id) => {
   try {
     const post_id = uuidv4();
@@ -25,4 +33,4 @@ const createPost = async (message, user_id) => {
   }
 };
 
-module.exports = { getPosts, createPost };
+module.exports = { getPosts, createPost, updatePost };
