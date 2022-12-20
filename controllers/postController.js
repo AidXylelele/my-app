@@ -27,9 +27,8 @@ async function createPostController(message, { id }) {
   });
 }
 
-
-async function updatePostController(message, { id }) {
-   return await updatePost(message, id).then((result) => {
+async function updatePostController(message, id) {
+  return await updatePost(message, id).then((result) => {
     if (result) {
       return {
         messages: 'Success!',
@@ -39,9 +38,6 @@ async function updatePostController(message, { id }) {
     return { messages: 'Something went wrong!', resultCode: 1 };
   });
 }
-
-
-
 
 // // @desc    Create a Product
 // // @route   POST /api/products

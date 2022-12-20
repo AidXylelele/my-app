@@ -4,7 +4,7 @@ import Post from './Post/Post';
 import PostForm from './Post/PostForm/PostForm';
 
 const MyPosts = (props) => {
-  const { profileOfUser, onSetPosts, onCreatePost } = props;
+  const { profileOfUser, onSetPosts, onCreatePost, onUpdatePost } = props;
   useEffect(() => {
     if (profileOfUser) {
       onSetPosts(profileOfUser.id);
@@ -13,10 +13,16 @@ const MyPosts = (props) => {
   if (!props.profileOfUser) {
     return null;
   }
-  const postsElements = props.postsData.map((post, idx) => {
-    
-   return <Post post_id={post.post_id} message={post.message} isMyPage={props.isMyPage} like={post.likesCount} key={idx} />
-});
+  const postsElements = props.postsData.map((post, idx) => (
+    <Post
+      post_id={post.post_id}
+      message={post.message}
+      isMyPage={props.isMyPage}
+      like={post.likesCount}
+      key={idx}
+      onUpdatePost={onUpdatePost}
+    />
+  ));
 
   return (
     <div className={styles.posts}>

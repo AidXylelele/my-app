@@ -4,10 +4,10 @@ import { useState } from 'react';
 import styles from './Post.module.css';
 
 const Post = (props) => {
-  const { message, like, post_id, isMyPage } = props;
+  const { message, like, post_id, isMyPage, onUpdatePost } = props;
   const [isActive, setIsActive] = useState(false);
   const [localPostUpdate, setLocalPostUpdate] = useState(message);
-  
+
   useEffect(() => {
     setLocalPostUpdate(message);
   }, [message, setLocalPostUpdate]);
@@ -28,13 +28,13 @@ const Post = (props) => {
         src="https://cdn-icons-png.flaticon.com/128/6676/6676016.png"
         alt="There is an avatar"
       ></img>
-       {isActive ? (
+      {isActive ? (
         <span>
           <input
             autoFocus={true}
             onBlur={() => {
               toggleInput();
-              props.onUpdatePost(localPostUpdate, post_id);
+              props.onUpdatePost(post_id, localPostUpdate);
             }}
             onChange={onChangeInput}
             type="text"
@@ -51,10 +51,10 @@ const Post = (props) => {
       )}
       <div className={styles.reactionsOfUsers}>
         <div className={styles.replyToPost}>
-          <a href='/reply'>Reply</a>
+          <a href="/reply">Reply</a>
         </div>
         <div className={styles.counterOfLikes}>
-          <a href='/like'>like: {like}</a>
+          <a href="/like">like: {like}</a>
         </div>
       </div>
     </div>

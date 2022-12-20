@@ -72,7 +72,7 @@ const creatingFullHttp = (config, data) => {
 };
 
 const axiosRequest = axios.create({
-  baseURL: 'http://localhost:3002/',
+  baseURL: 'http://localhost:3001/',
   withCredentials: true,
   headers: {
     'Access-Control-Allow-Origin': 'http://localhost:3000/',
@@ -92,7 +92,7 @@ const deleteAndPostRequests = (config, id, data = {}) => {
 };
 
 const putRequests = (config, id, data) => {
-  return axiosRequest[config.name](config.http + id, { status: data }).then(
+  return axiosRequest[config.name](config.http + id, { status: data, id }).then(
     (response) => {
       return response.data;
     }

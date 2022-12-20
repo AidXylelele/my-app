@@ -63,8 +63,8 @@ const routing = {
         createPostController(data.post, params)
       );
     } else if (client.req.method === 'PUT') {
-      return await RequestService.getRequestBodyData(client.req).then((data) => 
-        updatePostController(data.post, data.post.post_id)
+      return await RequestService.getRequestBodyData(client.req).then((data) =>
+        updatePostController(data.status, data.id)
       );
     }
   },

@@ -2,6 +2,7 @@ import { connect } from 'react-redux';
 import {
   createUserPostThunk,
   getUserPostsThunk,
+  updateUserPostThunk,
 } from '../../../redux/profileSlice';
 import {
   postDataSelector,
@@ -23,6 +24,9 @@ const mapDispatchToProps = (dispatch) => {
     },
     onCreatePost: (userId, data) => {
       dispatch(createUserPostThunk(userId, data));
+    },
+    onUpdatePost: (postId, data) => {
+      dispatch(updateUserPostThunk(postId, data));
     },
   };
 };

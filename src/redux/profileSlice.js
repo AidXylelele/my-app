@@ -18,6 +18,13 @@ const profileSlice = createSlice({
       const post = action.payload;
       state.postsData.push(post);
     },
+    updatePost: (state, action) => {
+      const updatePost = action.payload;
+      state.postsData = state.postsData.map((post) => {
+        if (post.post_id === updatePost.post_id) return (post = updatePost);
+        return post;
+      });
+    },
     setUserProfile: (state, action) => {
       const item = action.payload;
       state.profileOfUser = item;
@@ -73,15 +80,20 @@ export const createUserPostThunk = (data, userId) => (dispatch) => {
   });
 };
 
-export const updateUserPostThunk = (data, post_id) => (dispatch) => {
-  putRequests(configForRequests.updateStatusConfig, post_id, data).then(
+export const updateUserPostThunk = (post_id, message) => (dispatch) => {
+  putRequests(configForRequests.updatePostConfig, post_id, message).then(
     (response) => {
-      if (!response.resultCode) dispatch(setUserStatus(data));
+      console.log(response);
+      if (!response.resultCode) dispatch(updatePost({ message, post_id }));
     }
   );
 };
 
-
 export default profileSlice.reducer;
-export const { addPost, setUserProfile, setUserPosts, setUserStatus } =
-  profileSlice.actions;
+export const {
+  addPost,
+  updatePost,
+  setUserProfile,
+  setUserPosts,
+  setUserStatus,
+} = profileSlice.actions;
