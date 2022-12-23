@@ -35,9 +35,9 @@ const Users = (props) => {
             <img
               className={styles.avatar}
               src={
-                item.photos.large
-                  ? item.photos.large
-                  : 'https://icon-library.com/images/users-icon-png/users-icon-png-6.jpg'
+                // item.photos.large
+                //   ? item.photos.large
+                'https://icon-library.com/images/users-icon-png/users-icon-png-6.jpg'
               }
               alt="There is an avatar"
             />

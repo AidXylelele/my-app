@@ -1,5 +1,19 @@
 const pool = require('../db/pool');
 
+const getUsers = async (query) => {
+  try {
+    const { page, count } = query;
+    const users = await pool.query(`SELECT * from users
+          ORDER By id
+          OFFSET ${count * page} ROWS
+          FETCH NEXT ${count} ROWS ONLY;`);
+    const totalCount = await pool.query(`SELECT COUNT(id) FROM users;`);
+    return { items: users.rows, totalCount: Number(totalCount.rows[0].count) };
+  } catch (error) {
+    return null;
+  }
+};
+
 const createNewUser = async (data, id) => {
   try {
     const { email, name, surname, password } = data;
@@ -46,4 +60,4 @@ const updateUserStatus = async (dataObject, params) => {
   }
 };
 
-module.exports = { createNewUser, findUser, updateUserStatus };
+module.exports = { getUsers, createNewUser, findUser, updateUserStatus };

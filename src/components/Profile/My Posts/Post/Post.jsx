@@ -21,6 +21,7 @@ const Post = (props) => {
   const onChangeInput = (e) => {
     setLocalPostUpdate(e.currentTarget.value);
   };
+
   return (
     <div className={styles.item}>
       <img
@@ -34,7 +35,7 @@ const Post = (props) => {
             autoFocus={true}
             onBlur={() => {
               toggleInput();
-              props.onUpdatePost(post_id, localPostUpdate);
+              onUpdatePost(post_id, localPostUpdate);
             }}
             onChange={onChangeInput}
             type="text"

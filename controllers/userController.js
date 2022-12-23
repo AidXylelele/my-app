@@ -2,6 +2,7 @@ const {
   createNewUser,
   findUser,
   updateUserStatus,
+  getUsers,
 } = require('../models/users');
 const { v4: uuidv4 } = require('uuid');
 const UserService = require('../server/service/users-service');
@@ -30,6 +31,13 @@ async function findUserController(data) {
   });
 }
 
+async function getUsersController(queries) {
+  return await getUsers(queries).then((result) => {
+    if (result) return { ...result, resultCode: 0 };
+    return { messages: 'User does not exist!', resultCode: 1 };
+  });
+}
+
 async function getUserStatusController(data) {
   const { status } = await findUser(data);
   return status;
@@ -40,6 +48,7 @@ async function updateUserStatusController(data, params) {
 }
 
 module.exports = {
+  getUsersController,
   createNewUserController,
   findUserController,
   getUserStatusController,

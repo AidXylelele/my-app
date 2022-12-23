@@ -55,6 +55,7 @@ export const getUsersThunkCreator = (selectedPage, pageSize) => (dispatch) => {
   dispatch(setPreloaderAction(true));
   getRequests(configForRequests.usersConfig, [selectedPage, pageSize]).then(
     (response) => {
+      console.log(response);
       dispatch(setPreloaderAction(false));
       dispatch(setNewUsersAction(response.items));
       dispatch(setTotalCurrentUsersCountAction(response.totalCount));

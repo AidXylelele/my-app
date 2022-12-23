@@ -1,4 +1,5 @@
 const http = require('node:http');
+const querystring = require('node:querystring');
 const Client = require('./server/client.js');
 const { routing, types } = require('./server/routings.js');
 const { match } = require('node-match-path');
@@ -11,8 +12,10 @@ http
     let handler;
     let params = {};
     for (const item in routing) {
-      const result = match(item, url);
+      const [path, query] = url.split('?');
+      const result = match(item, path);
       if (result.matches) {
+        parsedQuery = querystring.parse(query);
         handler = routing[item];
         params = result.params;
         break;
@@ -26,7 +29,7 @@ http
       res.end('Not found 404');
       return;
     }
-    handler(client, params).then(
+    handler(client, params, parsedQuery).then(
       (data) => {
         const type = typeof data;
         const serializer = types[type];

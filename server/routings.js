@@ -9,6 +9,7 @@ const {
   createNewUserController,
   updateUserStatusController,
   getUserStatusController,
+  getUsersController,
 } = require('../controllers/userController.js');
 const {
   getPostsControler,
@@ -66,6 +67,11 @@ const routing = {
       return await RequestService.getRequestBodyData(client.req).then((data) =>
         updatePostController(data.status, data.id)
       );
+    }
+  },
+  '/users': async (client, params, query) => {
+    if (client.req.method === 'GET') {
+      return await getUsersController(query);
     }
   },
   '/api/method2': async (client) => ({
