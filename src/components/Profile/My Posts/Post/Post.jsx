@@ -48,7 +48,7 @@ const Post = (props) => {
           {message}
         </span>
       ) : (
-        <span className={styles.status}>{props.userStatus}</span>
+        <span className={styles.status}>{message}</span>
       )}
       <div className={styles.reactionsOfUsers}>
         <div className={styles.replyToPost}>
