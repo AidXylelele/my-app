@@ -3,9 +3,10 @@ const pool = require('../db/pool');
 const getUsers = async (query) => {
   try {
     const { page, count } = query;
+    console.log(count);
     const users = await pool.query(`SELECT * from users
           ORDER By id
-          OFFSET ${count * page} ROWS
+          OFFSET ${count * (page - 1)} ROWS
           FETCH NEXT ${count} ROWS ONLY;`);
     const totalCount = await pool.query(`SELECT COUNT(id) FROM users;`);
     return { items: users.rows, totalCount: Number(totalCount.rows[0].count) };
