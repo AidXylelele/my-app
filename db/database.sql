@@ -24,6 +24,7 @@ CREATE TABLE IF NOT EXISTS public.posts
     user_id character varying COLLATE pg_catalog."default" NOT NULL,
     message character varying(255) COLLATE pg_catalog."default" NOT NULL,
     likes integer NOT NULL DEFAULT 0,
+    post_date date NOT NULL,
     CONSTRAINT posts_pkey PRIMARY KEY (post_id),
     CONSTRAINT fk_user_id FOREIGN KEY (user_id)
         REFERENCES public.users (id) MATCH SIMPLE

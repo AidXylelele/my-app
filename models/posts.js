@@ -13,7 +13,7 @@ const getPosts = async (user_id) => {
 
 const updatePost = async (message, post_id) => {
   try {
-   return await pool.query(`UPDATE posts SET message = '${message}' WHERE post_id = '${post_id}';`);
+   return await pool.query(`UPDATE posts SET message = '${message}', post_date = '${Date.now()}' WHERE post_id = '${post_id}';`);
   } catch (error) {
     return null;
   }
@@ -24,8 +24,8 @@ const createPost = async (message, user_id) => {
     const post_id = uuidv4();
     await pool.query(`
     INSERT INTO posts(
-	user_id, post_id, message) VALUES (
-	 '${user_id}', '${post_id}', '${message}' );
+	user_id, post_id, message, post_date) VALUES (
+	 '${user_id}', '${post_id}', '${message}', '${Date.now()}' );
     `);
     return { post_id, message };
   } catch (error) {
