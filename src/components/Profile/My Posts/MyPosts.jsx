@@ -4,7 +4,8 @@ import Post from './Post/Post';
 import PostForm from './Post/PostForm/PostForm';
 
 const MyPosts = (props) => {
-  const { profileOfUser, onSetPosts, onCreatePost, onUpdatePost } = props;
+  const { profileOfUser, isMyPage, onSetPosts, onCreatePost, onUpdatePost } =
+    props;
   useEffect(() => {
     if (profileOfUser) {
       onSetPosts(profileOfUser.id);
@@ -27,12 +28,16 @@ const MyPosts = (props) => {
   return (
     <div className={styles.posts}>
       <div className={styles.postBlock}>
-        <div>
-          <h1>New Post</h1>
-          <div className={styles.postText}>
-            <PostForm {...{ onCreatePost, userId: profileOfUser.id }} />
+        {isMyPage ? (
+          <div>
+            <h1>New Post</h1>
+            <div className={styles.postText}>
+              <PostForm {...{ onCreatePost, userId: profileOfUser.id }} />
+            </div>
           </div>
-        </div>
+        ) : (
+          <></>
+        )}
         <div className={styles.userPosts}>
           <h1>Your Posts</h1>
           <div className={styles.post}>{postsElements}</div>
