@@ -72,10 +72,10 @@ const creatingFullHttp = (config, data) => {
 };
 
 const axiosRequest = axios.create({
-  baseURL: 'http://localhost:3001/',
+  baseURL: 'http://localhost:3003/',
   withCredentials: true,
   headers: {
-    'Access-Control-Allow-Origin': 'http://localhost:3000/',
+    'Access-Control-Allow-Origin': 'http://localhost:3002/',
   },
 });
 

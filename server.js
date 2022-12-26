@@ -11,6 +11,7 @@ http
     console.log(`${method} ${url} ${headers.cookie}`);
     let handler;
     let params = {};
+    let parsedQuery
     for (const item in routing) {
       const [path, query] = url.split('?');
       const result = match(item, path);
@@ -34,7 +35,7 @@ http
         const type = typeof data;
         const serializer = types[type];
         const result = serializer(data);
-        res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3000');
+        res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3002');
         res.setHeader('Access-Control-Allow-Credentials', 'true');
         res.setHeader(
           'Access-Control-Allow-Methods',
@@ -54,4 +55,4 @@ http
       }
     );
   })
-  .listen(3001);
+  .listen(3003);
