@@ -24,7 +24,7 @@ CREATE TABLE IF NOT EXISTS public.posts
     user_id character varying COLLATE pg_catalog."default" NOT NULL,
     message character varying(255) COLLATE pg_catalog."default" NOT NULL,
     likes integer NOT NULL DEFAULT 0,
-    post_date date NOT NULL,
+    post_date character varying(255) NOT NULL,
     CONSTRAINT posts_pkey PRIMARY KEY (post_id),
     CONSTRAINT fk_user_id FOREIGN KEY (user_id)
         REFERENCES public.users (id) MATCH SIMPLE
@@ -35,4 +35,44 @@ CREATE TABLE IF NOT EXISTS public.posts
 TABLESPACE pg_default;
 
 ALTER TABLE IF EXISTS public.posts
+    OWNER to admin;
+
+CREATE TABLE public.chats
+(
+    id text NOT NULL,
+    user_1 text NOT NULL,
+    user_2 text NOT NULL,
+    date character varying(255) NOT NULL,
+    CONSTRAINT chats_pkey PRIMARY KEY (id),
+    CONSTRAINT fk_user_1 FOREIGN KEY (user_1)
+        REFERENCES public.users (id) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION
+        NOT VALID,
+    CONSTRAINT fk_user_2 FOREIGN KEY (user_2)
+        REFERENCES public.users (id) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION
+        NOT VALID
+);
+
+ALTER TABLE IF EXISTS public.chats
+    OWNER to admin;
+
+CREATE TABLE public.messages
+(
+    id bit NOT NULL,
+    sender_id character varying NOT NULL,
+    receiver_id character varying NOT NULL,
+    chat_id text NOT NULL,
+    date character varying NOT NULL,
+    CONSTRAINT messages_pkey PRIMARY KEY (id),
+    CONSTRAINT fk_chat_id FOREIGN KEY (chat_id)
+        REFERENCES public.chats (id) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION
+        NOT VALID,
+);
+
+ALTER TABLE IF EXISTS public.messages
     OWNER to admin;
