@@ -40,8 +40,8 @@ ALTER TABLE IF EXISTS public.posts
 -- CREATE TABLE IF NOT EXISTS public.chats
 -- (
 --     id text NOT NULL,
---     user_1 text NOT NULL,
---     user_2 text NOT NULL,
+--     user_1 text NOT NULL, \\huinya
+--     user_2 text NOT NULL, \\huinya move to another table ChatMember (chatId, userId)
 --     date character varying(255) NOT NULL,
 --     CONSTRAINT chats PRIMARY KEY (id),
 --     CONSTRAINT fk_user_1 FOREIGN KEY (user_1)
@@ -65,7 +65,7 @@ ALTER TABLE IF EXISTS public.posts
 -- (
 --     id bit NOT NULL,
 --     sender_id character varying NOT NULL,
---     receiver_id character varying NOT NULL,
+--     receiver_id character varying NOT NULL, \\huinya povna
 --     chat_id text NOT NULL,
 --     date character varying NOT NULL,
 --     CONSTRAINT messages_pkey PRIMARY KEY (id),
