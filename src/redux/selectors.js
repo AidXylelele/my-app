@@ -26,6 +26,10 @@ const userStatusSelector = (state) => {
   return state.profilePage.userStatus;
 };
 
+const userSkillsSelector = (state) => {
+  return state.profilePage.userSkills;
+};
+
 const usersDataSelector = (state) => {
   return state.usersPage.usersData;
 };
@@ -66,6 +70,7 @@ export {
   postDataSelector,
   profileOfUserSelector,
   userStatusSelector,
+  userSkillsSelector,
   usersDataSelector,
   pageSizeSelector,
   totalUsersCountSelector,

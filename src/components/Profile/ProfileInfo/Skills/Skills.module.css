@@ -1,0 +1,21 @@
+* {
+    box-sizing: border-box;
+}
+
+.skills {
+    display: inline-block;
+    font-size: 16px;
+    padding: 5px;
+    margin: 0 auto;
+    text-align: center;
+    width: fit-content;
+    height: fit-content;
+    font-weight: 600;
+    background-color: #ffffff;
+    border: 1px solid gray;
+    border-radius: 7px;
+}
+
+.skillsInput {
+    height: 32px;
+}

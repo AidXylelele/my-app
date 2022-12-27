@@ -20,7 +20,7 @@ const createNewUser = async (data, id) => {
     const { email, name, surname, password } = data;
     await pool.query(`
     INSERT INTO users(
-	id, email, name, surname, status, password) VALUES (
+	id, email, name, surname, status, skills, password) VALUES (
 	 '${id}', '${email}', '${name}', '${surname}', '', '${password}' );
     `);
     return { id, ...data };
@@ -61,4 +61,19 @@ const updateUserStatus = async (dataObject, params) => {
   }
 };
 
-module.exports = { getUsers, createNewUser, findUser, updateUserStatus };
+const updateUserSkills = async (dataObject, params) => {
+  try {
+    const { id } = params;
+    const { skills } = dataObject;
+    await pool.query(
+      ` UPDATE users SET skills = '${skills}' WHERE id = '${id}';`
+    );
+    return { skills, resultCode: 0 };
+  } catch (error) {
+    console.log(error);
+    return { messages: 'Something went wrong!', resultCode: 1 };
+  }
+};
+
+
+module.exports = { getUsers, createNewUser, findUser, updateUserStatus, updateUserSkills};

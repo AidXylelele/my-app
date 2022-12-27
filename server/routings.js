@@ -9,6 +9,8 @@ const {
   createNewUserController,
   updateUserStatusController,
   getUserStatusController,
+  getUserSkillsController,
+  updateUserSkillsController,
   getUsersController,
 } = require('../controllers/userController.js');
 const {
@@ -53,6 +55,15 @@ const routing = {
     } else if (client.req.method === 'PUT') {
       return await RequestService.getRequestBodyData(client.req).then((data) =>
         updateUserStatusController(data, params)
+      );
+    }
+  },
+  '/profile/skills/:id': async (client, params) => {
+    if (client.req.method === 'GET') {
+      return await getUserSkillsController(params);
+    } else if (client.req.method === 'PUT') {
+      return await RequestService.getRequestBodyData(client.req).then((data) =>
+        updateUserSkillsController(data, params)
       );
     }
   },
