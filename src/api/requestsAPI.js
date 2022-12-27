@@ -75,7 +75,7 @@ const axiosRequest = axios.create({
   baseURL: 'http://localhost:3003/',
   withCredentials: true,
   headers: {
-    'Access-Control-Allow-Origin': 'http://localhost:3002/',
+    'Access-Control-Allow-Origin': 'http://localhost:3000/',
   },
 });
 

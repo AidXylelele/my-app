@@ -1,6 +1,6 @@
 
 const AccessHeaders = {
-  'Access-Control-Allow-Origin': 'http://localhost:3002',
+  'Access-Control-Allow-Origin': 'http://localhost:3000',
   'Access-Control-Allow-Credentials': 'true',
   'Access-Control-Allow-Methods': 'GET,HEAD,OPTIONS,POST,PUT,DELETE',
   'Access-Control-Allow-Headers':
