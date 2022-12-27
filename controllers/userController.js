@@ -47,10 +47,22 @@ async function updateUserStatusController(data, params) {
   return await updateUserStatus(data, params);
 }
 
+async function getUserSkillsController(data) {
+  const { skills } = await findUser(data);
+  return skills;
+}
+
+async function updateUserSkillsController(data, params) {
+  return await updateUserSkills(data, params);
+}
+
+
 module.exports = {
   getUsersController,
   createNewUserController,
   findUserController,
   getUserStatusController,
   updateUserStatusController,
+  getUserSkillsController,
+  updateUserSkillsController,
 };

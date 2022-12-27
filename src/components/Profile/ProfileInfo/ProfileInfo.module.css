@@ -55,13 +55,13 @@
 .containerOfJob>p {
     font-size: 16px;
     font-weight: 500;
-    margin-right: 10px;
+    margin-right: 5px;
 }
 
 .userName {
     font-size: 18px;
     font-weight: 900;
-    padding: 5px 15px;
+    padding: 0px 15px;
     margin: 0px auto;
     text-align: center;
     width: fit-content;
@@ -70,16 +70,31 @@
 }
 
 .containerOfStatus {
-    margin: 16px 0;
+    margin: 0 0;
 }
 
 .containerOfStatus>div {
     display: inline-block;
-    padding: 5px 15px;
+    padding: 10px 5px;
 }
 
 .containerOfStatus>p {
     display: inline;
-    margin-right: 10px;
+    margin-right: 0px;
+    font-weight: 600;
+}
+
+.containerOfSkills {
+    margin: 0 0;
+}
+
+.containerOfSkills>div {
+    display: inline-block;
+    padding: 5px 5px;
+}
+
+.containerOfSkills>p {
+    display: inline;
+    margin-right: 0px;
     font-weight: 600;
 }

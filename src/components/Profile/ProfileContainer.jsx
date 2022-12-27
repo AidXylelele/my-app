@@ -8,30 +8,36 @@ import {
   myUserIdSelector,
   profileOfUserSelector,
   userStatusSelector,
+  userSkillsSelector,
 } from '../../redux/selectors';
 import { useState } from 'react';
 import {
   getProfileThunk,
   getUserStatusThunk,
+  getUserSkillsThunk,
   setUserProfile,
   updateUserStatusThunk,
+  updateUserSkillsThunk,
 } from '../../redux/profileSlice';
 
 const ProfileContainer = (props) => {
   const { userId } = useParams();
-  const { onGetProfile, onGetUserStatus, myUserId } = props;
+  const { onGetProfile, onGetUserStatus, onGetUserSkills, myUserId } = props;
   const [isMyPage, setIsMyPage] = useState(myUserId === userId);
 
   useEffect(() => {
     onGetProfile(userId);
     onGetUserStatus(userId);
+    onGetUserSkills(userId);
     setIsMyPage(userId === myUserId);
-  }, [onGetProfile, onGetUserStatus, setIsMyPage, userId]);
+  }, [onGetProfile, onGetUserStatus, onGetUserSkills, setIsMyPage, userId]);
   return (
     <Profile
       isMyPage={isMyPage}
       profileOfUser={props.profileOfUser}
       userStatus={props.userStatus}
+      userSkills={props.userSkills}
+      onUpdateUserSkills={props.onUpdateUserSkills}
       onUpdateUserStatus={props.onUpdateUserStatus}
     />
   );
@@ -42,6 +48,7 @@ const mapStateToProps = (state) => {
     myUserId: myUserIdSelector(state),
     profileOfUser: profileOfUserSelector(state),
     userStatus: userStatusSelector(state),
+    userSkills: userSkillsSelector(state),
   };
 };
 
@@ -58,6 +65,12 @@ const mapDispatchToProps = (dispatch) => {
     },
     onUpdateUserStatus: (data, userId) => {
       dispatch(updateUserStatusThunk(data, userId));
+    },
+    onGetUserSkills: (userId) => {
+      dispatch(getUserSkillsThunk(userId));
+    },
+    onUpdateUserSkills: (data, userId) => {
+      dispatch(updateUserSkillsThunk(data, userId));
     },
   };
 };

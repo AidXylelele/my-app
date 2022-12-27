@@ -9,6 +9,8 @@ const Profile = (props) => {
         profile={props.profileOfUser}
         userStatus={props.userStatus}
         onUpdateUserStatus={props.onUpdateUserStatus}
+        userSkills={props.userSkills}
+        onUpdateUserSkills={props.onUpdateUserSkills}
         isMyPage={props.isMyPage}
       />
       <MyPostsContainer isMyPage={props.isMyPage} />

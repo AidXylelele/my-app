@@ -2,6 +2,7 @@ import React from 'react';
 import PreLoader from '../../common/Preloader/Preloader';
 import styles from './ProfileInfo.module.css';
 import Status from './Status/Status';
+import Skills from './Skills/Skills';
 
 const ProfileInfo = (props) => {
   if (!props.profile) {
@@ -42,9 +43,17 @@ const ProfileInfo = (props) => {
             </span>
           </div>
           <div>
-            <p>
-              Description of skills: {props.profile.lookingForAJobDescription}
-            </p>
+          {!props.userSkills && !props.isMyPage ? null : (
+            <span className={styles.containerOfSkills}>
+              <p className={styles.beforeSkills}>Skills:</p>
+              <Skills
+                myUserId={props.profile.id}
+                userSkills={props.userSkills}
+                onUpdateUserSkills={props.onUpdateUserSkills}
+                isMyPage={props.isMyPage}
+              />
+            </span>
+          )}
           </div>
         </div>
       </div>

@@ -11,6 +11,11 @@ const configForRequests = {
     http: 'profile/status/',
     elements: [''],
   },
+  skillsConfig: {
+    name: 'get',
+    http: 'profile/skills/',
+    elements: [''],
+  },
   usersConfig: {
     name: 'get',
     http: 'users?',
@@ -24,6 +29,10 @@ const configForRequests = {
   updateStatusConfig: {
     name: 'put',
     http: 'profile/status/',
+  },
+  updateSkillsConfig: {
+    name: 'put',
+    http: 'profile/skills/',
   },
   followConfig: {
     name: 'post',

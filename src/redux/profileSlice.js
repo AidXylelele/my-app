@@ -12,6 +12,7 @@ const profileSlice = createSlice({
     postsData: [],
     profileOfUser: null,
     userStatus: '',
+    userSkills: '',
   },
   reducers: {
     addPost: (state, action) => {
@@ -37,6 +38,10 @@ const profileSlice = createSlice({
       const text = action.payload;
       state.userStatus = text;
     },
+     setUserSkills: (state, action) => {
+      const text = action.payload;
+      state.userSkills = text;
+    },
   },
 });
 
@@ -58,6 +63,20 @@ export const updateUserStatusThunk = (data, userId) => (dispatch) => {
   putRequests(configForRequests.updateStatusConfig, userId, data).then(
     (response) => {
       if (!response.resultCode) dispatch(setUserStatus(data));
+    }
+  );
+};
+
+export const getUserSkillsThunk = (userId) => (dispatch) => {
+  getRequests(configForRequests.skillsConfig, [userId]).then((response) => {
+    dispatch(setUserSkills(response));
+  });
+};
+
+export const updateUserSkillsThunk = (data, userId) => (dispatch) => {
+  putRequests(configForRequests.updateSkillsConfig, userId, data).then(
+    (response) => {
+      if (!response.resultCode) dispatch(setUserSkills(data));
     }
   );
 };
@@ -96,4 +115,5 @@ export const {
   setUserProfile,
   setUserPosts,
   setUserStatus,
+  setUserSkills,
 } = profileSlice.actions;
