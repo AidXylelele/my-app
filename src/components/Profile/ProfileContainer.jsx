@@ -37,8 +37,8 @@ const ProfileContainer = (props) => {
       profileOfUser={props.profileOfUser}
       userStatus={props.userStatus}
       userSkills={props.userSkills}
-      onUpdateUserSkills={props.onUpdateUserSkills}
       onUpdateUserStatus={props.onUpdateUserStatus}
+      onUpdateUserSkills={props.onUpdateUserSkills}
     />
   );
 };
