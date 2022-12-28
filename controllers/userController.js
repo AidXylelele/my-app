@@ -2,6 +2,7 @@ const {
   createNewUser,
   findUser,
   updateUserStatus,
+  updateUserSkills,
   getUsers,
 } = require('../models/users');
 const { v4: uuidv4 } = require('uuid');

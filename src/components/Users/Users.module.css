@@ -100,6 +100,18 @@
     border-radius: 10px;
 }
 
+.userSkills {
+    font-size: 18px;
+    padding: 5px;
+    margin: 0 auto;
+    text-align: center;
+    width: fit-content;
+    height: max-content;
+    font-weight: 600;
+    background-color: #ffffff;
+    border-radius: 10px;
+}
+
 .containerOfInfo {
     margin: 10px;
 }

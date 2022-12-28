@@ -52,6 +52,12 @@ const Users = (props) => {
                 <div className={styles.userStatus}>{item.status}</div>
               </span>
             ) : null}
+            {item.status ? (
+              <span className={styles.containerOfInfo}>
+                <p className={styles.beforeSkills}>User skills:</p>
+                <div className={styles.userSkills}>{item.status}</div>
+              </span>
+            ) : null}
             <div>
               {item.followed ? (
                 <button
