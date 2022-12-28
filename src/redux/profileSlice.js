@@ -26,6 +26,12 @@ const profileSlice = createSlice({
         return post;
       });
     },
+    deletePost: (state, action) => {
+      const deletedPost = action.payload;
+      state.postsData = state.postsData.filter((post) => {
+        if (!post.post_id === deletedPost.post_id) return post;
+      });
+    },
     setUserProfile: (state, action) => {
       const item = action.payload;
       state.profileOfUser = item;
@@ -38,7 +44,7 @@ const profileSlice = createSlice({
       const text = action.payload;
       state.userStatus = text;
     },
-     setUserSkills: (state, action) => {
+    setUserSkills: (state, action) => {
       const text = action.payload;
       state.userSkills = text;
     },
@@ -88,22 +94,29 @@ export const getUserPostsThunk = (userId) => (dispatch) => {
 };
 
 export const createUserPostThunk = (data, userId) => (dispatch) => {
-  deleteAndPostRequests(
-    configForRequests.createPostConfig,
-    [userId],
-    data
-  ).then((response) => {
-    if (!response.resultCode) {
-      dispatch(addPost(response.data.post));
+  deleteAndPostRequests(configForRequests.createPostConfig, userId, data).then(
+    (response) => {
+      if (!response.resultCode) {
+        dispatch(addPost(response.data.post));
+      }
     }
-  });
+  );
 };
 
 export const updateUserPostThunk = (post_id, message) => (dispatch) => {
-  putRequests(configForRequests.updatePostConfig, post_id, message).then(
+  putRequests(configForRequests.updatePostConfig, [post_id], message).then(
     (response) => {
-      console.log(response);
       if (!response.resultCode) dispatch(updatePost({ message, post_id }));
+    }
+  );
+};
+
+export const deleteUserPostThunk = (post_id) => (dispatch) => {
+  deleteAndPostRequests(configForRequests.deletePostConfig, post_id).then(
+    (response) => {
+      if (!response.resultCode) {
+        dispatch(deletePost(response.data.post.post_id));
+      }
     }
   );
 };
@@ -112,6 +125,7 @@ export default profileSlice.reducer;
 export const {
   addPost,
   updatePost,
+  deletePost,
   setUserProfile,
   setUserPosts,
   setUserStatus,

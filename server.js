@@ -12,7 +12,7 @@ http
     console.log(`${method} ${url} ${headers.cookie}`);
     let handler;
     let params = {};
-    let parsedQuery;
+    let parsedQuery = {};
     for (const item in routing) {
       const [path, query] = url.split('?');
       const result = match(item, path);
@@ -31,7 +31,7 @@ http
       res.end('Not found 404');
       return;
     }
-    handler(client, params, parsedQuery).then(
+    handler({ client, params, parsedQuery }).then(
       (data) => {
         const type = typeof data;
         const serializer = types[type];

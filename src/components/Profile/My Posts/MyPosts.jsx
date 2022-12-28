@@ -4,8 +4,14 @@ import Post from './Post/Post';
 import PostForm from './Post/PostForm/PostForm';
 
 const MyPosts = (props) => {
-  const { profileOfUser, isMyPage, onSetPosts, onCreatePost, onUpdatePost } =
-    props;
+  const {
+    profileOfUser,
+    isMyPage,
+    onSetPosts,
+    onCreatePost,
+    onUpdatePost,
+    onDeletePost,
+  } = props;
   useEffect(() => {
     if (profileOfUser) {
       onSetPosts(profileOfUser.id);
@@ -22,6 +28,7 @@ const MyPosts = (props) => {
       like={post.likesCount}
       key={idx}
       onUpdatePost={onUpdatePost}
+      onDeletePost={onDeletePost}
     />
   ));
 

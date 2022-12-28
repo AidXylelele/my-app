@@ -67,6 +67,10 @@ const configForRequests = {
     name: 'put',
     http: 'profile/posts/',
   },
+  deletePostConfig: {
+    name: 'delete',
+    http: 'profile/posts/',
+  },
 };
 
 const creatingFullHttp = (config, data) => {

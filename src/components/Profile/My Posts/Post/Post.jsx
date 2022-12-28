@@ -4,7 +4,8 @@ import { useState } from 'react';
 import styles from './Post.module.css';
 
 const Post = (props) => {
-  const { message, like, post_id, isMyPage, onUpdatePost } = props;
+  const { message, like, post_id, isMyPage, onUpdatePost, onDeletePost } =
+    props;
   const [isActive, setIsActive] = useState(false);
   const [localPostUpdate, setLocalPostUpdate] = useState(message);
 
@@ -44,9 +45,12 @@ const Post = (props) => {
           />
         </span>
       ) : isMyPage ? (
-        <span className={styles.status} onDoubleClick={toggleInput}>
-          {message}
-        </span>
+        <>
+          <span className={styles.status} onDoubleClick={toggleInput}>
+            {message}
+          </span>
+          <button onClick={() => onDeletePost(post_id)}>Delete</button>
+        </>
       ) : (
         <span className={styles.status}>{message}</span>
       )}

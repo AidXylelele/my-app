@@ -1,89 +1,38 @@
-const Session = require('./session.js');
-const RequestService = require('./service/request-service.js');
-const SessionService = require('./service/session-service.js');
-const {
-  authUserController,
-} = require('../controllers/registrationController.js');
-const {
-  findUserController,
-  createNewUserController,
-  updateUserStatusController,
-  getUserStatusController,
-  getUserSkillsController,
-  updateUserSkillsController,
-  getUsersController,
-} = require('../controllers/userController.js');
-const {
-  getPostsControler,
-  createPostController,
-  updatePostController,
-} = require('../controllers/postController.js');
+const { methodsConfig } = require('./configuration.js');
+
+const methodHandler = async (args, config) => {
+  const { client } = args;
+  const { method } = client.req;
+  const hanlder = config[method];
+  if (hanlder) {
+    return await hanlder(args);
+  }
+};
 
 const routing = {
-  '/auth/login': async (client) => {
-    if (client.req.method === 'POST') {
-      return await RequestService.getRequestBodyData(client.req)
-        .then(authUserController)
-        .then((data) => SessionService.start(client, data, Session.start));
-    } else if (client.req.method === 'DELETE') {
-      SessionService.delete(client, Session.delete);
-    }
+  '/auth/login': async (args) => {
+    return await methodHandler(args, methodsConfig.login);
   },
-  '/auth/me': async (client) => {
-    if (client.req.method === 'GET') {
-      if (client.cookie) {
-        return await findUserController(client.cookie);
-      }
-      return { messages: 'Token doesn`t exist!', resultCode: 1 };
-    }
+  '/auth/me': async (args) => {
+    return await methodHandler(args, methodsConfig.me);
   },
-  '/register': async (client) => {
-    if (client.req.method === 'POST') {
-      return await RequestService.getRequestBodyData(client.req)
-        .then(createNewUserController)
-        .then((data) => SessionService.start(client, data, Session.start));
-    }
+  '/register': async (args) => {
+    return await methodHandler(args, methodsConfig.register);
   },
-  '/profile/:id': async (client, params) => {
-    if (client.req.method === 'GET') {
-      return await findUserController(params);
-    }
+  '/profile/:id': async (args) => {
+    return await methodHandler(args, methodsConfig.profile);
   },
-  '/profile/status/:id': async (client, params) => {
-    if (client.req.method === 'GET') {
-      return await getUserStatusController(params);
-    } else if (client.req.method === 'PUT') {
-      return await RequestService.getRequestBodyData(client.req).then((data) =>
-        updateUserStatusController(data, params)
-      );
-    }
+  '/profile/status/:id': async (args) => {
+    return await methodHandler(args, methodsConfig.status);
   },
-  '/profile/skills/:id': async (client, params) => {
-    if (client.req.method === 'GET') {
-      return await getUserSkillsController(params);
-    } else if (client.req.method === 'PUT') {
-      return await RequestService.getRequestBodyData(client.req).then((data) =>
-        updateUserSkillsController(data, params)
-      );
-    }
+  '/profile/skills/:id': async (args) => {
+    return await methodHandler(args, methodsConfig.skills);
   },
-  '/profile/posts/:id': async (client, params) => {
-    if (client.req.method === 'GET') {
-      return await getPostsControler(params);
-    } else if (client.req.method === 'POST') {
-      return await RequestService.getRequestBodyData(client.req).then((data) =>
-        createPostController(data.post, params)
-      );
-    } else if (client.req.method === 'PUT') {
-      return await RequestService.getRequestBodyData(client.req).then((data) =>
-        updatePostController(data.status, data.id)
-      );
-    }
+  '/profile/posts/:id': async (args) => {
+    return await methodHandler(args, methodsConfig.posts);
   },
-  '/users': async (client, params, query) => {
-    if (client.req.method === 'GET') {
-      return await getUsersController(query);
-    }
+  '/users': async (args) => {
+    return await methodHandler(args, methodsConfig.users);
   },
   '/api/method2': async (client) => ({
     url: client.req.url,

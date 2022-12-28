@@ -13,11 +13,13 @@ const getPosts = async (user_id) => {
 
 const updatePost = async (message, post_id) => {
   try {
-   return await pool.query(`UPDATE posts SET message = '${message}', post_date = '${Date.now()}' WHERE post_id = '${post_id}';`);
+    return await pool.query(
+      `UPDATE posts SET message = '${message}', post_date = '${Date.now()}' WHERE post_id = '${post_id}';`
+    );
   } catch (error) {
     return null;
   }
-}
+};
 
 const createPost = async (message, user_id) => {
   try {
@@ -33,4 +35,12 @@ const createPost = async (message, user_id) => {
   }
 };
 
-module.exports = { getPosts, createPost, updatePost };
+const deletePost = async (id) => {
+  try {
+    return await pool.query(`DELETE FROM posts WHERE post_id = '${id}';`);
+  } catch (error) {
+    return null;
+  }
+};
+
+module.exports = { getPosts, createPost, updatePost, deletePost };
