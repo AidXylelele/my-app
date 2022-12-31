@@ -44,7 +44,7 @@ const Users = (props) => {
           </NavLink>
           <div className={styles.info}>
             <div key={key} className={styles.userName}>
-              {item.name}
+              {`${item.name} ${item.surname}`}
             </div>
             {item.status ? (
               <span className={styles.containerOfInfo}>
