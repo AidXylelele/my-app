@@ -83,4 +83,6 @@ const methodsConfig = {
   },
 };
 
-module.exports = { AccessHeaders, methodsConfig };
+const PORT = 8000;
+
+module.exports = { AccessHeaders, methodsConfig, PORT };
