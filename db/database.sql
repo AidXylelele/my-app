@@ -20,10 +20,9 @@ ALTER TABLE IF EXISTS public.users
 
 CREATE TABLE IF NOT EXISTS public.posts
 (
-    post_id character varying COLLATE pg_catalog."default" NOT NULL,
+    id character varying COLLATE pg_catalog."default" NOT NULL,
     user_id character varying COLLATE pg_catalog."default" NOT NULL,
     message character varying(255) COLLATE pg_catalog."default" NOT NULL,
-    likes integer NOT NULL DEFAULT 0,
     post_date character varying(255) NOT NULL,
     CONSTRAINT posts_pkey PRIMARY KEY (post_id),
     CONSTRAINT fk_user_id FOREIGN KEY (user_id)
@@ -37,6 +36,20 @@ TABLESPACE pg_default;
 ALTER TABLE IF EXISTS public.posts
     OWNER to admin;
 
+CREATE TABLE IF NOT EXISTS public.likes
+(
+    post_id character varying COLLATE pg_catalog."default" NOT NULL,
+    likes integer NOT NULL DEFAULT 0,
+    CONSTRAINT fk_post_id FOREIGN KEY (post_id)
+        REFERENCES public.posts (id) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION
+)
+
+TABLESPACE pg_default;
+
+ALTER TABLE IF EXISTS public.likes
+    OWNER to admin;
 -- CREATE TABLE IF NOT EXISTS public.chats
 -- (
 --     id text NOT NULL,
