@@ -5,6 +5,7 @@ CREATE TABLE IF NOT EXISTS public.users
     name character varying(255) COLLATE pg_catalog."default" NOT NULL,
     surname character varying(255) COLLATE pg_catalog."default" NOT NULL,
     status text COLLATE pg_catalog."default" NOT NULL,
+    skills text COLLATE pg_catalog."default" NOT NULL,
     password character varying(255) COLLATE pg_catalog."default" NOT NULL,
      token text COLLATE pg_catalog."default",
     data json,

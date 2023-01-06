@@ -21,7 +21,7 @@ const createNewUser = async (data, id) => {
     await pool.query(`
     INSERT INTO users(
 	id, email, name, surname, status, skills, password) VALUES (
-	 '${id}', '${email}', '${name}', '${surname}', '', '${password}' );
+	 '${id}', '${email}', '${name}', '${surname}', '', '', '${password}');
     `);
     return { id, ...data };
   } catch (error) {
@@ -56,7 +56,6 @@ const updateUserStatus = async (dataObject, params) => {
     );
     return { status, resultCode: 0 };
   } catch (error) {
-    console.log(error);
     return { messages: 'Something went wrong!', resultCode: 1 };
   }
 };
@@ -70,10 +69,14 @@ const updateUserSkills = async (dataObject, params) => {
     );
     return { skills, resultCode: 0 };
   } catch (error) {
-    console.log(error);
     return { messages: 'Something went wrong!', resultCode: 1 };
   }
 };
 
-
-module.exports = { getUsers, createNewUser, findUser, updateUserStatus, updateUserSkills};
+module.exports = {
+  getUsers,
+  createNewUser,
+  findUser,
+  updateUserStatus,
+  updateUserSkills,
+};

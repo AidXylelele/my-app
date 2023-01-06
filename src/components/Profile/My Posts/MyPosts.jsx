@@ -6,6 +6,7 @@ import PostForm from './Post/PostForm/PostForm';
 const MyPosts = (props) => {
   const {
     profileOfUser,
+    postsData,
     isMyPage,
     onSetPosts,
     onCreatePost,
@@ -16,13 +17,14 @@ const MyPosts = (props) => {
     if (profileOfUser) {
       onSetPosts(profileOfUser.id);
     }
-  }, [onSetPosts, profileOfUser]);
+  }, [onSetPosts, profileOfUser, postsData]);
   if (!props.profileOfUser) {
     return null;
   }
-  const postsElements = props.postsData.map((post, idx) => (
+  const postsElements = postsData.map((post, idx) => (
     <Post
       post_id={post.post_id}
+      date={post.post_date}
       message={post.message}
       isMyPage={props.isMyPage}
       like={post.likesCount}

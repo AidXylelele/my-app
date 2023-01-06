@@ -12,6 +12,7 @@ async function createNewUserController(data) {
   const id = uuidv4();
   data.password = UserService.hash(data.password);
   return await createNewUser(data, id).then((user) => {
+    console.log(user)
     if (user) {
       return {
         user,
