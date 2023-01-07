@@ -5,7 +5,7 @@ const {
   deletePost,
 } = require('../models/posts');
 
-async function getPostsControler(params) {
+async function getPostsController(params) {
   return await getPosts(params.id).then((posts) => {
     if (posts) {
       return {
@@ -60,7 +60,7 @@ const deletePostController = async ({ id }) => {
 };
 
 module.exports = {
-  getPostsControler,
+  getPostsController,
   createPostController,
   updatePostController,
   deletePostController,

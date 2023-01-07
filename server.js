@@ -5,24 +5,30 @@ const { routing, types } = require('./server/routings.js');
 const { match } = require('node-match-path');
 const { AccessHeaders } = require('./server/configuration.js');
 
+let handler;
+let params = {};
+let parsedQuery = {};
+
+const parseParameters = (url, routing) => {
+  for (const item in routing) {
+    const [path, query] = url.split('?');
+    const result = match(item, path);
+    if (result.matches) {
+      parsedQuery = querystring.parse(query);
+      handler = routing[item];
+      params = result.params;
+      break;
+    }
+  }
+  return handler, params, parsedQuery
+}
+
 http
   .createServer(async (req, res) => {
     const client = await Client.getInstance(req, res);
     const { method, url, headers } = req;
     console.log(`${method} ${url} ${headers.cookie}`);
-    let handler;
-    let params = {};
-    let parsedQuery = {};
-    for (const item in routing) {
-      const [path, query] = url.split('?');
-      const result = match(item, path);
-      if (result.matches) {
-        parsedQuery = querystring.parse(query);
-        handler = routing[item];
-        params = result.params;
-        break;
-      }
-    }
+    parseParameters(url, routing)
     res.on('finish', () => {
       if (client.session) client.session.save();
     });
