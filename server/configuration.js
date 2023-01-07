@@ -1,5 +1,5 @@
 const {
-  getPostsControler,
+  getPostsController,
   createPostController,
   updatePostController,
   deletePostController,
@@ -67,7 +67,7 @@ const methodsConfig = {
       ),
   },
   posts: {
-    GET: async ({ params }) => await getPostsControler(params),
+    GET: async ({ params }) => await getPostsController(params),
     POST: async ({ client, params }) =>
       await RequestService.getRequestBodyData(client.req).then((data) =>
         createPostController(data.post, params)
