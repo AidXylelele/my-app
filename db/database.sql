@@ -23,7 +23,7 @@ CREATE TABLE IF NOT EXISTS public.posts
 (
     post_id character varying COLLATE pg_catalog."default" NOT NULL,
     user_id character varying COLLATE pg_catalog."default" NOT NULL,
-    message character varying(255) COLLATE pg_catalog."default" NOT NULL,
+    post_message character varying(255) COLLATE pg_catalog."default" NOT NULL,
     post_date character varying(255) NOT NULL,
     CONSTRAINT posts_pkey PRIMARY KEY (post_id),
     CONSTRAINT fk_user_id FOREIGN KEY (user_id)
@@ -60,8 +60,8 @@ CREATE TABLE IF NOT EXISTS public.chats
     id text NOT NULL,
     user_1 text NOT NULL, 
     user_2 text NOT NULL, 
-    date character varying(255) NOT NULL,
-    CONSTRAINT chats PRIMARY KEY (id),
+    chat_date character varying(255) NOT NULL,
+    CONSTRAINT chats_pkey PRIMARY KEY (id),
     CONSTRAINT fk_user_1 FOREIGN KEY (user_1)
         REFERENCES public.users (id) MATCH SIMPLE
         ON UPDATE NO ACTION
@@ -76,16 +76,16 @@ CREATE TABLE IF NOT EXISTS public.chats
 
 TABLESPACE pg_default;
 
-ALTER TABLE IF EXISTS public.chats
-    OWNER to admin;
+ALTER TABLE IF EXISTS public.chats OWNER to admin;
 
 CREATE TABLE IF NOT EXISTS public.messages
 (
-    id bit NOT NULL,
+    id character varying NOT NULL,
     sender_id character varying NOT NULL,
     receiver_id character varying NOT NULL,
     chat_id text NOT NULL,
-    date character varying NOT NULL,
+    content text NOT NULL,
+    message_date character varying NOT NULL,
     CONSTRAINT messages_pkey PRIMARY KEY (id),
     CONSTRAINT fk_chat_id FOREIGN KEY (chat_id)
         REFERENCES public.chats (id) MATCH SIMPLE
