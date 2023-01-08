@@ -55,46 +55,45 @@ ALTER TABLE IF EXISTS public.likes
     OWNER to admin;
 
 
--- CREATE TABLE IF NOT EXISTS public.chats
--- (
---     id text NOT NULL,
---     user_1 text NOT NULL, \\huinya
---     user_2 text NOT NULL, \\huinya move to another table ChatMember (chatId, userId)
---     date character varying(255) NOT NULL,
---     CONSTRAINT chats PRIMARY KEY (id),
---     CONSTRAINT fk_user_1 FOREIGN KEY (user_1)
---         REFERENCES public.users (id) MATCH SIMPLE
---         ON UPDATE NO ACTION
---         ON DELETE NO ACTION
---         NOT VALID,
---     CONSTRAINT fk_user_2 FOREIGN KEY (user_2)
---         REFERENCES public.users (id) MATCH SIMPLE
---         ON UPDATE NO ACTION
---         ON DELETE NO ACTION
---         NOT VALID
--- )
+CREATE TABLE IF NOT EXISTS public.chats
+(
+    id text NOT NULL,
+    user_1 text NOT NULL, 
+    user_2 text NOT NULL, 
+    date character varying(255) NOT NULL,
+    CONSTRAINT chats PRIMARY KEY (id),
+    CONSTRAINT fk_user_1 FOREIGN KEY (user_1)
+        REFERENCES public.users (id) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION
+        NOT VALID,
+    CONSTRAINT fk_user_2 FOREIGN KEY (user_2)
+        REFERENCES public.users (id) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION
+        NOT VALID
+)
 
--- TABLESPACE pg_default;
+TABLESPACE pg_default;
 
--- ALTER TABLE IF EXISTS public.chats
---     OWNER to admin;
+ALTER TABLE IF EXISTS public.chats
+    OWNER to admin;
 
--- CREATE TABLE IF NOT EXISTS public.messages
--- (
---     id bit NOT NULL,
---     sender_id character varying NOT NULL,
---     receiver_id character varying NOT NULL, \\huinya povna
---     chat_id text NOT NULL,
---     date character varying NOT NULL,
---     CONSTRAINT messages_pkey PRIMARY KEY (id),
---     CONSTRAINT fk_chat_id FOREIGN KEY (chat_id)
---         REFERENCES public.chats (id) MATCH SIMPLE
---         ON UPDATE NO ACTION
---         ON DELETE NO ACTION
---         NOT VALID,
--- )
+CREATE TABLE IF NOT EXISTS public.messages
+(
+    id bit NOT NULL,
+    sender_id character varying NOT NULL,
+    receiver_id character varying NOT NULL,
+    chat_id text NOT NULL,
+    date character varying NOT NULL,
+    CONSTRAINT messages_pkey PRIMARY KEY (id),
+    CONSTRAINT fk_chat_id FOREIGN KEY (chat_id)
+        REFERENCES public.chats (id) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION
+        NOT VALID
+)
 
--- TABLESPACE pg_default;
+TABLESPACE pg_default;
 
--- ALTER TABLE IF EXISTS public.messages
---     OWNER to admin;
+ALTER TABLE IF EXISTS public.messages OWNER to admin;
