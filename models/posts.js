@@ -11,25 +11,29 @@ const getPosts = async (user_id) => {
   }
 };
 
-const updatePost = async (message, post_id) => {
+const updatePost = async (message, post_id, date) => {
   try {
     return await pool.query(
-      `UPDATE posts SET message = '${message}', post_date = '${Date.now()}' WHERE post_id = '${post_id}';`
+      `UPDATE posts SET message = '${message}', post_date = '${date}' WHERE post_id = '${post_id}';`
     );
   } catch (error) {
     return null;
   }
 };
 
-const createPost = async (message, user_id) => {
+const createPost = async (message, user_id, date) => {
   try {
     const post_id = uuidv4();
+    const like_id = uuidv4();
     await pool.query(`
     INSERT INTO posts(
 	user_id, post_id, message, post_date) VALUES (
-	 '${user_id}', '${post_id}', '${message}', '${Date.now()}' );
+	 '${user_id}', '${post_id}', '${message}', '${date}');
+   INSERT INTO likes(id, post_id, users_id) VALUES(
+    '${like_id}', '${post_id}', '{}'
+   );
     `);
-    return { post_id, message };
+    return { post_id, message, date };
   } catch (error) {
     return null;
   }
@@ -37,7 +41,9 @@ const createPost = async (message, user_id) => {
 
 const deletePost = async (id) => {
   try {
-    return await pool.query(`DELETE FROM posts WHERE post_id = '${id}';`);
+    return await pool.query(
+      `DELETE FROM posts, likes WHERE post_id = '${id}';`
+    );
   } catch (error) {
     return null;
   }

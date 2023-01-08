@@ -31,6 +31,9 @@ const routing = {
   '/profile/posts/:id': async (args) => {
     return await methodHandler(args, methodsConfig.posts);
   },
+  '/profile/likes/:id': async (args) => {
+    return await methodHandler(args, methodsConfig.likes);
+  },
   '/users': async (args) => {
     return await methodHandler(args, methodsConfig.users);
   },

@@ -4,7 +4,7 @@ import { useState } from 'react';
 import styles from './Post.module.css';
 
 const Post = (props) => {
-  const { message, like, post_id, isMyPage, onUpdatePost, onDeletePost } =
+  const { message, like, date, post_id, isMyPage, onUpdatePost, onDeletePost } =
     props;
   const [isActive, setIsActive] = useState(false);
   const [localPostUpdate, setLocalPostUpdate] = useState(message);
@@ -60,6 +60,9 @@ const Post = (props) => {
         </div>
         <div className={styles.counterOfLikes}>
           <a href="/like">like: {like}</a>
+        </div>
+        <div className={styles.counterOfLikes}>
+          <a href="/like">date: {new Date(Number(date)).toDateString()}</a>
         </div>
       </div>
     </div>

@@ -21,7 +21,8 @@ async function getPostsController(params) {
 }
 
 async function createPostController(message, { id }) {
-  return await createPost(message, id).then((post) => {
+  const date = Date.now();
+  return await createPost(message, id, date).then((post) => {
     if (post) {
       return {
         post,
@@ -33,7 +34,8 @@ async function createPostController(message, { id }) {
 }
 
 async function updatePostController(message, id) {
-  return await updatePost(message, id).then((result) => {
+  const date = Date.now();
+  return await updatePost(message, id, date).then((result) => {
     if (result) {
       return {
         messages: 'Success!',
@@ -58,6 +60,11 @@ const deletePostController = async ({ id }) => {
     return { messages: 'Something went wrong!', resultCode: 1 };
   });
 };
+
+
+
+
+
 
 module.exports = {
   getPostsController,

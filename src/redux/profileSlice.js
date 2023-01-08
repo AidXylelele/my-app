@@ -1,4 +1,4 @@
-import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import { createSlice } from '@reduxjs/toolkit';
 import {
   configForRequests,
   deleteAndPostRequests,
@@ -28,9 +28,9 @@ const profileSlice = createSlice({
     },
     deletePost: (state, action) => {
       const deletedPost = action.payload;
-      state.postsData = state.postsData.filter((post) => {
-        if (!post.post_id === deletedPost.post_id) return post;
-      });
+      state.postsData = state.postsData.filter(
+        (post) => post.post_id !== deletedPost
+      );
     },
     setUserProfile: (state, action) => {
       const item = action.payload;
@@ -115,6 +115,7 @@ export const deleteUserPostThunk = (post_id) => (dispatch) => {
   deleteAndPostRequests(configForRequests.deletePostConfig, post_id).then(
     (response) => {
       if (!response.resultCode) {
+        console.log(response);
         dispatch(deletePost(response.data.post.post_id));
       }
     }

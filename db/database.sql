@@ -5,6 +5,7 @@ CREATE TABLE IF NOT EXISTS public.users
     name character varying(255) COLLATE pg_catalog."default" NOT NULL,
     surname character varying(255) COLLATE pg_catalog."default" NOT NULL,
     status text COLLATE pg_catalog."default" NOT NULL,
+    skills text COLLATE pg_catalog."default" NOT NULL,
     password character varying(255) COLLATE pg_catalog."default" NOT NULL,
      token text COLLATE pg_catalog."default",
     data json,
@@ -23,7 +24,6 @@ CREATE TABLE IF NOT EXISTS public.posts
     post_id character varying COLLATE pg_catalog."default" NOT NULL,
     user_id character varying COLLATE pg_catalog."default" NOT NULL,
     message character varying(255) COLLATE pg_catalog."default" NOT NULL,
-    likes integer NOT NULL DEFAULT 0,
     post_date character varying(255) NOT NULL,
     CONSTRAINT posts_pkey PRIMARY KEY (post_id),
     CONSTRAINT fk_user_id FOREIGN KEY (user_id)
@@ -36,6 +36,24 @@ TABLESPACE pg_default;
 
 ALTER TABLE IF EXISTS public.posts
     OWNER to admin;
+
+
+CREATE TABLE public.likes
+(
+    id character varying(255) NOT NULL,
+    post_id character varying(255) NOT NULL,
+    users_id character varying[],
+    PRIMARY KEY (id),
+    CONSTRAINT fk_post_id FOREIGN KEY (post_id)
+        REFERENCES public.posts (post_id) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION
+        NOT VALID
+);
+
+ALTER TABLE IF EXISTS public.likes
+    OWNER to admin;
+
 
 -- CREATE TABLE IF NOT EXISTS public.chats
 -- (
