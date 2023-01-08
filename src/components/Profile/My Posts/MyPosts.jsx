@@ -17,7 +17,7 @@ const MyPosts = (props) => {
     if (profileOfUser) {
       onSetPosts(profileOfUser.id);
     }
-  }, [onSetPosts, profileOfUser, postsData]);
+  }, [onSetPosts, profileOfUser]);
   if (!props.profileOfUser) {
     return null;
   }
