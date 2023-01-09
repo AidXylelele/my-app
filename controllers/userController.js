@@ -8,63 +8,59 @@ const {
 const { v4: uuidv4 } = require('uuid');
 const UserService = require('../server/service/users-service');
 
-async function createNewUserController(data) {
-  const id = uuidv4();
-  data.password = UserService.hash(data.password);
-  return await createNewUser(data, id).then((user) => {
-    console.log(user)
-    if (user) {
+class UserControllers {
+  static createNewUserController = async (data) => {
+    const id = uuidv4();
+    data.password = UserService.hash(data.password);
+    return await createNewUser(data, id).then((user) => {
+      console.log(user)
+      if (user) {
+        return {
+          user,
+          resultCode: 0,
+        };
+      }
       return {
-        user,
-        resultCode: 0,
+        messages: 'User with the same E-mail was created!',
+        resultCode: 1,
       };
-    }
-    return {
-      messages: 'User with the same E-mail was created!',
-      resultCode: 1,
-    };
-  });
-}
+    });
+  };
 
-async function findUserController(data) {
-  return await findUser(data).then((user) => {
-    if (user) return { user, resultCode: 0 };
-    return { messages: 'User does not exist!', resultCode: 1 };
-  });
-}
+  static findUserController = async (data) => {
+   return await findUser(data).then((user) => {
+      if (user) return { user, resultCode: 0 };
+      return { messages: 'User does not exist!', resultCode: 1 };
+    });
+  };
 
-async function getUsersController(queries) {
-  return await getUsers(queries).then((result) => {
-    if (result) return { ...result, resultCode: 0 };
-    return { messages: 'User does not exist!', resultCode: 1 };
-  });
-}
+  static getUsersController = async (queries) => {
+   return await getUsers(queries).then((result) => {
+      if (result) return { ...result, resultCode: 0 };
+      return { messages: 'User does not exist!', resultCode: 1 };
+   });
+  };
 
-async function getUserStatusController(data) {
-  const { status } = await findUser(data);
-  return status;
-}
+  static getUserStatusController = async(data) => {
+    const { status } = await findUser(data);
+    return status;
+  };
 
-async function updateUserStatusController(data, params) {
-  return await updateUserStatus(data, params);
-}
+  static updateUserStatusController = async (data, params) => {
+    return await updateUserStatus(data, params);
+  };
 
-async function getUserSkillsController(data) {
-  const { skills } = await findUser(data);
-  return skills;
-}
+  static getUserSkillsController = async (data) => {
+    const { skills } = await findUser(data);
+    return skills;
+  };
 
-async function updateUserSkillsController(data, params) {
-  return await updateUserSkills(data, params);
+  static updateUserSkillsController = async (data, params) => {
+    return await updateUserSkills(data, params);
+  };
 }
 
 
 module.exports = {
-  getUsersController,
-  createNewUserController,
-  findUserController,
-  getUserStatusController,
-  updateUserStatusController,
-  getUserSkillsController,
-  updateUserSkillsController,
+  UserControllers
 };

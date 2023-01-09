@@ -1,19 +1,6 @@
-const {
-  getPostsController,
-  createPostController,
-  updatePostController,
-  deletePostController,
-} = require('../controllers/postController');
+const { PostControllers } = require('../controllers/postController');
 const { authUserController } = require('../controllers/registrationController');
-const {
-  findUserController,
-  createNewUserController,
-  getUserStatusController,
-  updateUserStatusController,
-  updateUserSkillsController,
-  getUsersController,
-  getUserSkillsController,
-} = require('../controllers/userController');
+const { UserControllers } = require('../controllers/userController');
 const RequestService = require('./service/request-service');
 const SessionService = require('./service/session-service');
 const Session = require('./session');
@@ -37,7 +24,7 @@ const methodsConfig = {
   me: {
     GET: async ({ client }) => {
       if (client.cookie) {
-        return await findUserController(client.cookie);
+        return await UserControllers.findUserController(client.cookie);
       }
       return { messages: 'Token doesn`t exist!', resultCode: 1 };
     },
@@ -45,14 +32,14 @@ const methodsConfig = {
   register: {
     POST: async ({ client }) =>
       await RequestService.getRequestBodyData(client.req)
-        .then(createNewUserController)
+        .then(UserControllers.createNewUserController)
         .then((data) => SessionService.start(client, data, Session.start)),
   },
   profile: {
-    GET: async ({ params }) => await findUserController(params),
+    GET: async ({ params }) => await UserControllers.findUserController(params),
   },
   status: {
-    GET: async ({ params }) => await getUserStatusController(params),
+    GET: async ({ params }) => await UserControllers.getUserStatusController(params),
     PUT: async ({ client, params }) => {
       return await RequestService.getRequestBodyData(client.req).then((data) =>
         updateUserStatusController(data, params)
@@ -67,19 +54,19 @@ const methodsConfig = {
       ),
   },
   posts: {
-    GET: async ({ params }) => await getPostsController(params),
+    GET: async ({ params }) => await PostControllers.getPostsController(params),
     POST: async ({ client, params }) =>
       await RequestService.getRequestBodyData(client.req).then((data) =>
-        createPostController(data.post, params)
+        PostControllers.createPostController(data.post, params)
       ),
     PUT: async ({ client }) =>
       await RequestService.getRequestBodyData(client.req).then((data) =>
-        updatePostController(data.status, data.id)
+        PostControllers.updatePostController(data.status, data.id)
       ),
-    DELETE: async ({ params }) => await deletePostController(params),
+    DELETE: async ({ params }) => await PostControllers.deletePostController(params),
   },
   users: {
-    GET: async ({ parsedQuery }) => await getUsersController(parsedQuery),
+    GET: async ({ parsedQuery }) => await UserControllers.getUsersController(parsedQuery),
   },
 };
 
