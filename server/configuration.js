@@ -81,6 +81,11 @@ const methodsConfig = {
   users: {
     GET: async ({ parsedQuery }) => await getUsersController(parsedQuery),
   },
+  likes: {
+    GET: async ({ params }) => {},
+    PUT: async ({ client, params }) => {},
+    PATCH: async ({ client, params }) => {},
+  },
 };
 
 module.exports = { AccessHeaders, methodsConfig };
