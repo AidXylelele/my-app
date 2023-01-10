@@ -47,28 +47,13 @@ const findUser = async (dataObject) => {
   }
 };
 
-const updateUserStatus = async (dataObject, params) => {
+const updateUser = async (id, queryPart, param) => {
   try {
-    const { id } = params;
-    const { status } = dataObject;
-    await pool.query(
-      ` UPDATE users SET status = '${status}' WHERE id = '${id}';`
-    );
-    return { status, resultCode: 0 };
+    console.log('HELLL)', queryPart);
+    await pool.query(` UPDATE users SET ${queryPart} WHERE id = '${id}';`);
+    return { param, resultCode: 0 };
   } catch (error) {
-    return { messages: 'Something went wrong!', resultCode: 1 };
-  }
-};
-
-const updateUserSkills = async (dataObject, params) => {
-  try {
-    const { id } = params;
-    const { skills } = dataObject;
-    await pool.query(
-      ` UPDATE users SET skills = '${skills}' WHERE id = '${id}';`
-    );
-    return { skills, resultCode: 0 };
-  } catch (error) {
+    console.log(error);
     return { messages: 'Something went wrong!', resultCode: 1 };
   }
 };
@@ -77,6 +62,5 @@ module.exports = {
   getUsers,
   createNewUser,
   findUser,
-  updateUserStatus,
-  updateUserSkills,
+  updateUser,
 };

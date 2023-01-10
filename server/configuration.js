@@ -1,6 +1,6 @@
 const { PostControllers } = require('../controllers/postController');
 const { authUserController } = require('../controllers/registrationController');
-const { UserControllers } = require('../controllers/userController');
+const UserControllers = require('../controllers/userController');
 const RequestService = require('./service/request-service');
 const SessionService = require('./service/session-service');
 const Session = require('./session');
@@ -17,8 +17,8 @@ const methodsConfig = {
   login: {
     POST: async ({ client }) =>
       await RequestService.getRequestBodyData(client.req)
-      .then(authUserController)
-      .then((data) => SessionService.start(client, data, Session.start)),
+        .then(authUserController)
+        .then((data) => SessionService.start(client, data, Session.start)),
     DELETE: async ({ client }) => SessionService.delete(client, Session.delete),
   },
   me: {
@@ -32,41 +32,50 @@ const methodsConfig = {
   register: {
     POST: async ({ client }) =>
       await RequestService.getRequestBodyData(client.req)
-      .then(UserControllers.createNewUserController)
-      .then((data) => SessionService.start(client, data, Session.start)),
+        .then(UserControllers.createNewUserController)
+        .then((data) => SessionService.start(client, data, Session.start)),
   },
   profile: {
     GET: async ({ params }) => await UserControllers.findUserController(params),
   },
   status: {
-    GET: async ({ params }) => await UserControllers.getUserStatusController(params),
+    GET: async ({ params }) =>
+      await UserControllers.getUserStatusController(params),
     PUT: async ({ client, params }) => {
       return await RequestService.getRequestBodyData(client.req).then((data) =>
-      UserControllers.updateUserStatusController(data, params)
+        UserControllers.updateUserStatusController(data, params)
       );
     },
   },
   skills: {
-    GET: async ({ params }) => await UserControllers.getUserSkillsController(params),
+    GET: async ({ params }) =>
+      await UserControllers.getUserSkillsController(params),
     PUT: async ({ client, params }) =>
       await RequestService.getRequestBodyData(client.req).then((data) =>
-      UserControllers.updateUserSkillsController(data, params)
+        UserControllers.updateUserSkillsController(data, params)
       ),
   },
   posts: {
     GET: async ({ params }) => await PostControllers.getPostsController(params),
     POST: async ({ client, params }) =>
       await RequestService.getRequestBodyData(client.req).then((data) =>
-      PostControllers.createPostController(data.post, params)
+        PostControllers.createPostController(data.post, params)
       ),
     PUT: async ({ client }) =>
       await RequestService.getRequestBodyData(client.req).then((data) =>
-      PostControllers.updatePostController(data.status, data.id)
+        PostControllers.updatePostController(data.status, data.id)
       ),
-    DELETE: async ({ params }) => await PostControllers.deletePostController(params),
+    DELETE: async ({ params }) =>
+      await PostControllers.deletePostController(params),
   },
   users: {
-    GET: async ({ parsedQuery }) => await UserControllers.getUsersController(parsedQuery),
+    GET: async ({ parsedQuery }) =>
+      await UserControllers.getUsersController(parsedQuery),
+  },
+  likes: {
+    GET: async ({ params }) => {},
+    PUT: async ({ client, params }) => {},
+    PATCH: async ({ client, params }) => {},
   },
 };
 
