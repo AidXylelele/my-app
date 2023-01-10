@@ -1,8 +1,7 @@
 const {
   createNewUser,
   findUser,
-  updateUserStatus,
-  updateUserSkills,
+  updateUser,
   getUsers,
 } = require('../models/users');
 const { v4: uuidv4 } = require('uuid');
@@ -13,7 +12,7 @@ class UserControllers {
     const id = uuidv4();
     data.password = UserService.hash(data.password);
     return await createNewUser(data, id).then((user) => {
-      console.log(user)
+      console.log(user);
       if (user) {
         return {
           user,
@@ -28,26 +27,29 @@ class UserControllers {
   };
 
   static findUserController = async (data) => {
-   return await findUser(data).then((user) => {
+    return await findUser(data).then((user) => {
       if (user) return { user, resultCode: 0 };
       return { messages: 'User does not exist!', resultCode: 1 };
     });
   };
 
   static getUsersController = async (queries) => {
-   return await getUsers(queries).then((result) => {
+    return await getUsers(queries).then((result) => {
       if (result) return { ...result, resultCode: 0 };
       return { messages: 'User does not exist!', resultCode: 1 };
-   });
+    });
   };
 
-  static getUserStatusController = async(data) => {
+  static getUserStatusController = async (data) => {
     const { status } = await findUser(data);
     return status;
   };
 
   static updateUserStatusController = async (data, params) => {
-    return await updateUserStatus(data, params);
+    const { id } = params;
+    const { status } = data;
+    const queryPart = `status = ${status}`;
+    return await updateUser(id, queryPart, status);
   };
 
   static getUserSkillsController = async (data) => {
@@ -56,11 +58,13 @@ class UserControllers {
   };
 
   static updateUserSkillsController = async (data, params) => {
-    return await updateUserSkills(data, params);
+    const { id } = params;
+    const { skills } = data;
+    const queryPart = `skills = ${skills}`;
+    return await updateUser(id, queryPart, skills);
   };
 }
 
-
 module.exports = {
-  UserControllers
+  UserControllers,
 };

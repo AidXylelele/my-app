@@ -1,13 +1,13 @@
-const bcrypt = require('bcryptjs');
+const crypto = require('node:crypto');
 
 class UserService {
   constructor() {}
   static hash(data) {
-    const salt = bcrypt.genSaltSync(3);
-    return bcrypt.hashSync(data, salt);
+    return crypto.scryptSync(data, 'salt', 64).toString('hex');
   }
   static compare(reqData, resData) {
-    return bcrypt.compareSync(reqData, resData);
+    enteredPass = crypto.scryptSync(reqData, 'salt', 64).toString('hex');
+    return enteredPass === resData;
   }
 }
 

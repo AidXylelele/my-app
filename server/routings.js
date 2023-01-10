@@ -3,9 +3,9 @@ const { methodsConfig } = require('./configuration.js');
 const methodHandler = async (args, config) => {
   const { client } = args;
   const { method } = client.req;
-  const hanlder = config[method];
-  if (hanlder) {
-    return await hanlder(args);
+  const handler = config[method];
+  if (handler) {
+    return await handler(args);
   }
 };
 
