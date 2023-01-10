@@ -1,42 +1,15 @@
 const { methodsConfig } = require('./configuration.js');
 
-const methodHandler = async (args, config) => {
-  const { client } = args;
-  const { method } = client.req;
-  const handler = config[method];
-  if (handler) {
-    return await handler(args);
-  }
-};
-
 const routing = {
-  '/auth/login': async (args) => {
-    return await methodHandler(args, methodsConfig.login);
-  },
-  '/auth/me': async (args) => {
-    return await methodHandler(args, methodsConfig.me);
-  },
-  '/register': async (args) => {
-    return await methodHandler(args, methodsConfig.register);
-  },
-  '/profile/:id': async (args) => {
-    return await methodHandler(args, methodsConfig.profile);
-  },
-  '/profile/status/:id': async (args) => {
-    return await methodHandler(args, methodsConfig.status);
-  },
-  '/profile/skills/:id': async (args) => {
-    return await methodHandler(args, methodsConfig.skills);
-  },
-  '/profile/posts/:id': async (args) => {
-    return await methodHandler(args, methodsConfig.posts);
-  },
-  '/profile/likes/:id': async (args) => {
-    return await methodHandler(args, methodsConfig.likes);
-  },
-  '/users': async (args) => {
-    return await methodHandler(args, methodsConfig.users);
-  },
+  '/auth/login': methodsConfig.login.handle(args),
+  '/auth/me': methodsConfig.me.handle(args),
+  '/register': methodsConfig.register.handle(args),
+  '/profile/:id': methodsConfig.profile.handle(args),
+  '/profile/status/:id': methodsConfig.status.handle(args),
+  '/profile/skills/:id': methodsConfig.skills.handle(args),
+  '/profile/posts/:id': methodsConfig.posts.handle(args),
+  '/profile/likes/:id': methodsConfig.likes.handle(args),
+  '/users': methodsConfig.users.handle(args),
   '/api/method2': async (client) => ({
     url: client.req.url,
     headers: client.req.headers,
