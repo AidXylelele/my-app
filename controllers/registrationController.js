@@ -4,7 +4,7 @@ const UserService = require('../server/service/users-service');
 async function authUserController(data) {
   return await findUser(data).then((user) => {
     const clientPassword = user.password || '';
-    const checkedPassword = UserService.compare(data.password, clientPassword);
+    const checkedPassword = UserService.compare(clientPassword, data.password);
     if (checkedPassword) {
       return { user, resultCode: 0 };
     }
