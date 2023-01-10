@@ -9,12 +9,12 @@ const parseParameters = (url, routing) => {
   let handler;
   let params = {};
   let parsedQuery = {};
-  for (const item in routing) {
+  for (const route in routing) {
     const [path, query] = url.split('?');
-    const result = match(item, path);
+    const result = match(route, path);
     if (result.matches) {
       parsedQuery = querystring.parse(query);
-      handler = routing[item];
+      handler = routing[route];
       params = result.params;
       break;
     }

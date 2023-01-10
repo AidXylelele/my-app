@@ -1,12 +1,7 @@
 const pool = require('../db/pool');
 
-async function getRes() {
-  let res = await pool.query(`SELECT * FROM users;`);
-  res = res.rows;
-  console.log(res);
-}
-
-async function setSessionToken(session) {
+class SessionModel {
+static async setSessionToken(session) {
   try {
     await pool.query(`
    UPDATE users SET token = '${
@@ -17,7 +12,7 @@ async function setSessionToken(session) {
   }
 }
 
-async function getSessionToken(token) {
+static async getSessionToken(token) {
   try {
     const value = await pool.query(`
    SELECT token, data
@@ -30,7 +25,7 @@ async function getSessionToken(token) {
   }
 }
 
-async function deleteSessionToken(token) {
+static async deleteSessionToken(token) {
   try {
     await pool.query(
       `UPDATE users SET token = '', data = '{}' WHERE token = '${token}';`
@@ -40,7 +35,6 @@ async function deleteSessionToken(token) {
     return 'Oops! Something went wrong!';
   }
 }
+}
 
-getRes();
-
-module.exports = { setSessionToken, getSessionToken, deleteSessionToken };
+module.exports = SessionModel;
