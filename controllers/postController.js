@@ -1,13 +1,8 @@
-const {
-  getPosts,
-  createPost,
-  updatePost,
-  deletePost,
-} = require('../models/posts');
+const PostModel = require('../models/posts');
 
 class PostControllers {
   static getPostsController = async (params) => {
-    return await getPosts(params.id).then((posts) => {
+    return await PostModel.getPosts(params.id).then((posts) => {
       if (posts) {
         return {
           posts,
@@ -23,7 +18,7 @@ class PostControllers {
 
   static createPostController = async (message, { id }) => {
     const date = Date.now();
-    return await createPost(message, id, date).then((post) => {
+    return await PostModel.createPost(message, id, date).then((post) => {
       if (post) {
         return {
           post,
@@ -36,7 +31,7 @@ class PostControllers {
 
   static updatePostController = async (message, id) => {
     const date = Date.now();
-    return await updatePost(message, id, date).then((result) => {
+    return await PostModel.updatePost(message, id, date).then((result) => {
       if (result) {
         return {
           messages: 'Success!',
@@ -48,7 +43,7 @@ class PostControllers {
   };
 
   static deletePostController = async ({ id }) => {
-    return await deletePost(id).then((result) => {
+    return await PostModel.deletePost(id).then((result) => {
       if (result) {
         return {
           messages: 'Successfully deleted!',
@@ -63,6 +58,4 @@ class PostControllers {
   };
 }
 
-module.exports = {
-  PostControllers,
-};
+module.exports = PostControllers;
