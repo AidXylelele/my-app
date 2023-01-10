@@ -1,15 +1,15 @@
 const { methodsConfig } = require('./configuration.js');
 
 const routing = {
-  '/auth/login': methodsConfig.login.handle(args),
-  '/auth/me': methodsConfig.me.handle(args),
-  '/register': methodsConfig.register.handle(args),
-  '/profile/:id': methodsConfig.profile.handle(args),
-  '/profile/status/:id': methodsConfig.status.handle(args),
-  '/profile/skills/:id': methodsConfig.skills.handle(args),
-  '/profile/posts/:id': methodsConfig.posts.handle(args),
-  '/profile/likes/:id': methodsConfig.likes.handle(args),
-  '/users': methodsConfig.users.handle(args),
+  '/auth/login': methodsConfig.login.handle,
+  '/auth/me': methodsConfig.me.handle,
+  '/register': methodsConfig.register.handle,
+  '/profile/:id': methodsConfig.profile.handle,
+  '/profile/status/:id': methodsConfig.status.handle,
+  '/profile/skills/:id': methodsConfig.skills.handle,
+  '/profile/posts/:id': methodsConfig.posts.handle,
+  '/profile/likes/:id': methodsConfig.likes.handle,
+  '/users': methodsConfig.users.handle,
   '/api/method2': async (client) => ({
     url: client.req.url,
     headers: client.req.headers,
