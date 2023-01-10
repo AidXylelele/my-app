@@ -1,5 +1,4 @@
 class RequestService {
-  constructor() {}
   static parseRequestBody(body) {
     return JSON.parse(body);
   }
