@@ -42,15 +42,15 @@ const methodsConfig = {
     GET: async ({ params }) => await UserControllers.getUserStatusController(params),
     PUT: async ({ client, params }) => {
       return await RequestService.getRequestBodyData(client.req).then((data) =>
-        updateUserStatusController(data, params)
+      UserControllers.updateUserStatusController(data, params)
       );
     },
   },
   skills: {
-    GET: async ({ params }) => await getUserSkillsController(params),
+    GET: async ({ params }) => await UserControllers.getUserSkillsController(params),
     PUT: async ({ client, params }) =>
       await RequestService.getRequestBodyData(client.req).then((data) =>
-        updateUserSkillsController(data, params)
+      UserControllers.updateUserSkillsController(data, params)
       ),
   },
   posts: {
