@@ -1,15 +1,22 @@
-const { findUser } = require('../models/users');
-const UserService = require('../server/service/users-service');
+const UserModel = require("../models/users");
+const UserService = require("../server/service/users-service");
 
-async function authUserController(data) {
-  return await findUser(data).then((user) => {
-    const clientPassword = user.password || '';
-    const checkedPassword = UserService.compare(data.password, clientPassword);
-    if (checkedPassword) {
-      return { user, resultCode: 0 };
+class RegistrationController {
+  static async authUserController(data) {
+    const user = await UserModel.findUser(data);
+    if (!user) {
+      return { messages: "Invalid password or e-mail!", resultCode: 1 };
     }
-    return { messages: 'Invalid password or e-mail!', resultCode: 1 };
-  });
+    const clientPassword = user.password || "";
+    const checkedPassword = UserService.compare(
+        data.password,
+        clientPassword
+    );
+    if (!checkedPassword) {
+      return { messages: "Invalid password or e-mail!", resultCode: 1 };
+    }
+    return { user, resultCode: 0 };
+  }
 }
 
-module.exports = { authUserController };
+module.exports = RegistrationController;
