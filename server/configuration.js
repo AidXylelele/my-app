@@ -17,8 +17,8 @@ const methodsConfig = {
   login: {
     POST: async ({ client }) =>
       await RequestService.getRequestBodyData(client.req)
-        .then(authUserController)
-        .then((data) => SessionService.start(client, data, Session.start)),
+      .then(authUserController)
+      .then((data) => SessionService.start(client, data, Session.start)),
     DELETE: async ({ client }) => SessionService.delete(client, Session.delete),
   },
   me: {
@@ -32,8 +32,8 @@ const methodsConfig = {
   register: {
     POST: async ({ client }) =>
       await RequestService.getRequestBodyData(client.req)
-        .then(UserControllers.createNewUserController)
-        .then((data) => SessionService.start(client, data, Session.start)),
+      .then(UserControllers.createNewUserController)
+      .then((data) => SessionService.start(client, data, Session.start)),
   },
   profile: {
     GET: async ({ params }) => await UserControllers.findUserController(params),
@@ -57,11 +57,11 @@ const methodsConfig = {
     GET: async ({ params }) => await PostControllers.getPostsController(params),
     POST: async ({ client, params }) =>
       await RequestService.getRequestBodyData(client.req).then((data) =>
-        PostControllers.createPostController(data.post, params)
+      PostControllers.createPostController(data.post, params)
       ),
     PUT: async ({ client }) =>
       await RequestService.getRequestBodyData(client.req).then((data) =>
-        PostControllers.updatePostController(data.status, data.id)
+      PostControllers.updatePostController(data.status, data.id)
       ),
     DELETE: async ({ params }) => await PostControllers.deletePostController(params),
   },
@@ -70,4 +70,6 @@ const methodsConfig = {
   },
 };
 
-module.exports = { AccessHeaders, methodsConfig };
+const PORT = 3003;
+
+module.exports = { AccessHeaders, methodsConfig, PORT };
