@@ -1,0 +1,3 @@
+class likesController {
+  static;
+}

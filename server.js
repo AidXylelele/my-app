@@ -3,13 +3,12 @@ const querystring = require('node:querystring');
 const Client = require('./server/client.js');
 const { routing, types } = require('./server/routings.js');
 const { match } = require('node-match-path');
-const { AccessHeaders } = require('./server/configuration.js');
-
-let handler;
-let params = {};
-let parsedQuery = {};
+const { AccessHeaders, PORT } = require('./server/configuration.js');
 
 const parseParameters = (url, routing) => {
+  let handler;
+  let params = {};
+  let parsedQuery = {};
   for (const item in routing) {
     const [path, query] = url.split('?');
     const result = match(item, path);
@@ -20,7 +19,7 @@ const parseParameters = (url, routing) => {
       break;
     }
   }
-  return handler, params, parsedQuery
+  return { handler, params, parsedQuery };
 }
 
 http
@@ -28,7 +27,7 @@ http
     const client = await Client.getInstance(req, res);
     const { method, url, headers } = req;
     console.log(`${method} ${url} ${headers.cookie}`);
-    parseParameters(url, routing)
+    const { handler, params, parsedQuery } = parseParameters(url, routing);
     res.on('finish', () => {
       if (client.session) client.session.save();
     });
@@ -56,4 +55,4 @@ http
       }
     );
   })
-  .listen(3003);
+  .listen(PORT);

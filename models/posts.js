@@ -42,9 +42,11 @@ const createPost = async (message, user_id, date) => {
 const deletePost = async (id) => {
   try {
     return await pool.query(
-      `DELETE FROM posts, likes WHERE post_id = '${id}';`
+      `DELETE FROM likes WHERE post_id = '${id}';
+      DELETE FROM posts WHERE post_id = '${id}';`
     );
   } catch (error) {
+    console.log(error);
     return null;
   }
 };

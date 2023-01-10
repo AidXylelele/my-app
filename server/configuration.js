@@ -1,6 +1,6 @@
 const { PostControllers } = require('../controllers/postController');
 const { authUserController } = require('../controllers/registrationController');
-const { UserControllers } = require('../controllers/userController');
+const UserControllers = require('../controllers/userController');
 const RequestService = require('./service/request-service');
 const SessionService = require('./service/session-service');
 const Session = require('./session');
@@ -39,18 +39,20 @@ const methodsConfig = {
     GET: async ({ params }) => await UserControllers.findUserController(params),
   },
   status: {
-    GET: async ({ params }) => await UserControllers.getUserStatusController(params),
+    GET: async ({ params }) =>
+      await UserControllers.getUserStatusController(params),
     PUT: async ({ client, params }) => {
       return await RequestService.getRequestBodyData(client.req).then((data) =>
-        updateUserStatusController(data, params)
+        UserControllers.updateUserStatusController(data, params)
       );
     },
   },
   skills: {
-    GET: async ({ params }) => await getUserSkillsController(params),
+    GET: async ({ params }) =>
+      await UserControllers.getUserSkillsController(params),
     PUT: async ({ client, params }) =>
       await RequestService.getRequestBodyData(client.req).then((data) =>
-        updateUserSkillsController(data, params)
+        UserControllers.updateUserSkillsController(data, params)
       ),
   },
   posts: {
@@ -63,11 +65,20 @@ const methodsConfig = {
       await RequestService.getRequestBodyData(client.req).then((data) =>
         PostControllers.updatePostController(data.status, data.id)
       ),
-    DELETE: async ({ params }) => await PostControllers.deletePostController(params),
+    DELETE: async ({ params }) =>
+      await PostControllers.deletePostController(params),
   },
   users: {
-    GET: async ({ parsedQuery }) => await UserControllers.getUsersController(parsedQuery),
+    GET: async ({ parsedQuery }) =>
+      await UserControllers.getUsersController(parsedQuery),
+  },
+  likes: {
+    GET: async ({ params }) => {},
+    PUT: async ({ client, params }) => {},
+    PATCH: async ({ client, params }) => {},
   },
 };
 
-module.exports = { AccessHeaders, methodsConfig };
+const PORT = 3003;
+
+module.exports = { AccessHeaders, methodsConfig, PORT };
