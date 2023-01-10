@@ -32,7 +32,7 @@ const createNewUser = async (data, id) => {
 const findUser = async (dataObject) => {
   try {
     const [key] = Object.keys(dataObject).filter(
-      (item) => item == 'email' || item == 'token' || item == 'id'
+      (item) => item === 'email' || item === 'token' || item === 'id'
     );
     if (key) {
       const result = await pool.query(`
