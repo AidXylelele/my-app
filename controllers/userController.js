@@ -48,7 +48,7 @@ class UserControllers {
   static updateUserStatusController = async (data, params) => {
     const { id } = params;
     const { status } = data;
-    const queryPart = `status = ${status}`;
+    const queryPart = `status = '${status}'`;
     return await updateUser(id, queryPart, status);
   };
 
@@ -60,11 +60,9 @@ class UserControllers {
   static updateUserSkillsController = async (data, params) => {
     const { id } = params;
     const { skills } = data;
-    const queryPart = `skills = ${skills}`;
+    const queryPart = `skills = '${skills}'`;
     return await updateUser(id, queryPart, skills);
   };
 }
 
-module.exports = {
-  UserControllers,
-};
+module.exports = UserControllers;

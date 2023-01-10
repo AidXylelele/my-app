@@ -49,9 +49,11 @@ const findUser = async (dataObject) => {
 
 const updateUser = async (id, queryPart, param) => {
   try {
-    await pool.query(` UPDATE users SET '${queryPart}' WHERE id = '${id}';`);
+    console.log('HELLL)', queryPart);
+    await pool.query(` UPDATE users SET ${queryPart} WHERE id = '${id}';`);
     return { param, resultCode: 0 };
   } catch (error) {
+    console.log(error);
     return { messages: 'Something went wrong!', resultCode: 1 };
   }
 };

@@ -10,16 +10,28 @@ const getLikes = async (post_id) => {
   }
 };
 
-const updateLikes = async (post_id, user_id) => {
+const addLikes = async (post_id, user_id) => {
   try {
-    let users_id = getLikes(post_id).users_id
-    users_id.push(user_id);
+    const users = getLikes(post_id).users_id;
+    users.push(user_id);
     return await pool.query(
-      `UPDATE likes SET users_id = {${users_id}} WHERE post_id = '${post_id}';`
+      `UPDATE likes SET users_id = {${users}} WHERE post_id = '${post_id}';`
     );
   } catch (error) {
     return null;
   }
 };
 
-module.exports = { getLikes, updateLikes };
+const deleteLikes = async (post_id, user_id) => {
+  try {
+    const users = getLikes(post_id).users_id;
+    users.filter((id) => id !== user_id);
+    return await pool.query(
+      `UPDATE likes SET users_id = {${users}} WHERE post_id = '${post_id}';`
+    );
+  } catch (error) {
+    return null;
+  }
+};
+
+module.exports = { getLikes, addLikes, deleteLikes };

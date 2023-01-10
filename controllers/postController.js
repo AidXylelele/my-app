@@ -32,7 +32,7 @@ class PostControllers {
       }
       return { messages: 'Something went wrong!', resultCode: 1 };
     });
-  }
+  };
 
   static updatePostController = async (message, id) => {
     const date = Date.now();
@@ -45,7 +45,7 @@ class PostControllers {
       }
       return { messages: 'Something went wrong!', resultCode: 1 };
     });
-  }
+  };
 
   static deletePostController = async ({ id }) => {
     return await deletePost(id).then((result) => {
@@ -53,9 +53,9 @@ class PostControllers {
         return {
           messages: 'Successfully deleted!',
           post: {
-          post_id: id,
-        },
-        resultCode: 0,
+            post_id: id,
+          },
+          resultCode: 0,
         };
       }
       return { messages: 'Something went wrong!', resultCode: 1 };
@@ -63,10 +63,6 @@ class PostControllers {
   };
 }
 
-
-
-
-
 module.exports = {
-  PostControllers
+  PostControllers,
 };
