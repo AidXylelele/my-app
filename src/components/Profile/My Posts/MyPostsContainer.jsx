@@ -5,16 +5,13 @@ import {
   getUserPostsThunk,
   updateUserPostThunk,
 } from '../../../redux/profileSlice';
-import {
-  postDataSelector,
-  profileOfUserSelector,
-} from '../../../redux/selectors';
+import selectors from '../../../redux/selectors';
 import MyPosts from './MyPosts';
 
 const mapStateToProps = (state) => {
   return {
-    postsData: postDataSelector(state),
-    profileOfUser: profileOfUserSelector(state),
+    postsData: selectors.postData(state),
+    profileOfUser: selectors.profileOfUser(state),
   };
 };
 

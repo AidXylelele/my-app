@@ -8,27 +8,19 @@ import {
 import Users from './Users';
 import PreLoader from '../common/Preloader/Preloader';
 import { useEffect } from 'react';
-import {
-  followRequestsSelector,
-  isAuthedSelector,
-  isFetchingSelector,
-  pageSizeSelector,
-  selectedPageSelector,
-  totalUsersCountSelector,
-  usersDataSelector,
-} from '../../redux/selectors';
+import selectors from '../../redux/selectors';
 import { withAuthRedirect } from '../hoc/AuthRedirect';
 import { compose } from 'redux';
 
 const mapStateToProps = (state) => {
   return {
-    usersData: usersDataSelector(state),
-    pageSize: pageSizeSelector(state),
-    totalUsersCount: totalUsersCountSelector(state),
-    selectedPage: selectedPageSelector(state),
-    isFetching: isFetchingSelector(state),
-    followRequests: followRequestsSelector(state),
-    isAuthed: isAuthedSelector(state),
+    usersData: selectors.usersData(state),
+    pageSize: selectors.pageSize(state),
+    totalUsersCount: selectors.totalUsersCount(state),
+    selectedPage: selectors.selectedPage(state),
+    isFetching: selectors.isFetching(state),
+    followRequests: selectors.followRequests(state),
+    isAuthed: selectors.isAuthed(state),
   };
 };
 

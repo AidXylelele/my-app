@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Navigate } from 'react-router-dom';
 import { getRegisteredThunkCreator } from '../../redux/registerSlice';
-import { isAuthedSelector, registerErrorSelector } from '../../redux/selectors';
+import selectors from '../../redux/selectors';
 import RegisterForm from './RegisterForm';
 
 const Register = (props) => {
@@ -18,8 +18,8 @@ const Register = (props) => {
 };
 
 const mapStatetoProps = (state) => ({
-  error: registerErrorSelector(state),
-  isAuthed: isAuthedSelector(state),
+  error: selectors.registerError(state),
+  isAuthed: selectors.isAuthed(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({
