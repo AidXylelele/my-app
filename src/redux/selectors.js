@@ -1,82 +1,34 @@
-const dialogsDataSelector = (state) => {
-  return state.dialogsPage.dialogsData;
-};
+const selectors = {
+  dialogsData: (state) => state.dialogsPage.dialogsData,
 
-const messagesDataSelector = (state) => {
-  return state.dialogsPage.messagesData;
-};
+  messagesData: (state) => state.dialogsPage.messagesData,
 
-const isAuthedSelector = (state) => {
-  return state.auth.isAuthed;
-};
+  isAuthed: (state) => state.auth.isAuthed,
 
-const loginErrorSelector = (state) => {
-  return state.auth.error;
-};
+  loginError: (state) => state.auth.error,
 
-const postDataSelector = (state) => {
-  return state.profilePage.postsData;
-};
+  postData: (state) => state.profilePage.postsData,
 
-const profileOfUserSelector = (state) => {
-  return state.profilePage.profileOfUser;
-};
+  profileOfUser: (state) => state.profilePage.profileOfUser,
 
-const userStatusSelector = (state) => {
-  return state.profilePage.userStatus;
-};
+  userStatus: (state) => state.profilePage.userStatus,
 
-const userSkillsSelector = (state) => {
-  return state.profilePage.userSkills;
-};
+  userSkills: (state) => state.profilePage.userSkills,
 
-const usersDataSelector = (state) => {
-  return state.usersPage.usersData;
-};
+  usersData: (state) => state.usersPage.usersData,
 
-const pageSizeSelector = (state) => {
-  return state.usersPage.pageSize;
-};
+  pageSize: (state) => state.usersPage.pageSize,
 
-const totalUsersCountSelector = (state) => {
-  return state.usersPage.totalUsersCount;
-};
+  totalUsersCount: (state) => state.usersPage.totalUsersCount,
 
-const selectedPageSelector = (state) => {
-  return state.usersPage.selectedPage;
-};
+  selectedPage: (state) => state.usersPage.selectedPage,
 
-const isFetchingSelector = (state) => {
-  return state.usersPage.isFetching;
-};
+  isFetching: (state) => state.usersPage.isFetching,
 
-const followRequestsSelector = (state) => {
-  return state.usersPage.followRequests;
-};
+  followRequests: (state) => state.usersPage.followRequests,
 
-const myUserIdSelector = (state) => {
-  return state.auth.userId;
-};
+  myUserId: (state) => state.auth.userId,
 
-const registerErrorSelector = (state) => {
-  return state.register.error;
+  registerError: (state) => state.register.error,
 };
-
-export {
-  dialogsDataSelector,
-  messagesDataSelector,
-  isAuthedSelector,
-  loginErrorSelector,
-  postDataSelector,
-  profileOfUserSelector,
-  userStatusSelector,
-  userSkillsSelector,
-  usersDataSelector,
-  pageSizeSelector,
-  totalUsersCountSelector,
-  selectedPageSelector,
-  isFetchingSelector,
-  followRequestsSelector,
-  myUserIdSelector,
-  registerErrorSelector,
-};
+export default selectors;

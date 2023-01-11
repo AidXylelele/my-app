@@ -1,8 +1,4 @@
-const {
-  setSessionTokenController,
-  getSessionTokenController,
-  deleteSessionTokenController,
-} = require('../controllers/sessionController');
+const SessionController = require('../controllers/sessionController');
 
 class Storage extends Map {
   get(key, callback) {
@@ -12,7 +8,7 @@ class Storage extends Map {
       return;
     }
 
-    getSessionTokenController(key, (session) => {
+    SessionController.getSessionToken(key, (session) => {
       console.log(`Session loaded: ${key}`);
       super.set(key, session);
       callback(null, session);
@@ -23,7 +19,7 @@ class Storage extends Map {
     const value = super.get(key);
     if (value) {
       const data = JSON.stringify(value);
-      setSessionTokenController(data, (key) => {
+      SessionController.getSessionToken(data, (key) => {
         console.log(`Session saved: ${key}`);
       });
     }
@@ -31,7 +27,7 @@ class Storage extends Map {
 
   delete(key) {
     console.log('Delete: ', key);
-    deleteSessionTokenController(key, () => {
+    SessionController.deleteSessionToken(key, () => {
       console.log(`Session deleted: ${key}`);
     });
   }

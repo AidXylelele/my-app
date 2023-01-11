@@ -2,7 +2,7 @@ const UserModel = require("../models/users");
 const UserService = require("../server/service/users-service");
 
 class RegistrationController {
-  static async authUserController(data) {
+  static async authUser(data) {
     const user = await UserModel.findUser(data);
     if (!user) {
       return { messages: "Invalid password or e-mail!", resultCode: 1 };

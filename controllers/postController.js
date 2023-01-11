@@ -1,61 +1,43 @@
 const PostModel = require('../models/posts');
 
-class PostControllers {
-  static getPostsController = async (params) => {
-    return await PostModel.getPosts(params.id).then((posts) => {
-      if (posts) {
-        return {
-          posts,
-          resultCode: 0,
-        };
-      }
-      return {
-        messages: 'User with the same E-mail was created!',
-        resultCode: 1,
-      };
-    });
-  };
+class PostController {
+  static async getPosts(params) {
+    const posts = await PostModel.getPosts(params.id);
+    if (!posts) {
+      return { messages: 'User does not have any posts', resultCode: 1 };
+    }
+    return { posts, resultCode: 0 };
+  }
 
-  static createPostController = async (message, { id }) => {
+  static async createPost(message, { id }) {
     const date = Date.now();
-    return await PostModel.createPost(message, id, date).then((post) => {
-      if (post) {
-        return {
-          post,
-          resultCode: 0,
-        };
-      }
+    const post = await PostModel.createPost(message, id, date);
+    if (!post) {
       return { messages: 'Something went wrong!', resultCode: 1 };
-    });
-  };
+    }
+    return { post, resultCode: 0 };
+  }
 
-  static updatePostController = async (message, id) => {
+  static async updatePost(message, id) {
     const date = Date.now();
-    return await PostModel.updatePost(message, id, date).then((result) => {
-      if (result) {
-        return {
-          messages: 'Success!',
-          resultCode: 0,
-        };
-      }
+    const result = await PostModel.updatePost(message, id, date);
+    if (!result) {
       return { messages: 'Something went wrong!', resultCode: 1 };
-    });
-  };
+    }
+    return { messages: 'Success!', resultCode: 0 };
+  }
 
-  static deletePostController = async ({ id }) => {
-    return await PostModel.deletePost(id).then((result) => {
-      if (result) {
-        return {
-          messages: 'Successfully deleted!',
-          post: {
-            post_id: id,
-          },
-          resultCode: 0,
-        };
-      }
+  static async deletePost({ id }) {
+    const result = await PostModel.deletePost(id);
+    if (!result) {
       return { messages: 'Something went wrong!', resultCode: 1 };
-    });
-  };
+    }
+    return {
+      messages: 'Successfully deleted!',
+      post: { post_id: id },
+      resultCode: 0,
+    };
+  }
 }
 
-module.exports = PostControllers;
+module.exports = PostController;
