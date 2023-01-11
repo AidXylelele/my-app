@@ -1,6 +1,6 @@
 const PostModel = require('../models/posts');
 
-class PostControllers {
+class PostController {
   static getPostsController = async (params) => {
     const posts = await PostModel.getPosts(params.id);
     if (!posts) {
@@ -40,4 +40,4 @@ class PostControllers {
   };
 }
 
-module.exports = PostControllers;
+module.exports = PostController;
