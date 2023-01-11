@@ -8,7 +8,7 @@ class Storage extends Map {
       return;
     }
 
-    SessionController.getSessionTokenController(key, (session) => {
+    SessionController.getSessionToken(key, (session) => {
       console.log(`Session loaded: ${key}`);
       super.set(key, session);
       callback(null, session);
@@ -19,7 +19,7 @@ class Storage extends Map {
     const value = super.get(key);
     if (value) {
       const data = JSON.stringify(value);
-      SessionController.getSessionTokenController(data, (key) => {
+      SessionController.getSessionToken(data, (key) => {
         console.log(`Session saved: ${key}`);
       });
     }
@@ -27,7 +27,7 @@ class Storage extends Map {
 
   delete(key) {
     console.log('Delete: ', key);
-    SessionController.deleteSessionTokenController(key, () => {
+    SessionController.deleteSessionToken(key, () => {
       console.log(`Session deleted: ${key}`);
     });
   }

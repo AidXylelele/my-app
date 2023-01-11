@@ -1,7 +1,7 @@
 const PostModel = require('../models/posts');
 
 class PostController {
-  static async getPostsController(params) {
+  static async getPosts(params) {
     const posts = await PostModel.getPosts(params.id);
     if (!posts) {
       return { messages: 'User does not have any posts', resultCode: 1 };
@@ -9,7 +9,7 @@ class PostController {
     return { posts, resultCode: 0 };
   }
 
-  static async createPostController(message, { id }) {
+  static async createPost(message, { id }) {
     const date = Date.now();
     const post = await PostModel.createPost(message, id, date);
     if (!post) {
@@ -18,7 +18,7 @@ class PostController {
     return { post, resultCode: 0 };
   }
 
-  static async updatePostController(message, id) {
+  static async updatePost(message, id) {
     const date = Date.now();
     const result = await PostModel.updatePost(message, id, date);
     if (!result) {
@@ -27,7 +27,7 @@ class PostController {
     return { messages: 'Success!', resultCode: 0 };
   }
 
-  static async deletePostController({ id }) {
+  static async deletePost({ id }) {
     const result = await PostModel.deletePost(id);
     if (!result) {
       return { messages: 'Something went wrong!', resultCode: 1 };
