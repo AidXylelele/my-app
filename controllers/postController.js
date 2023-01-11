@@ -10,7 +10,7 @@ class PostControllers {
         };
       }
       return {
-        messages: 'User with the same E-mail was created!',
+        messages: 'This user have not any posts!',
         resultCode: 1,
       };
     });
