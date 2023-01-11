@@ -2,7 +2,7 @@ const UserModel = require("../models/users");
 const { v4: uuidv4 } = require("uuid");
 const UserService = require("../server/service/users-service");
 
-class UserControllers {
+class UserController {
   static async createNewUserController(data) {
     const id = uuidv4();
     data.password = UserService.hash(data.password);
@@ -61,4 +61,4 @@ class UserControllers {
   }
 }
 
-module.exports = UserControllers;
+module.exports = UserController;
