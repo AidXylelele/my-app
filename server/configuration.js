@@ -1,5 +1,5 @@
-const { PostControllers } = require('../controllers/postController');
-const { authUserController } = require('../controllers/registrationController');
+const PostControllers = require('../controllers/postController');
+const RegistrationController = require('../controllers/registrationController');
 const UserControllers = require('../controllers/userController');
 const RequestService = require('./service/request-service');
 const SessionService = require('./service/session-service');
@@ -27,7 +27,7 @@ const methodsConfig = {
     handle: async (args) => await methodHandler(args, methodsConfig.login),
     POST: async ({ client }) =>
       await RequestService.getRequestBodyData(client.req)
-        .then(authUserController)
+        .then(RegistrationController.authUserController)
         .then((data) => SessionService.start(client, data, Session.start)),
     DELETE: async ({ client }) => SessionService.delete(client, Session.delete),
   },
