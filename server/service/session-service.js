@@ -1,5 +1,4 @@
 class SessionService {
-  constructor() {}
   static start(...args) {
     const [client, response, callback] = args;
     const { user, resultCode } = response;

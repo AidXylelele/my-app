@@ -3,26 +3,31 @@ const querystring = require('node:querystring');
 const Client = require('./server/client.js');
 const { routing, types } = require('./server/routings.js');
 const { match } = require('node-match-path');
-const { AccessHeaders } = require('./server/configuration.js');
+const { AccessHeaders, PORT } = require('./server/configuration.js');
+
+const parseParameters = (url, routing) => {
+  let handler;
+  let params = {};
+  let parsedQuery = {};
+  for (const route in routing) {
+    const [path, query] = url.split('?');
+    const result = match(route, path);
+    if (result.matches) {
+      parsedQuery = querystring.parse(query);
+      handler = routing[route];
+      params = result.params;
+      break;
+    }
+  }
+  return { handler, params, parsedQuery };
+}
 
 http
   .createServer(async (req, res) => {
     const client = await Client.getInstance(req, res);
     const { method, url, headers } = req;
     console.log(`${method} ${url} ${headers.cookie}`);
-    let handler;
-    let params = {};
-    let parsedQuery = {};
-    for (const item in routing) {
-      const [path, query] = url.split('?');
-      const result = match(item, path);
-      if (result.matches) {
-        parsedQuery = querystring.parse(query);
-        handler = routing[item];
-        params = result.params;
-        break;
-      }
-    }
+    const { handler, params, parsedQuery } = parseParameters(url, routing);
     res.on('finish', () => {
       if (client.session) client.session.save();
     });
@@ -50,4 +55,4 @@ http
       }
     );
   })
-  .listen(3003);
+  .listen(PORT);
