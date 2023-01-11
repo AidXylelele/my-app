@@ -13,7 +13,7 @@ class LikeModel {
 
   static async addLikes(post_id, user_id) {
     try {
-      const users = this.getLikes(post_id).users_id;
+      const users = this.getLikes(post_id)[0].users_id;
       users.push(user_id);
       return await pool.query(
         `UPDATE likes SET users_id = {${users}} WHERE post_id = '${post_id}';`
@@ -25,7 +25,7 @@ class LikeModel {
 
   static async deleteLikes(post_id, user_id) {
     try {
-      const users = this.getLikes(post_id).users_id;
+      const users = this.getLikes(post_id)[0].users_id;
       users.filter((id) => id !== user_id);
       return await pool.query(
         `UPDATE likes SET users_id = {${users}} WHERE post_id = '${post_id}';`

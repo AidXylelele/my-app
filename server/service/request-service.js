@@ -2,13 +2,10 @@ class RequestService {
   static parseRequestBody(body) {
     return JSON.parse(body);
   }
-  static getRequestBodyData(request) {
+  static getRequestBodyData(request, reject) {
     let body = [];
     return new Promise((resolve) =>
       request
-        .on('error', (err) => {
-          console.error(err);
-        })
         .on('data', (chunk) => {
           body.push(chunk);
         })
@@ -17,6 +14,9 @@ class RequestService {
           const dataObj = RequestService.parseRequestBody(body);
           console.log("GGGGGGGGGGG", dataObj)
           resolve(dataObj);
+        })
+        .on('error', (err) => {
+          reject(console.error(err));
         })
     );
   }
