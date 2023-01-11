@@ -4,12 +4,7 @@ import Profile from './Profile';
 import { useParams } from 'react-router-dom';
 import { compose } from 'redux';
 import { withAuthRedirect } from '../hoc/AuthRedirect';
-import {
-  myUserIdSelector,
-  profileOfUserSelector,
-  userStatusSelector,
-  userSkillsSelector,
-} from '../../redux/selectors';
+import selectors from '../../redux/selectors';
 import { useState } from 'react';
 import {
   getProfileThunk,
@@ -30,7 +25,14 @@ const ProfileContainer = (props) => {
     onGetUserStatus(userId);
     onGetUserSkills(userId);
     setIsMyPage(userId === myUserId);
-  }, [onGetProfile, onGetUserStatus, onGetUserSkills, setIsMyPage, userId]);
+  }, [
+    onGetProfile,
+    onGetUserStatus,
+    onGetUserSkills,
+    setIsMyPage,
+    userId,
+    myUserId,
+  ]);
   return (
     <Profile
       isMyPage={isMyPage}
@@ -45,10 +47,10 @@ const ProfileContainer = (props) => {
 
 const mapStateToProps = (state) => {
   return {
-    myUserId: myUserIdSelector(state),
-    profileOfUser: profileOfUserSelector(state),
-    userStatus: userStatusSelector(state),
-    userSkills: userSkillsSelector(state),
+    myUserId: selectors.myUserId(state),
+    profileOfUser: selectors.profileOfUser(state),
+    userStatus: selectors.userStatus(state),
+    userSkills: selectors.userSkills(state),
   };
 };
 
