@@ -28,7 +28,7 @@ const methodsConfig = {
     handle: async (args) => await methodHandler(args, methodsConfig.login),
     POST: async ({ client }) =>
       await RequestService.getRequestBodyData(client.req)
-        .then(RegistrationController.authUserController)
+        .then(RegistrationController.authUser)
         .then((data) => SessionService.start(client, data, Session.start)),
     DELETE: async ({ client }) => SessionService.delete(client, Session.delete),
   },
@@ -36,7 +36,7 @@ const methodsConfig = {
     handle: async (args) => await methodHandler(args, methodsConfig.me),
     GET: async ({ client }) => {
       if (client.cookie) {
-        return await UserController.findUserController(client.cookie);
+        return await UserController.findUser(client.cookie);
       }
       return { messages: 'Token doesn`t exist!', resultCode: 1 };
     },
@@ -45,54 +45,54 @@ const methodsConfig = {
     handle: async (args) => await methodHandler(args, methodsConfig.me),
     POST: async ({ client }) =>
       await RequestService.getRequestBodyData(client.req)
-        .then(UserController.createNewUserController)
+        .then(UserController.createNewUser)
         .then((data) => SessionService.start(client, data, Session.start)),
   },
   profile: {
     handle: async (args) => await methodHandler(args, methodsConfig.profile),
-    GET: async ({ params }) => await UserController.findUserController(params),
+    GET: async ({ params }) => await UserController.findUser(params),
   },
   status: {
     handle: async (args) => await methodHandler(args, methodsConfig.status),
     GET: async ({ params }) =>
-      await UserController.getUserStatusController(params),
+      await UserController.getUserStatus(params),
     PUT: async ({ client, params }) => {
       return await RequestService.getRequestBodyData(client.req).then((data) =>
-        UserController.updateUserStatusController(data, params)
+        UserController.updateUserStatus(data, params)
       );
     },
   },
   skills: {
     handle: async (args) => await methodHandler(args, methodsConfig.skills),
     GET: async ({ params }) =>
-      await UserController.getUserSkillsController(params),
+      await UserController.getUserSkills(params),
     PUT: async ({ client, params }) =>
       await RequestService.getRequestBodyData(client.req).then((data) =>
-        UserController.updateUserSkillsController(data, params)
+        UserController.updateUserSkills(data, params)
       ),
   },
   posts: {
     handle: async (args) => await methodHandler(args, methodsConfig.posts),
-    GET: async ({ params }) => await PostController.getPostsController(params),
+    GET: async ({ params }) => await PostController.getPosts(params),
     POST: async ({ client, params }) =>
       await RequestService.getRequestBodyData(client.req).then((data) =>
-        PostController.createPostController(data.post, params)
+        PostController.createPost(data.post, params)
       ),
     PUT: async ({ client }) =>
       await RequestService.getRequestBodyData(client.req).then((data) =>
-        PostController.updatePostController(data.status, data.id)
+        PostController.updatePost(data.status, data.id)
       ),
     DELETE: async ({ params }) =>
-      await PostController.deletePostController(params),
+      await PostController.deletePost(params),
   },
   users: {
     handle: async (args) => await methodHandler(args, methodsConfig.users),
     GET: async ({ parsedQuery }) =>
-      await UserController.getUsersController(parsedQuery),
+      await UserController.getUsers(parsedQuery),
   },
   likes: {
     handle: async (args) => await methodHandler(args, methodsConfig.likes),
-    GET: async ({ params }) => await LikeController.getLikesController(params),
+    GET: async ({ params }) => await LikeController.getLikes(params),
     PUT: async ({ client, params }) => {},
     PATCH: async ({ client, params }) => {},
   },
