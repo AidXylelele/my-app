@@ -1,10 +1,10 @@
 const PostController = require('../controllers/postController');
 const RegistrationController = require('../controllers/registrationController');
-const UserController = require('../controllers/userController');
 const LikeController = require('../controllers/likesController');
 const RequestService = require('./service/request-service');
 const SessionService = require('./service/session-service');
 const Session = require('./session');
+const UserController = require('../controllers/userController');
 
 const AccessHeaders = {
   'Access-Control-Allow-Origin': 'http://localhost:3000',
@@ -42,7 +42,7 @@ const methodsConfig = {
     },
   },
   register: {
-    handle: async (args) => await methodHandler(args, methodsConfig.me),
+    handle: async (args) => await methodHandler(args, methodsConfig.register),
     POST: async ({ client }) =>
       await RequestService.getRequestBodyData(client.req)
         .then(UserController.createNewUser)
@@ -54,8 +54,7 @@ const methodsConfig = {
   },
   status: {
     handle: async (args) => await methodHandler(args, methodsConfig.status),
-    GET: async ({ params }) =>
-      await UserController.getUserStatus(params),
+    GET: async ({ params }) => await UserController.getUserStatus(params),
     PUT: async ({ client, params }) => {
       return await RequestService.getRequestBodyData(client.req).then((data) =>
         UserController.updateUserStatus(data, params)
@@ -64,8 +63,7 @@ const methodsConfig = {
   },
   skills: {
     handle: async (args) => await methodHandler(args, methodsConfig.skills),
-    GET: async ({ params }) =>
-      await UserController.getUserSkills(params),
+    GET: async ({ params }) => await UserController.getUserSkills(params),
     PUT: async ({ client, params }) =>
       await RequestService.getRequestBodyData(client.req).then((data) =>
         UserController.updateUserSkills(data, params)
@@ -82,13 +80,11 @@ const methodsConfig = {
       await RequestService.getRequestBodyData(client.req).then((data) =>
         PostController.updatePost(data.status, data.id)
       ),
-    DELETE: async ({ params }) =>
-      await PostController.deletePost(params),
+    DELETE: async ({ params }) => await PostController.deletePost(params),
   },
   users: {
     handle: async (args) => await methodHandler(args, methodsConfig.users),
-    GET: async ({ parsedQuery }) =>
-      await UserController.getUsers(parsedQuery),
+    GET: async ({ parsedQuery }) => await UserController.getUsers(parsedQuery),
   },
   likes: {
     handle: async (args) => await methodHandler(args, methodsConfig.likes),
