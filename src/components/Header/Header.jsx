@@ -14,7 +14,7 @@ const Header = (props) => {
         {props.isAuthed ? (
           <Logout isAuthed={props.isAuthed} onLogout={props.onLogout} />
         ) : (
-          <div>
+          <div className={styles.links}>
             <NavLink to={'/login'}>Login</NavLink>
             <NavLink to={'/register'}>Sign up</NavLink>
           </div>
