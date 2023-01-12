@@ -1,38 +1,43 @@
-const pool = require("../db/pool");
+const pool = require('../db/pool');
 
-class SessionModel {
-  static async setSessionToken(session) {
-    try {
-      await pool.query(`
+const sql = {
+  set: (session) => `
    UPDATE users SET token = '${
      JSON.parse(session).token
-   }', data = '${session}' WHERE id = '${JSON.parse(session).id}';`);
+   }', data = '${session}' WHERE id = '${JSON.parse(session).id}';`,
+  get: (token) => `
+   SELECT token, data
+    FROM users
+    WHERE token='${token}'`,
+  delete: (token) =>
+    `UPDATE users SET token = '', data = '{}' WHERE token = '${token}';`,
+};
+
+class SessionModel {
+  static async setToken(session) {
+    try {
+      await pool.query(sql.set(session));
     } catch (error) {
-      return "Oops! Something went wrong!";
+      return 'Oops! Something went wrong!';
     }
   }
 
-  static async getSessionToken(token) {
+  static async getToken(token) {
     try {
-      const value = await pool.query(`
-   SELECT token, data
-    FROM users
-    WHERE token='${token}'`);
+      const value = await pool.query(sql.get(token));
       const [object] = value.rows;
       if (object) return object.data;
     } catch (error) {
-      return "Oops! Something went wrong!";
+      return 'Oops! Something went wrong!';
     }
   }
 
-  static async deleteSessionToken(token) {
+  static async deleteToken(token) {
     try {
-      await pool.query(
-        `UPDATE users SET token = '', data = '{}' WHERE token = '${token}';`
-      );
-      return "Session was destroyed!";
+      await pool.query(sql.delete(token));
+      return 'Session was destroyed!';
     } catch (error) {
-      return "Oops! Something went wrong!";
+      return 'Oops! Something went wrong!';
     }
   }
 }

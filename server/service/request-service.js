@@ -1,7 +1,4 @@
 class RequestService {
-  static parseRequestBody(body) {
-    return JSON.parse(body);
-  }
   static getRequestBodyData(request, reject) {
     let body = [];
     return new Promise((resolve) =>
@@ -11,12 +8,11 @@ class RequestService {
         })
         .on('end', () => {
           body = Buffer.concat(body).toString();
-          const dataObj = RequestService.parseRequestBody(body);
-          console.log("GGGGGGGGGGG", dataObj)
+          const dataObj = JSON.parse(body);
           resolve(dataObj);
         })
         .on('error', (err) => {
-          reject(console.error(err));
+          reject(err);
         })
     );
   }

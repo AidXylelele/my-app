@@ -1,7 +1,7 @@
 const LikeModel = require("../models/likes");
 
 class LikeController {
-  static async getLikesController(params) {
+  static async getLikes(params) {
     const likes = await LikeModel.getLikes(params.id);
     if (likes) {
       return {

@@ -20,7 +20,7 @@ const parseParameters = (url, routing) => {
     }
   }
   return { handler, params, parsedQuery };
-}
+};
 
 http
   .createServer(async (req, res) => {
