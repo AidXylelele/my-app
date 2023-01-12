@@ -1,5 +1,5 @@
 const storage = require('./storage.js');
-const generateToken = require('./token')
+const { generateToken } = require('./token');
 
 class Session extends Map {
   constructor(token, id) {
