@@ -1,10 +1,5 @@
 import { connect } from 'react-redux';
-import {
-  createUserPostThunk,
-  deleteUserPostThunk,
-  getUserPostsThunk,
-  updateUserPostThunk,
-} from '../../../redux/profileSlice';
+import userAction from '../../../redux/profileSlice';
 import selectors from '../../../redux/selectors';
 import MyPosts from './MyPosts';
 
@@ -18,16 +13,16 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     onSetPosts: (userId) => {
-      dispatch(getUserPostsThunk(userId));
+      dispatch(userAction.getUserPostsThunk(userId));
     },
     onCreatePost: (userId, data) => {
-      dispatch(createUserPostThunk(userId, data));
+      dispatch(userAction.createUserPostThunk(userId, data));
     },
     onUpdatePost: (postId, data) => {
-      dispatch(updateUserPostThunk(postId, data));
+      dispatch(userAction.updateUserPostThunk(postId, data));
     },
     onDeletePost: (postId) => {
-      dispatch(deleteUserPostThunk(postId));
+      dispatch(userAction.deleteUserPostThunk(postId));
     },
   };
 };
