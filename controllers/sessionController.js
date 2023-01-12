@@ -1,18 +1,18 @@
-const SessionModel = require("../models/sessions");
+const SessionModel = require('../models/sessions');
 
 class SessionController {
   static async setSessionToken(session, callback) {
-    await SessionModel.setSessionToken(session);
+    await SessionModel.setToken(session);
     return callback(JSON.parse(session).token);
   }
 
   static async getSessionToken(token, callback) {
-    const result = await SessionModel.getSessionToken(token);
+    const result = await SessionModel.getToken(token);
     return callback(result);
   }
 
   static async deleteSessionToken(token, callback) {
-    await SessionModel.deleteSessionToken(token);
+    await SessionModel.deleteToken(token);
     return callback(token);
   }
 }
