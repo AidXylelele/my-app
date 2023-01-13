@@ -7,6 +7,7 @@ class SessionService {
     }
     return { messages: response.messages || '', resultCode };
   }
+
   static delete(...args) {
     const [client, callback] = args;
     callback(client);

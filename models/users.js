@@ -5,7 +5,7 @@ const sql = {
           ORDER By id
           OFFSET ${count * (page - 1)} ROWS
           FETCH NEXT ${count} ROWS ONLY;`,
-  count: () => `SELECT COUNT(id) FROM users;`,
+  count: () => 'SELECT COUNT(id) FROM users;',
   create: (id, { email, name, surname, password }) => `
     INSERT INTO users(
 	id, email, name, surname, status, skills, password) VALUES (
