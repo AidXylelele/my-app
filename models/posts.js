@@ -2,8 +2,9 @@ const pool = require('../db/pool');
 const { v4: uuidv4 } = require('uuid');
 
 const sql = {
-  get: (id) => `
+  getAll: (id) => `
      SELECT * FROM posts WHERE user_id = '${id}'`,
+  getById: (post_id) => `SELECT * FROM posts WHERE post_id = '${post_id}';`,
   update: ({ message, date, post_id }) =>
     `UPDATE posts SET message = '${message}', post_date = '${date}' WHERE post_id = '${post_id}';`,
   create: ({ user_id, like_id, post_id, message, date }) => `
@@ -21,7 +22,7 @@ const sql = {
 class PostModel {
   static async getPosts(user_id) {
     try {
-      const result = await pool.query(sql.get(user_id));
+      const result = await pool.query(sql.getAll(user_id));
       return result.rows;
     } catch (error) {
       return null;
@@ -43,7 +44,9 @@ class PostModel {
       await pool.query(
         sql.create({ user_id, like_id, post_id, message, date })
       );
-      return { post_id, message, date };
+      const newPost = await pool.query(sql.getById(post_id));
+
+      return { ...newPost.rows[0] };
     } catch (error) {
       return null;
     }
