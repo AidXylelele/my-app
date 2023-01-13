@@ -22,7 +22,7 @@ const Navbar = () => {
             navData.isActive ? styles.active : styles.item
           }
         >
-          Messages
+          Messenger
         </NavLink>
       </div>
       <div className={styles.item}>
