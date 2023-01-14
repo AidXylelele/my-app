@@ -1,6 +1,7 @@
 const http = require('node:http');
 const querystring = require('node:querystring');
 const Client = require('./server/client.js');
+const WebSocket = require('ws');
 const { routing, types } = require('./server/routings.js');
 const { match } = require('node-match-path');
 const { AccessHeaders, PORT } = require('./server/configuration.js');
@@ -22,7 +23,7 @@ const parseParameters = (url, routing) => {
   return { handler, params, parsedQuery };
 };
 
-http
+const server = http
   .createServer(async (req, res) => {
     const client = await Client.getInstance(req, res);
     const { method, url, headers } = req;
@@ -56,3 +57,55 @@ http
     );
   })
   .listen(PORT);
+
+const ws = new WebSocket.Server({ server });
+
+const clients = [];
+
+ws.on('connection', async (connection, req) => {
+  const ip = req.socket.remoteAddress;
+  console.log(`Connected ${ip}`);
+
+  connection.on('message', async (data) => {
+    const parsedData = parseRequest(data);
+    console.log('Received: ' + JSON.stringify(parsedData));
+
+    if (!parsedData.message) clients.push({ ...parsedData, connection });
+    else {
+      const reciever = findReciever(
+        clients,
+        parsedData.reciever,
+        parsedData.sender
+      );
+      const sender = findReciever(
+        clients,
+        parsedData.sender,
+        parsedData.reciever
+      );
+      const recieverID = await getUserByEMailController(sender.reciever);
+      const senderID = await getUserByEMailController(sender.sender);
+
+      let chat = await getChatController(senderID, recieverID);
+      if (!chat) {
+        chat = await createChatController(senderID, recieverID);
+      }
+
+      if (recieverID)
+        await addMessageController(
+          parsedData.message,
+          senderID,
+          recieverID,
+          chat.id
+        );
+      if (reciever)
+        reciever.connection.send(`${sender.sender}: ${parsedData.message}`, {
+          binary: false,
+        });
+    }
+  });
+
+  connection.on('close', () => {
+    deleteConnection(clients, connection);
+    console.log(`Disconnected ${ip}`);
+  });
+});
