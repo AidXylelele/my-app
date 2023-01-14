@@ -17,9 +17,9 @@ The project uses React, Node.JS, PosgreSQL, http module, WebSockets
 
 - Server - Node.JS, http module;
 - Registration/Login - React, Node.JS, PosgreSQL;
-- Profile - React
-- Chats - WebSockets
-- Users - React, Node.JS, PosgreSQL
+- Profile - React;
+- Chats - WebSockets;
+- Users - React, Node.JS, PosgreSQL.
 
 # Getting Started with Create React App
 
