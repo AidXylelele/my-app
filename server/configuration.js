@@ -1,6 +1,8 @@
 const PostController = require('../controllers/postController');
 const RegistrationController = require('../controllers/registrationController');
 const LikeController = require('../controllers/likesController');
+const ChatController = require('../controllers/chatController');
+const MessagesController = require('../controllers/messagesController');
 const RequestService = require('./service/request-service');
 const SessionService = require('./service/session-service');
 const Session = require('./session');
@@ -93,6 +95,60 @@ const methodsConfig = {
     PUT: async ({ client, params }) => {},
     PATCH: async ({ client, params }) => {},
   },
+};
+
+let clients = []
+
+const events = {
+  connection: async (connection, req) => {
+    const ip = req.socket.remoteAddress;
+    console.log(`Connected ${ip}`);
+
+    connection.on('message', events.message);
+
+    connection.on('close', events.close);
+  },
+  close: (connection, ip) => {
+    deleteConnection(clients, connection);
+    console.log(`Disconnected ${ip}`);
+  },
+  message: async (data, connection) => {
+      const parsedData = parseRequest(data);
+      console.log('Received: ' + JSON.stringify(parsedData));
+
+      if (!parsedData.message) clients.push({ ...parsedData, connection });
+      else {
+        const reciever = findReciever(
+          clients,
+          parsedData.reciever,
+          parsedData.sender
+        );
+        const sender = findReciever(
+          clients,
+          parsedData.sender,
+          parsedData.reciever
+        );
+        const recieverID = await UserController.findUser(sender.reciever);
+        const senderID = await UserController.findUser(sender.sender);
+
+        let chat = await ChatController.getChatController(senderID, recieverID);
+        if (!chat) {
+          chat = await ChatController.createChatController(senderID, recieverID);
+        }
+
+        if (recieverID)
+          await MessagesController.addMessageController(
+            parsedData.message,
+            senderID,
+            recieverID,
+            chat.id
+          );
+        if (reciever)
+          reciever.connection.send(`${sender.sender}: ${parsedData.message}`, {
+            binary: false,
+          });
+      }
+    },
 };
 
 const PORT = 3003;
