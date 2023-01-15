@@ -25,13 +25,23 @@ The project uses React, Node.JS, PosgreSQL, http module, WebSockets
 
 ## Register
 
+![Register](https://github.com/AidXylelele/my-app/blob/master/images/register.jpg?raw=true)
+
 ## Login
+
+![Login](![image](https://user-images.githubusercontent.com/89913366/212565242-2a0b207b-3898-4510-8cec-3e3db39fd533.png)
 
 ## Profile
 
+![Profile](![image](https://user-images.githubusercontent.com/89913366/212565272-a4d71ef2-c30b-49bd-bafa-7f7e783b5841.png)
+
 ## Messenger
 
+![Messenger](https://github.com/AidXylelele/my-app/blob/master/images/messenger.jpg?raw=true)
+
 ## Users
+
+![Users](![image](https://user-images.githubusercontent.com/89913366/212565307-4264b381-bed6-47c8-9ff6-eaa414e3605d.png)
 
 # Getting Started with Create React App
 
