@@ -41,7 +41,7 @@ The project uses React, Node.JS, PosgreSQL, http module, WebSockets
 
 ## Users
 
-![Users](![image](https://user-images.githubusercontent.com/89913366/212565307-4264b381-bed6-47c8-9ff6-eaa414e3605d.png)
+![Users](https://user-images.githubusercontent.com/89913366/212565307-4264b381-bed6-47c8-9ff6-eaa414e3605d.png)
 
 # Getting Started with Create React App
 
