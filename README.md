@@ -29,11 +29,11 @@ The project uses React, Node.JS, PosgreSQL, http module, WebSockets
 
 ## Login
 
-![Login](![image](https://user-images.githubusercontent.com/89913366/212565242-2a0b207b-3898-4510-8cec-3e3db39fd533.png)
+![Login](https://user-images.githubusercontent.com/89913366/212565242-2a0b207b-3898-4510-8cec-3e3db39fd533.png)
 
 ## Profile
 
-![Profile](![image](https://user-images.githubusercontent.com/89913366/212565272-a4d71ef2-c30b-49bd-bafa-7f7e783b5841.png)
+![Profile](https://user-images.githubusercontent.com/89913366/212565272-a4d71ef2-c30b-49bd-bafa-7f7e783b5841.png)
 
 ## Messenger
 
