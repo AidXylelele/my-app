@@ -1,6 +1,5 @@
 const MessagesModel = require('../models/messages');
 
-MessagesModel;
 class MessagesController {
   static addMessageController = async (
     content,
