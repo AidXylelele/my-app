@@ -1,15 +1,15 @@
 # About project
 
-We are a team of __six students__ from ImiX flow of Kyiv Politechnic Institute: <br>
+We are a team of **six students** from ImiX flow of Kyiv Politechnic Institute: <br>
 
-| Contributors             | GitHub                                                            | Telegram                                  |
-| ------------------------ | ----------------------------------------------------------------- | ----------------------------------------- |
-| Shevyrov Vladislav IM-11 | [AidXylelele](https://github.com/AidXylelele)                     |  [o_g_vlad](https://t.me/o_g_vlad)        |
-| Martynenko Oleh IM-11    | [olegoofy](https://github.com/olegoofy)                           | [olegoofy](https://t.me/olegoofy)         |
-| Anenko Ivan IM-13        | [LikerFeed](https://github.com/LikerFeed)                         |  [ivan_anenko](https://t.me/ivan_anenko)  |
-| Kreslavskyi Mykhailo     | [kreslavskiy](https://github.com/kreslavskiy)                     | [kreslavskiy](https://t.me/kreslavskiy)   |
-| Bilokrynytskyi Stefan    | [Stefan-Bilokrynytskyi](https://github.com/Stefan-Bilokrynytskyi) | [stefikuuuuus](https://t.me/stefikuuuuus) |
-| Vovk Nazar               | [Nazofer](https://github.com/Nazofer)                             | [nazofferon](https://t.me/nazofferon)     |
+| Contributors                | GitHub                                                            | Telegram                                  |
+| --------------------------- | ----------------------------------------------------------------- | ----------------------------------------- |
+| Shevyrov Vladislav IM-11    | [AidXylelele](https://github.com/AidXylelele)                     | [o_g_vlad](https://t.me/o_g_vlad)         |
+| Martynenko Oleh IM-11       | [olegoofy](https://github.com/olegoofy)                           | [olegoofy](https://t.me/olegoofy)         |
+| Anenko Ivan IM-13           | [LikerFeed](https://github.com/LikerFeed)                         | [ivan_anenko](https://t.me/ivan_anenko)   |
+| Kreslavskyi Mykhailo IM-12  | [kreslavskiy](https://github.com/kreslavskiy)                     | [kreslavskiy](https://t.me/kreslavskiy)   |
+| Bilokrynytskyi Stefan IM-12 | [Stefan-Bilokrynytskyi](https://github.com/Stefan-Bilokrynytskyi) | [stefikuuuuus](https://t.me/stefikuuuuus) |
+| Vovk Nazar IM-12            | [Nazofer](https://github.com/Nazofer)                             | [nazofferon](https://t.me/nazofferon)     |
 
 We are developing a browser-based social network and its server part. Our project has data base, registration / login functionality, profiles (avatar, statuses, work, skills), posts (likes and replies), chats, display of other users.
 
@@ -20,6 +20,18 @@ The project uses React, Node.JS, PosgreSQL, http module, WebSockets
 - Profile - React;
 - Chats - WebSockets;
 - Users - React, Node.JS, PosgreSQL.
+
+# Screenshots
+
+## Register
+
+## Login
+
+## Profile
+
+## Messenger
+
+## Users
 
 # Getting Started with Create React App
 
