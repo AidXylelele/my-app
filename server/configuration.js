@@ -153,4 +153,4 @@ const events = {
 
 const PORT = 3003;
 
-module.exports = { AccessHeaders, methodsConfig, PORT };
+module.exports = { AccessHeaders, methodsConfig, PORT, events };

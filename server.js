@@ -4,7 +4,7 @@ const Client = require('./server/client.js');
 const WebSocket = require('ws');
 const { routing, types } = require('./server/routings.js');
 const { match } = require('node-match-path');
-const { AccessHeaders, PORT } = require('./server/configuration.js');
+const { AccessHeaders, PORT, events } = require('./server/configuration.js');
 
 const parseParameters = (url, routing) => {
   let handler;
@@ -60,52 +60,4 @@ const server = http
 
 const ws = new WebSocket.Server({ server });
 
-const clients = [];
-
-ws.on('connection', async (connection, req) => {
-  const ip = req.socket.remoteAddress;
-  console.log(`Connected ${ip}`);
-
-  connection.on('message', async (data) => {
-    const parsedData = parseRequest(data);
-    console.log('Received: ' + JSON.stringify(parsedData));
-
-    if (!parsedData.message) clients.push({ ...parsedData, connection });
-    else {
-      const reciever = findReciever(
-        clients,
-        parsedData.reciever,
-        parsedData.sender
-      );
-      const sender = findReciever(
-        clients,
-        parsedData.sender,
-        parsedData.reciever
-      );
-      const recieverID = await getUserByEMailController(sender.reciever);
-      const senderID = await getUserByEMailController(sender.sender);
-
-      let chat = await getChatController(senderID, recieverID);
-      if (!chat) {
-        chat = await createChatController(senderID, recieverID);
-      }
-
-      if (recieverID)
-        await addMessageController(
-          parsedData.message,
-          senderID,
-          recieverID,
-          chat.id
-        );
-      if (reciever)
-        reciever.connection.send(`${sender.sender}: ${parsedData.message}`, {
-          binary: false,
-        });
-    }
-  });
-
-  connection.on('close', () => {
-    deleteConnection(clients, connection);
-    console.log(`Disconnected ${ip}`);
-  });
-});
+ws.on('connection', events.connection);
