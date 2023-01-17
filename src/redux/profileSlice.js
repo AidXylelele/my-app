@@ -51,75 +51,79 @@ const profileSlice = createSlice({
   },
 });
 
-export const getProfileThunk = (userId) => (dispatch) => {
-  getRequests(configForRequests.profileConfig, [userId])
-    .then((response) => {
-      if (!response.resultCode) dispatch(setUserProfile(response.user));
-    })
-    .then(() => dispatch(getUserPostsThunk(userId)));
-};
+export const userAction = {
+  getProfileThunk: (userId) => (dispatch) => {
+    getRequests(configForRequests.profileConfig, [userId])
+      .then((response) => {
+        if (!response.resultCode) dispatch(setUserProfile(response.user));
+      })
+      .then(() => dispatch(userAction.getUserPostsThunk(userId)));
+  },
 
-export const getUserStatusThunk = (userId) => (dispatch) => {
-  getRequests(configForRequests.statusConfig, [userId]).then((response) => {
-    dispatch(setUserStatus(response));
-  });
-};
+  getUserStatusThunk: (userId) => (dispatch) => {
+    getRequests(configForRequests.statusConfig, [userId]).then((response) => {
+      dispatch(setUserStatus(response));
+    });
+  },
 
-export const updateUserStatusThunk = (data, userId) => (dispatch) => {
-  putRequests(configForRequests.updateStatusConfig, userId, data).then(
-    (response) => {
-      if (!response.resultCode) dispatch(setUserStatus(data));
-    }
-  );
-};
+  updateUserStatusThunk: (data, userId) => (dispatch) => {
+    putRequests(configForRequests.updateStatusConfig, userId, data).then(
+      (response) => {
+        if (!response.resultCode) dispatch(setUserStatus(data));
+      }
+    );
+  },
 
-export const getUserSkillsThunk = (userId) => (dispatch) => {
-  getRequests(configForRequests.skillsConfig, [userId]).then((response) => {
-    dispatch(setUserSkills(response));
-  });
-};
+  getUserSkillsThunk: (userId) => (dispatch) => {
+    getRequests(configForRequests.skillsConfig, [userId]).then((response) => {
+      dispatch(setUserSkills(response));
+    });
+  },
 
-export const updateUserSkillsThunk = (data, userId) => (dispatch) => {
-  putRequests(configForRequests.updateSkillsConfig, userId, data).then(
-    (response) => {
-      if (!response.resultCode) dispatch(setUserSkills(data));
-    }
-  );
-};
+  updateUserSkillsThunk: (data, userId) => (dispatch) => {
+    putRequests(configForRequests.updateSkillsConfig, userId, data).then(
+      (response) => {
+        if (!response.resultCode) dispatch(setUserSkills(data));
+      }
+    );
+  },
 
-export const getUserPostsThunk = (userId) => (dispatch) => {
-  getRequests(configForRequests.getPostsConfig, [userId]).then((response) => {
-    if (!response.resultCode) dispatch(setUserPosts(response.posts));
-  });
-};
+  getUserPostsThunk: (userId) => (dispatch) => {
+    getRequests(configForRequests.getPostsConfig, [userId]).then((response) => {
+      if (!response.resultCode) dispatch(setUserPosts(response.posts));
+    });
+  },
 
-export const createUserPostThunk = (data, userId) => (dispatch) => {
-  deleteAndPostRequests(configForRequests.createPostConfig, userId, data).then(
-    (response) => {
+  createUserPostThunk: (data, userId) => (dispatch) => {
+    deleteAndPostRequests(
+      configForRequests.createPostConfig,
+      userId,
+      data
+    ).then((response) => {
       if (!response.resultCode) {
         dispatch(addPost(response.data.post));
       }
-    }
-  );
-};
+    });
+  },
 
-export const updateUserPostThunk = (post_id, message) => (dispatch) => {
-  putRequests(configForRequests.updatePostConfig, [post_id], message).then(
-    (response) => {
-      if (!response.resultCode) dispatch(updatePost({ message, post_id }));
-    }
-  );
-};
-
-export const deleteUserPostThunk = (post_id) => (dispatch) => {
-  deleteAndPostRequests(configForRequests.deletePostConfig, post_id).then(
-    (response) => {
-      if (!response.resultCode) {
-        console.log(response);
-        dispatch(deletePost(response.data.post.post_id));
+  updateUserPostThunk: (post_id, message) => (dispatch) => {
+    putRequests(configForRequests.updatePostConfig, [post_id], message).then(
+      (response) => {
+        if (!response.resultCode) dispatch(updatePost({ message, post_id }));
       }
-    }
-  );
+    );
+  },
+
+  deleteUserPostThunk: (post_id) => (dispatch) => {
+    deleteAndPostRequests(configForRequests.deletePostConfig, post_id).then(
+      (response) => {
+        if (!response.resultCode) {
+          console.log(response);
+          dispatch(deletePost(response.data.post.post_id));
+        }
+      }
+    );
+  },
 };
 
 export default profileSlice.reducer;

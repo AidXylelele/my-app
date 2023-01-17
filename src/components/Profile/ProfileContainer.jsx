@@ -6,14 +6,7 @@ import { compose } from 'redux';
 import { withAuthRedirect } from '../hoc/AuthRedirect';
 import selectors from '../../redux/selectors';
 import { useState } from 'react';
-import {
-  getProfileThunk,
-  getUserStatusThunk,
-  getUserSkillsThunk,
-  setUserProfile,
-  updateUserStatusThunk,
-  updateUserSkillsThunk,
-} from '../../redux/profileSlice';
+import userAction from '../../redux/profileSlice';
 
 const ProfileContainer = (props) => {
   const { userId } = useParams();
@@ -57,22 +50,22 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     onSetUserProfile: (item) => {
-      dispatch(setUserProfile(item));
+      dispatch(userAction.setUserProfile(item));
     },
     onGetProfile: (userId) => {
-      dispatch(getProfileThunk(userId));
+      dispatch(userAction.getProfileThunk(userId));
     },
     onGetUserStatus: (userId) => {
-      dispatch(getUserStatusThunk(userId));
+      dispatch(userAction.getUserStatusThunk(userId));
     },
     onUpdateUserStatus: (data, userId) => {
-      dispatch(updateUserStatusThunk(data, userId));
+      dispatch(userAction.updateUserStatusThunk(data, userId));
     },
     onGetUserSkills: (userId) => {
-      dispatch(getUserSkillsThunk(userId));
+      dispatch(userAction.getUserSkillsThunk(userId));
     },
     onUpdateUserSkills: (data, userId) => {
-      dispatch(updateUserSkillsThunk(data, userId));
+      dispatch(userAction.updateUserSkillsThunk(data, userId));
     },
   };
 };
