@@ -1,4 +1,4 @@
-const { updateLikes, getLikes } = require("../models/likes");
+const LikeController = require('../controllers/likesController');
 
 function getPostDate() {
   const date = new Date(Date.now()).toDateString();
@@ -14,11 +14,11 @@ function getPostDate() {
 // like func
 
 function like(post_id, user_id) {
-  const users = getLikes(post_id)[0].users_id;
-  for (let user of users) {
+  const users = LikeController.getLikes(post_id)[0].users_id;
+  for (const user of users) {
     if (user === user_id) {
-      return 'Liked already'
-    } 
+      return 'Liked already';
+    }
   }
-  updateLikes(post_id, user_id);
+  LikeController.updateLikes(post_id, user_id);
 }

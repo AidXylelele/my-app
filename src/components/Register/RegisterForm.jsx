@@ -84,13 +84,13 @@ const RegisterForm = (props) => {
           )}
         </div>
         <span className={error ? styles.warning : ''}>{error}</span>
-      </form>
-      <input
+        <input
           disable={isDirty.toString()}
           className={styles.button}
           type="submit"
           value="Sign up"
         />
+      </form>
     </div>
   );
 };

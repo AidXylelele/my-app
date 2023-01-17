@@ -1,3 +1,48 @@
+# About project
+
+We are a team of **six students** from ImiX flow of Kyiv Politechnic Institute: <br>
+
+| Contributors                | GitHub                                                            | Telegram                                  |
+| --------------------------- | ----------------------------------------------------------------- | ----------------------------------------- |
+| Shevyrov Vladislav IM-11    | [AidXylelele](https://github.com/AidXylelele)                     | [o_g_vlad](https://t.me/o_g_vlad)         |
+| Martynenko Oleh IM-11       | [olegoofy](https://github.com/olegoofy)                           | [olegoofy](https://t.me/olegoofy)         |
+| Anenko Ivan IM-13           | [LikerFeed](https://github.com/LikerFeed)                         | [ivan_anenko](https://t.me/ivan_anenko)   |
+| Kreslavskyi Mykhailo IM-12  | [kreslavskiy](https://github.com/kreslavskiy)                     | [kreslavskiy](https://t.me/kreslavskiy)   |
+| Bilokrynytskyi Stefan IM-12 | [Stefan-Bilokrynytskyi](https://github.com/Stefan-Bilokrynytskyi) | [stefikuuuuus](https://t.me/stefikuuuuus) |
+| Vovk Nazar IM-12            | [Nazofer](https://github.com/Nazofer)                             | [nazofferon](https://t.me/nazofferon)     |
+
+We are developing a browser-based social network and its server part. Our project has data base, registration / login functionality, profiles (avatar, statuses, work, skills), posts (likes and replies), chats, display of other users.
+
+The project uses React, Node.JS, PosgreSQL, http module, WebSockets
+
+- Server - Node.JS, http module;
+- Registration/Login - React, Node.JS, PosgreSQL;
+- Profile - React;
+- Chats - WebSockets;
+- Users - React, Node.JS, PosgreSQL.
+
+# Screenshots
+
+## Register
+
+![Register](https://github.com/AidXylelele/my-app/blob/master/images/register.jpg?raw=true)
+
+## Login
+
+![Login](https://user-images.githubusercontent.com/89913366/212565242-2a0b207b-3898-4510-8cec-3e3db39fd533.png)
+
+## Profile
+
+![Profile](https://user-images.githubusercontent.com/89913366/212565272-a4d71ef2-c30b-49bd-bafa-7f7e783b5841.png)
+
+## Messenger
+
+![Messenger](https://github.com/AidXylelele/my-app/blob/master/images/messenger.jpg?raw=true)
+
+## Users
+
+![Users](https://user-images.githubusercontent.com/89913366/212565307-4264b381-bed6-47c8-9ff6-eaa414e3605d.png)
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).

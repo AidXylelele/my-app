@@ -11,7 +11,7 @@ export const SidebarData = [
     cName: 'nav_text',
   },
   {
-    title: 'Messages',
+    title: 'Messenger',
     path: '/dialogs',
     icon: <VscIcons.VscCommentDiscussion style={{ color: 'black' }} />,
     cName: 'nav_text',

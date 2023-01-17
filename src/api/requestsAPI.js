@@ -71,6 +71,11 @@ const configForRequests = {
     name: 'delete',
     http: 'profile/posts/',
   },
+  getDialogsConfig: {
+    name: 'get',
+    http: 'chats/',
+    elements: [''],
+  },
 };
 
 const creatingFullHttp = (config, data) => {

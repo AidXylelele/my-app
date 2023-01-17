@@ -1,9 +1,10 @@
 const http = require('node:http');
 const querystring = require('node:querystring');
 const Client = require('./server/client.js');
+const WebSocket = require('ws');
 const { routing, types } = require('./server/routings.js');
 const { match } = require('node-match-path');
-const { AccessHeaders, PORT } = require('./server/configuration.js');
+const { AccessHeaders, PORT, events } = require('./server/configuration.js');
 
 const parseParameters = (url, routing) => {
   let handler;
@@ -22,7 +23,7 @@ const parseParameters = (url, routing) => {
   return { handler, params, parsedQuery };
 };
 
-http
+const server = http
   .createServer(async (req, res) => {
     const client = await Client.getInstance(req, res);
     const { method, url, headers } = req;
@@ -56,3 +57,7 @@ http
     );
   })
   .listen(PORT);
+
+const ws = new WebSocket.Server({ server });
+
+ws.on('connection', events.connection);

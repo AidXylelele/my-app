@@ -1,4 +1,5 @@
-import { createAction, createSlice } from '@reduxjs/toolkit';
+import { createSlice } from '@reduxjs/toolkit';
+import { configForRequests, getRequests } from '../api/requestsAPI';
 
 const dialogsSlice = createSlice({
   name: 'dialogs',
@@ -15,6 +16,10 @@ const dialogsSlice = createSlice({
     ],
   },
   reducers: {
+    setDialogs: (state, action) => {
+      const { dialogs } = action.payload;
+      state.dialogsData = dialogs;
+    },
     sendMessage: (state, action) => {
       const body = action.payload;
       state.messagesData.push({ id: 6, message: body });
@@ -22,7 +27,16 @@ const dialogsSlice = createSlice({
   },
 });
 
-export const sendMessageAction = createAction('dialogs/sendMessage');
+export const getDialogsThunkCreator = (user_id) => (dispatch) => {
+  // dispatch(setPreloaderAction(true));
+
+  getRequests(configForRequests.getDialogsConfig, [user_id]).then(
+    (response) => {
+      console.log(response);
+      // dispatch(setPreloaderAction(false));
+    }
+  );
+};
 
 export default dialogsSlice.reducer;
 export const { sendMessage } = dialogsSlice.actions;
